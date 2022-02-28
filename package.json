@@ -7,7 +7,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
     "@emotion/native": "^11.0.0",
@@ -15,11 +16,16 @@
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
+    "camelcase-keys": "^7.0.2",
+    "dotenv-safe": "^8.2.0",
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
+    "ley": "^0.7.1",
+    "postgres": "^1.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-calendars": "^1.1278.0",
     "react-native-ionicons": "^4.6.5",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",

@@ -6,7 +6,7 @@ export default function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Text
         onPress={() => alert('This is the home screen')}
-        style={{ fontSize: 26, fontWeight: 'bold', color: 'white' }}
+        style={{ fontSize: 26, fontWeight: 'bold' }}
       >
         Home Screen
       </Text>
@@ -19,6 +19,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#383838',
   },
 });

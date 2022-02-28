@@ -1,15 +1,25 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { Agenda, Calendar, CalendarList } from 'react-native-calendars';
 
 export default function CalendarScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text
-        onPress={() => navigation.navigate('Home')}
-        style={{ fontSize: 26, fontWeight: 'bold', color: 'white' }}
-      >
-        Calendar Screen
-      </Text>
+      <Calendar
+        style={{
+          height: 350,
+          width: 400,
+        }}
+        theme={{
+          calendarBackground: '#383838',
+          selectedDayTextColor: '#040114',
+          selectedDayBackgroundColor: '#ffffff',
+          dayTextColor: '#ffffff',
+          monthTextColor: '#ffffff',
+          todayTextColor: '#00adf5',
+        }}
+        enableSwipeMonths={true}
+      />
     </View>
   );
 }
@@ -18,7 +28,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#383838',
   },
 });
