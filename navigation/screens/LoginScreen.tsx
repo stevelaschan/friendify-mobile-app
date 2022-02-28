@@ -36,7 +36,10 @@ export default function LoginScreen({ navigation }) {
       <LoginInput />
       <PasswordText>Password</PasswordText>
       <PasswordInput />
-      <LoginButton title="Login" onPress={() => navigation.navigate('Home')} />
+      <LoginButton
+        title="Login"
+        onPress={() => navigation.navigate('HomeStack')}
+      />
       <StatusBar style="auto" />
     </View>
   );

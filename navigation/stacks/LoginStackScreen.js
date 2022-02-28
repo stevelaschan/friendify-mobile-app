@@ -7,8 +7,8 @@ const LoginStack = createNativeStackNavigator();
 export default function LoginStackScreen() {
   return (
     <LoginStack.Navigator>
-      <LoginStack.Screen name="Profile" component={ProfileScreen} />
-      <LoginStack.Screen name="Login" component={LoginScreen} />
+      <LoginStack.Screen name="ProfileStack" component={ProfileScreen} />
+      <LoginStack.Screen name="LoginStack" component={LoginScreen} />
     </LoginStack.Navigator>
   );
 }

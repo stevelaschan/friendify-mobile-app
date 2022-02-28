@@ -17,7 +17,10 @@ export default function ProfileScreen({ navigation }) {
       <Text>{users.last_name}</Text>
       <Text>{users.age}</Text>
       <Text>{users.short_description}</Text>
-      <Button title="Sign out" onPress={() => navigation.navigate('Login')} />
+      <Button
+        title="Sign out"
+        onPress={() => navigation.navigate('LoginStack')}
+      />
     </View>
   );
 }

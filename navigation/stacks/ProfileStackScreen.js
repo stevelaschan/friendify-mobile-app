@@ -12,7 +12,11 @@ export default function ProfileStackScreen() {
         component={ProfileScreen}
         options={{ header: () => null }}
       />
-      <ProfileStack.Screen name="Login" component={LoginScreen} />
+      <ProfileStack.Screen
+        name="LoginStack"
+        component={LoginScreen}
+        options={{ header: () => null }}
+      />
     </ProfileStack.Navigator>
   );
 }

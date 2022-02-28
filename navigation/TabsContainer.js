@@ -52,12 +52,12 @@ export default function Tabs() {
     >
       <Tab.Screen
         name={home}
-        component={HomeScreen}
+        component={HomeStackScreen}
         options={{ header: () => null }}
       />
       <Tab.Screen
         name={calendar}
-        component={CalendarScreen}
+        component={CalendarStackScreen}
         options={{ header: () => null }}
       />
       <Tab.Screen

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 
 export default function CalendarScreen({ navigation }) {
@@ -19,6 +19,10 @@ export default function CalendarScreen({ navigation }) {
           todayTextColor: '#00adf5',
         }}
         enableSwipeMonths={true}
+      />
+      <Button
+        title="Set Time Slot"
+        onPress={() => navigation.navigate('SetTimeSlotStack')}
       />
     </View>
   );
