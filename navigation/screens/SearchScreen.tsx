@@ -29,7 +29,6 @@ export default function SearchScreen() {
             <Text>{user.first_name}</Text>
             <Text>{user.last_name}</Text>
             <Text>{user.age}</Text>
-            <Text>{user.short_description}</Text>
           </View>
         );
       })}

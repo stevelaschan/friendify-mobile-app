@@ -1,6 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Header from '../components/Header';
 import CalendarScreen from './screens/CalendarScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
@@ -15,11 +18,12 @@ const home = 'Home';
 const calendar = 'Calendar';
 const search = 'Search';
 const profile = 'Profile';
+const login = 'Login';
 
 export default function Tabs() {
   return (
     <Tab.Navigator
-      initialRouteName={home}
+      initialRouteName={login}
       // tabBarOptions={{
       //   showLabel: false,
       // style: {
@@ -52,7 +56,7 @@ export default function Tabs() {
     >
       <Tab.Screen
         name={home}
-        component={HomeStackScreen}
+        component={HomeScreen}
         options={{ header: () => null }}
       />
       <Tab.Screen
@@ -73,3 +77,9 @@ export default function Tabs() {
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#3A3A3A',
+  },
+});

@@ -2,21 +2,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CalendarScreen from '../screens/CalendarScreen';
 import SetTimeSlotScreen from '../screens/SetTimeSlot';
 
-const CalendarStack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function CalendarStackScreen() {
   return (
-    <CalendarStack.Navigator>
-      <CalendarStack.Screen
+    <Stack.Navigator>
+      <Stack.Screen
         name="CalendarStack"
         component={CalendarScreen}
         options={{ header: () => null }}
       />
-      <CalendarStack.Screen
+      <Stack.Screen
         name="SetTimeSlotStack"
         component={SetTimeSlotScreen}
         options={{ header: () => null }}
       />
-    </CalendarStack.Navigator>
+    </Stack.Navigator>
   );
 }
