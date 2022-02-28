@@ -1,7 +1,6 @@
-import { styled } from '@emotion/native';
+import styled from '@emotion/native';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
-import Header from '../components/Header';
 
 const LoginText = styled.Text`
   justify-content: center;
@@ -33,7 +32,6 @@ const LoginButton = styled.Button`
 export default function LoginScreen({ navigation }) {
   return (
     <View>
-      <Header label="Friendify" />
       <LoginText>Login</LoginText>
       <LoginInput />
       <PasswordText>Password</PasswordText>

@@ -2,13 +2,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CalendarScreen from './screens/CalendarScreen';
-// import CalendarStackScreen from './stacks/CalendarStackScreen';
-// import HomeStackScreen from './stacks/HomeStackScreen';
-// import ProfileStackScreen from './stacks/ProfileStackScreen';
-// import SearchStackScreen from './stacks/SearchStackScreen';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
+import CalendarStackScreen from './stacks/CalendarStackScreen';
+import HomeStackScreen from './stacks/HomeStackScreen';
+import ProfileStackScreen from './stacks/ProfileStackScreen';
+import SearchStackScreen from './stacks/SearchStackScreen';
 
 const Tab = createBottomTabNavigator();
 const home = 'Home';
@@ -67,7 +67,7 @@ export default function Tabs() {
       />
       <Tab.Screen
         name={profile}
-        component={ProfileScreen}
+        component={ProfileStackScreen}
         options={{ header: () => null }}
       />
     </Tab.Navigator>

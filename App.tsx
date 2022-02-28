@@ -13,8 +13,8 @@ export default function App() {
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#3A3A3A',
-//   },
-// });
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#3A3A3A',
+  },
+});
