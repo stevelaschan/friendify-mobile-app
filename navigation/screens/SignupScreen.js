@@ -1,4 +1,4 @@
-import styled, { styled } from '@emotion/native';
+import { styled } from '@emotion/native';
 import { StatusBar } from 'expo-status-bar';
 import { View } from 'react-native';
 import Header from '../components/Header';

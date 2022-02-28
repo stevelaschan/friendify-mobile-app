@@ -1,4 +1,3 @@
-import { FontAwesome5 } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -51,10 +50,26 @@ export default function Tabs() {
         },
       })}
     >
-      <Tab.Screen name={home} component={HomeScreen} />
-      <Tab.Screen name={calendar} component={CalendarScreen} />
-      <Tab.Screen name={search} component={SearchScreen} />
-      <Tab.Screen name={profile} component={ProfileScreen} />
+      <Tab.Screen
+        name={home}
+        component={HomeScreen}
+        options={{ header: () => null }}
+      />
+      <Tab.Screen
+        name={calendar}
+        component={CalendarScreen}
+        options={{ header: () => null }}
+      />
+      <Tab.Screen
+        name={search}
+        component={SearchScreen}
+        options={{ header: () => null }}
+      />
+      <Tab.Screen
+        name={profile}
+        component={ProfileScreen}
+        options={{ header: () => null }}
+      />
     </Tab.Navigator>
   );
 }

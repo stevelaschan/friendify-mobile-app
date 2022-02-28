@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Agenda, Calendar, CalendarList } from 'react-native-calendars';
+import { StyleSheet, View } from 'react-native';
+import { Calendar } from 'react-native-calendars';
 
 export default function CalendarScreen({ navigation }) {
   return (
@@ -28,5 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    top: 50,
   },
 });
