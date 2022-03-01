@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { users } from '../../util/database';
+
+// import { users } from '../../util/database';
 
 export default function SearchScreen() {
   const [searchUser, setSearchUser] = React.useState('');
@@ -23,7 +24,7 @@ export default function SearchScreen() {
         style={styles.input}
         placeholder="Search for name..."
       />
-      {users.map((user) => {
+      {/* {users.map((user) => {
         return (
           <View key={user.id}>
             <Text>{user.first_name}</Text>
@@ -31,7 +32,7 @@ export default function SearchScreen() {
             <Text>{user.age}</Text>
           </View>
         );
-      })}
+      })} */}
     </View>
   );
 }

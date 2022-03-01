@@ -65,7 +65,7 @@ export default function LoginScreen({ navigation }) {
       />
       <SignupButton
         title="Sign up"
-        onPress={() => navigation.navigate('SignupStack')}
+        onPress={() => navigation.navigate('Signup')}
       />
     </View>
   );

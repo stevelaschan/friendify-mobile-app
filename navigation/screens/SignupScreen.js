@@ -1,45 +1,101 @@
-import { styled } from '@emotion/native';
-import { StatusBar } from 'expo-status-bar';
-import { View } from 'react-native';
-import Header from '../components/Header';
+// import styled from '@emotion/native';
+import { useState } from 'react';
+import { Button, Text, TextInput, View } from 'react-native';
 
-const UsernameText = styled.Text`
-  justify-content: center;
-  margin-left: 24px;
-  margin-top: 18px;
-`;
+// const SignupText = styled.Text`
+//   justify-content: center;
+//   margin-left: 24px;
+//   margin-top: 18px;
+// `;
 
-const UsernameInput = styled.TextInput`
-  border: 2px solid black;
-  margin: 12px 24px;
-  padding: 4px;
-`;
+// const SignupInput = styled.TextInput`
+//   border: 2px solid black;
+//   margin: 12px 24px;
+//   padding: 4px;
+// `;
 
-const PasswordText = styled.Text`
-  justify-content: center;
-  margin-left: 24px;
-`;
+// const PasswordText = styled.Text`
+//   justify-content: center;
+//   margin-left: 24px;
+// `;
 
-const PasswordInput = styled.TextInput`
-  border: 2px solid black;
-  margin: 12px 24px;
-  padding: 4px;
-`;
+// const PasswordInput = styled.TextInput`
+//   border: 2px solid black;
+//   margin: 12px 24px;
+//   padding: 4px;
+// `;
 
-const SignupButton = styled.Button`
-  border: 2px solid black;
-`;
+// const SignupButton = styled.Button`
+//   border: 2px solid black;
+// `;
 
-export default function SignupScreen() {
+export default function SignupScreen({ navigation }) {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  // async function signupHandler() {
+  //   const signupResponse = await fetch("/api/signup", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       username: username,
+  //       password: password,
+  //     }),
+  //   }),
+
+  //   const signupResponseBody = await signupResponse.json();
+
+  //   if ("errors in signupResponseBody") {
+  //     setErrors(signupResponseBody.errors);
+  //     return
+  //   }
+
+  //   await navigation.navigate('Home')
+  // }
+
   return (
     <View>
-      <Header label="Friendify" />
-      <UsernameText>Username</UsernameText>
-      <UsernameInput />
-      <PasswordText>Password</PasswordText>
-      <PasswordInput />
-      <SignupButton title="Signup" />
-      <StatusBar style="auto" />
+      <Text>Username</Text>
+      <TextInput value={username} onChangeText={setUsername} />
+      <Text>Password</Text>
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry={true}
+      />
+      <Button
+        title="Signup"
+        onPress={async (event) => {
+          event.preventDefault();
+
+          const signupResponse = await fetch('../../api/signup/', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: username,
+              password: password,
+            }),
+          });
+
+          const signupResponseBody = await signupResponse.json();
+
+          if ('errors' in signupResponseBody) {
+            setErrors(signupResponseBody.errors);
+            return;
+          }
+
+          await navigation.navigate('Home');
+        }}
+      />
+      {errors.map((error) => {
+        return <View key={`error-${error.message}`}>{error.message}</View>;
+      })}
     </View>
   );
 }

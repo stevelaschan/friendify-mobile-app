@@ -12,7 +12,7 @@ import CalendarStackScreen from './stacks/CalendarStackScreen';
 import ProfileStackScreen from './stacks/ProfileStackScreen';
 
 const Tab = createBottomTabNavigator();
-const home = 'Home';
+const home = 'Home Page';
 const calendar = 'Calendar';
 const search = 'Search';
 const profile = 'Profile';
