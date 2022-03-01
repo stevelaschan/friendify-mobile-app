@@ -24,16 +24,17 @@ export default function Header(props) {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#383838',
+    borderRadius: 4,
   },
   container: {
-    paddingTop: 18,
-    paddingBottom: 18,
+    paddingTop: 8,
+    paddingBottom: 10,
   },
   label: {
     fontSize: 32,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: '#cfcc19',
     fontFamily: 'Pacifico_400Regular',
   },
 });

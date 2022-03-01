@@ -26,7 +26,7 @@ const PasswordInput = styled.TextInput`
   padding: 4px;
 `;
 
-const LoginButton = styled.Button`
+const SignupButton = styled.Button`
   border: 2px solid black;
 `;
 
@@ -38,7 +38,7 @@ export default function SignupScreen() {
       <UsernameInput />
       <PasswordText>Password</PasswordText>
       <PasswordInput />
-      <LoginButton title="Login" />
+      <SignupButton title="Signup" />
       <StatusBar style="auto" />
     </View>
   );

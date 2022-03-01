@@ -49,7 +49,7 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View>
-      <LoginText>Login</LoginText>
+      <LoginText>Username</LoginText>
       <LoginInput value={username} onChangeText={setUsername} />
       <PasswordText>Password</PasswordText>
       <PasswordInput

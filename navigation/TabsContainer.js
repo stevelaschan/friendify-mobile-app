@@ -1,44 +1,46 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
+// import SearchStackScreen from './stacks/SearchStackScreen';
 import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import Header from '../components/Header';
-import CalendarScreen from './screens/CalendarScreen';
+// import CalendarScreen from './screens/CalendarScreen';
 import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
+// import ProfileScreen from './screens/ProfileScreen';
 import SearchScreen from './screens/SearchScreen';
 import CalendarStackScreen from './stacks/CalendarStackScreen';
-import HomeStackScreen from './stacks/HomeStackScreen';
+// import HomeStackScreen from './stacks/HomeStackScreen';
 import ProfileStackScreen from './stacks/ProfileStackScreen';
-import SearchStackScreen from './stacks/SearchStackScreen';
 
 const Tab = createBottomTabNavigator();
 const home = 'Home';
 const calendar = 'Calendar';
 const search = 'Search';
 const profile = 'Profile';
-const login = 'Login';
 
-export default function Tabs() {
+export default function TabsContainer() {
   return (
     <Tab.Navigator
-      initialRouteName={login}
-      // tabBarOptions={{
-      //   showLabel: false,
-      // style: {
-      //   position: 'absolute',
-      //   bottom: 25,
-      //   left: 20,
-      //   right: 20,
-      //   elevation: 0,
-      //   borderRadius: 15,
-      //   height: 90,
-      // },
-      // }}
+      initialRouteName={home}
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let icon;
+        tabBarActiveTintColor: '#ffffff',
+        tabBarShowLabel: false,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: '#383838',
+          borderRadius: 6,
+          paddingTop: 8,
+          paddingBottom: 18,
+          position: 'absolute',
+          // bottom: 30,
+          height: 70,
+          shadowColor: '#000',
+          shadowOpacity: 0.06,
+          shadowOffset: {
+            width: 10,
+            height: 10,
+          },
+        },
+        tabBarIcon: ({ focused, color, size }, icon) => {
           let rn = route.name;
 
           if (rn === home) {
@@ -50,7 +52,7 @@ export default function Tabs() {
           } else if (rn === profile) {
             icon = focused ? 'person' : 'person-outline';
           }
-          return <Ionicons name={icon} size={size} color={color} />;
+          return <Ionicons name={icon} size={24} color={color} />;
         },
       })}
     >
@@ -77,9 +79,3 @@ export default function Tabs() {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#3A3A3A',
-  },
-});
