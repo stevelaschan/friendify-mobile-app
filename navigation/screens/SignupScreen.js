@@ -1,5 +1,5 @@
 // import styled from '@emotion/native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Text, TextInput, View } from 'react-native';
 
 // const SignupText = styled.Text`
@@ -32,29 +32,8 @@ import { Button, Text, TextInput, View } from 'react-native';
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
-
-  // async function signupHandler() {
-  //   const signupResponse = await fetch("/api/signup", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       username: username,
-  //       password: password,
-  //     }),
-  //   }),
-
-  //   const signupResponseBody = await signupResponse.json();
-
-  //   if ("errors in signupResponseBody") {
-  //     setErrors(signupResponseBody.errors);
-  //     return
-  //   }
-
-  //   await navigation.navigate('Home')
-  // }
+  // const [errors, setErrors] = useState([]);
+  // const [response, setResponse] = useState('');
 
   return (
     <View>
@@ -71,31 +50,33 @@ export default function SignupScreen({ navigation }) {
         onPress={async (event) => {
           event.preventDefault();
 
-          const signupResponse = await fetch('../../api/signup/', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
+          const signupResponse = await fetch(
+            'http://192.168.1.224:3000/api/signup',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                username: username,
+                password: password,
+              }),
             },
-            body: JSON.stringify({
-              username: username,
-              password: password,
-            }),
-          });
+          );
 
-          const signupResponseBody = await signupResponse.json();
+          // const signupResponseBody = await signupResponse.json();
 
-          if ('errors' in signupResponseBody) {
-            setErrors(signupResponseBody.errors);
-            return;
-          }
+          // if ('errors' in signupResponseBody) {
+          //   setErrors(signupResponseBody.errors);
+          //   return;
+          // }
 
           await navigation.navigate('Home');
         }}
       />
-      {errors.map((error) => {
+      {/* {errors.map((error) => {
         return <View key={`error-${error.message}`}>{error.message}</View>;
-      })}
+      })} */}
     </View>
   );
 }

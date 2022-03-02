@@ -11,13 +11,13 @@
     "migrate": "dotenv ley"
   },
   "dependencies": {
+    "@bugsnag/plugin-react-native-unhandled-rejection": "^7.16.1",
     "@emotion/native": "^11.0.0",
     "@emotion/react": "^11.8.1",
     "@expo-google-fonts/pacifico": "^0.2.2",
     "@react-navigation/bottom-tabs": "^6.2.0",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/native-stack": "^6.5.0",
-    "bcrypt": "^5.0.1",
     "camelcase-keys": "^7.0.2",
     "dotenv-cli": "^5.0.0",
     "dotenv-safe": "^8.2.0",
@@ -26,7 +26,6 @@
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
     "ley": "^0.7.1",
-    "pg-connection-string": "^2.5.0",
     "postgres": "^1.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -39,9 +38,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
-    "@types/react-native": "^0.67.0",
-    "typescript": "~4.3.5"
+    "@types/react-native": "^0.67.1",
+    "@types/react-test-renderer": "^17.0.1",
+    "typescript": "^4.6.2"
   },
   "private": true
 }

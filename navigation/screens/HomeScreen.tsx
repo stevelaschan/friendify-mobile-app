@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen({ navigation }) {
   return (
@@ -10,6 +10,14 @@ export default function HomeScreen({ navigation }) {
       >
         Home Screen
       </Text>
+      <Button
+        title="Hello"
+        onPress={async () => {
+          const signupResponse = await fetch('https://example.com/');
+
+          console.log('df', JSON.stringify(signupResponse));
+        }}
+      />
     </View>
   );
 }

@@ -5,8 +5,15 @@
 // // import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
 
 // // setPostgresDefaultsOnHeroku();
-
+// // Read the environment variables from the .env
+// // file, which will then be available for all
+// // following code
 // config();
+
+// // Type needed for the connection function below
+// declare module globalThis {
+//   let postgresSqlClient: ReturnType<typeof postgres> | undefined;
+// }
 
 // // Connect only once to the database
 // // https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
@@ -28,42 +35,20 @@
 //   return sql;
 // }
 
-// // connect to PostgreSQL
+// // Connect to PostgreSQL
 // const sql = connectOneTimeToDatabase();
 
-// export const users = [
-//   {
-//     id: 1,
-//     first_name: 'Stefan',
-//     last_name: 'Laschan',
-//     age: 28,
-//     short_description: 'Hello, nice to meet you! This is my Profile page!',
-//   },
-//   {
-//     id: 2,
-//     first_name: 'Richard',
-//     last_name: 'Korn',
-//     age: 29,
-//     short_description: 'Hello, nice to meet you! This is my Profile page!',
-//   },
-//   {
-//     id: 3,
-//     first_name: 'Florian',
-//     last_name: 'Görlich',
-//     age: 26,
-//     short_description: 'Hello, nice to meet you! This is my Profile page!',
-//   },
-//   {
-//     id: 4,
-//     first_name: 'Katharina',
-//     last_name: 'Jäger',
-//     age: 29,
-//     short_description: 'Hello, nice to meet you! This is my Profile page!',
-//   },
-// ];
+// export type User = {
+//   id: number;
+//   username: string;
+// };
 
-// export async function getUserById(id) {
-//   const [user] = await sql`
+// export type UserWithPasswordHash = User & {
+//   passwordHash: string;
+// };
+
+// export async function getUserById(id: number) {
+//   const [user] = await sql<[User | undefined]>`
 //     SELECT
 //       id,
 //       username
@@ -75,15 +60,15 @@
 //   return user && camelcaseKeys(user);
 // }
 
-// export async function getUserByUsername(username) {
-//   const [user] = await sql`
+// export async function getUserByUsername(username: string) {
+//   const [user] = await sql<[{ id: number } | undefined]>`
 //     SELECT id FROM users WHERE username = ${username}
 //   `;
 //   return user && camelcaseKeys(user);
 // }
 
-// export async function getUserWithPasswordHashByUsername(username) {
-//   const [user] = await sql`
+// export async function getUserWithPasswordHashByUsername(username: string) {
+//   const [user] = await sql<[UserWithPasswordHash | undefined]>`
 //     SELECT
 //       id,
 //       username,
@@ -96,8 +81,8 @@
 //   return user && camelcaseKeys(user);
 // }
 
-// export async function createUser(username, passwordHash) {
-//   const [user] = await sql`
+// export async function createUser(username: string, passwordHash: string) {
+//   const [user] = await sql<[User]>`
 //     INSERT INTO users
 //       (username, password_hash)
 //     VALUES

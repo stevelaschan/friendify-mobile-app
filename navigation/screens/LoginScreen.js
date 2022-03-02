@@ -1,4 +1,5 @@
 import styled from '@emotion/native';
+import { useRoute } from '@react-navigation/native';
 import { useState } from 'react';
 import { View } from 'react-native';
 
@@ -36,16 +37,8 @@ const SignupButton = styled.Button`
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  function login() {
-    if (username === 'steve' && password === 'steve') {
-      setUsername(username);
-      setPassword(password);
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // const [errors, setErrors] = useState([]);
+  const router = useRoute();
 
   return (
     <View>
@@ -59,14 +52,61 @@ export default function LoginScreen({ navigation }) {
       />
       <LoginButton
         title="Login"
-        onPress={() =>
-          login() ? navigation.navigate('Home') : alert('Password incorrect')
-        }
+        onPress={async (event) => {
+          event.preventDefault();
+          const loginResponse = await fetch(
+            'http://192.168.1.224:3000/api/signup',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                username: username,
+                password: password,
+              }),
+            },
+          );
+
+          console.log(loginResponse);
+          //   const loginResponseBody = await loginResponse.json();
+
+          //   if ('errors' in loginResponseBody) {
+          //     setErrors(loginResponseBody.errors);
+          //     return;
+          //   }
+
+          //   // Get the query parameter from the Next.js router
+          //   const returnTo = router.query.returnTo;
+          //   console.log('returnTo', returnTo);
+
+          //   if (
+          //     returnTo &&
+          //     !Array.isArray(returnTo) &&
+          //     // Security: Validate returnTo parameter against valid path
+          //     // (because this is untrusted user input)
+          //     /^\/[a-zA-Z0-9-?=/]*$/.test(returnTo)
+          //   ) {
+          //     await router.push(returnTo);
+          //     return;
+          //   }
+          // }
+
+          // Login worked, redirect to the homepage using the Next.js router
+          // setErrors([]); // clear the errors - maybe not necessary with redirect
+          // props.refreshUserProfile();
+          // await router.push('Home');
+        }}
       />
       <SignupButton
         title="Sign up"
         onPress={() => navigation.navigate('Signup')}
       />
+      {/* <View>
+        {errors.map((error) => {
+          return <Text key={`error-${error.message}`}>{error.message}</Text>;
+        })}
+      </View> */}
     </View>
   );
 }
