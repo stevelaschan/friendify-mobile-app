@@ -32,8 +32,8 @@ import { Button, Text, TextInput, View } from 'react-native';
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const [errors, setErrors] = useState([]);
-  // const [response, setResponse] = useState('');
+  const [errors, setErrors] = useState([]);
+  const [response, setResponse] = useState('');
 
   return (
     <View>
@@ -51,7 +51,8 @@ export default function SignupScreen({ navigation }) {
           event.preventDefault();
 
           const signupResponse = await fetch(
-            'http://192.168.1.224:3000/api/signup',
+            // use IP address instead of localhost (IP address changes)
+            'http://192.168.0.87:3000/api/signup',
             {
               method: 'POST',
               headers: {
@@ -64,19 +65,21 @@ export default function SignupScreen({ navigation }) {
             },
           );
 
-          // const signupResponseBody = await signupResponse.json();
+          const signupResponseBody = await signupResponse.json();
 
-          // if ('errors' in signupResponseBody) {
-          //   setErrors(signupResponseBody.errors);
-          //   return;
-          // }
+          if ('errors' in signupResponseBody) {
+            setErrors(signupResponseBody.errors);
+            return;
+          }
 
           await navigation.navigate('Home');
         }}
       />
-      {/* {errors.map((error) => {
-        return <View key={`error-${error.message}`}>{error.message}</View>;
-      })} */}
+      <View>
+        {errors.map((error) => {
+          return <Text key={`error-${error.message}`}>{error.message}</Text>;
+        })}
+      </View>
     </View>
   );
 }
