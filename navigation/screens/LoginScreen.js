@@ -2,27 +2,40 @@ import styled from '@emotion/native';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
 
+const LoginPageText = styled.Text`
+  font-size: 48px;
+  margin-left: 128px;
+  margin-top: 72px;
+`;
+
 const LoginText = styled.Text`
   justify-content: center;
-  margin-left: 24px;
-  margin-top: 18px;
+  margin-left: 144px;
+  margin-top: 60px;
+  font-size: 18px;
 `;
 
 const LoginInput = styled.TextInput`
   border: 2px solid black;
-  margin: 12px 24px;
+  margin: 12px 48px;
   padding: 4px;
+  border-radius: 6px;
+  font-size: 16px;
 `;
 
 const PasswordText = styled.Text`
   justify-content: center;
-  margin-left: 24px;
+  margin-left: 144px;
+  margin-top: 18px;
+  font-size: 18px;
 `;
 
 const PasswordInput = styled.TextInput`
   border: 2px solid black;
-  margin: 12px 24px;
+  margin: 12px 48px;
   padding: 4px;
+  border-radius: 6px;
+  font-size: 16px;
 `;
 
 const LoginButton = styled.Button`
@@ -40,6 +53,7 @@ export default function LoginScreen({ navigation }, props) {
 
   return (
     <View>
+      <LoginPageText>Login</LoginPageText>
       <LoginText>Username</LoginText>
       <LoginInput value={username} onChangeText={setUsername} />
       <PasswordText>Password</PasswordText>

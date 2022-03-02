@@ -1,33 +1,46 @@
-// import styled from '@emotion/native';
-import { useEffect, useState } from 'react';
-import { Button, Text, TextInput, View } from 'react-native';
+import styled from '@emotion/native';
+import { useState } from 'react';
+import { Text, View } from 'react-native';
 
-// const SignupText = styled.Text`
-//   justify-content: center;
-//   margin-left: 24px;
-//   margin-top: 18px;
-// `;
+const SignupPageText = styled.Text`
+  font-size: 48px;
+  margin-left: 114px;
+  margin-top: 72px;
+`;
 
-// const SignupInput = styled.TextInput`
-//   border: 2px solid black;
-//   margin: 12px 24px;
-//   padding: 4px;
-// `;
+const SignupText = styled.Text`
+  justify-content: center;
+  margin-left: 144px;
+  margin-top: 60px;
+  font-size: 18px;
+`;
 
-// const PasswordText = styled.Text`
-//   justify-content: center;
-//   margin-left: 24px;
-// `;
+const SignupInput = styled.TextInput`
+  border: 2px solid black;
+  margin: 12px 48px;
+  padding: 4px;
+  border-radius: 6px;
+  font-size: 16px;
+`;
 
-// const PasswordInput = styled.TextInput`
-//   border: 2px solid black;
-//   margin: 12px 24px;
-//   padding: 4px;
-// `;
+const PasswordText = styled.Text`
+  justify-content: center;
+  margin-left: 144px;
+  margin-top: 18px;
+  font-size: 18px;
+`;
 
-// const SignupButton = styled.Button`
-//   border: 2px solid black;
-// `;
+const PasswordInput = styled.TextInput`
+  border: 2px solid black;
+  margin: 12px 48px;
+  padding: 4px;
+  border-radius: 6px;
+  font-size: 16px;
+`;
+
+const SignupButton = styled.Button`
+  border: 2px solid black;
+`;
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -37,15 +50,16 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <View>
-      <Text>Username</Text>
-      <TextInput value={username} onChangeText={setUsername} />
-      <Text>Password</Text>
-      <TextInput
+      <SignupPageText>Signup</SignupPageText>
+      <SignupText>Username</SignupText>
+      <SignupInput value={username} onChangeText={setUsername} />
+      <PasswordText>Password</PasswordText>
+      <PasswordInput
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
       />
-      <Button
+      <SignupButton
         title="Signup"
         onPress={async (event) => {
           event.preventDefault();
