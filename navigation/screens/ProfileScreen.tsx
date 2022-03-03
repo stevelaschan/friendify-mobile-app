@@ -1,25 +1,37 @@
+import Cookies from 'js-cookie';
 import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
+import { IP } from './SignupScreen';
 
-const users = {
-  id: 1,
-  first_name: 'Stefan',
-  last_name: 'Laschan',
-  age: 28,
-  short_description: 'Hello, nice to meet you! This is my Profile page!',
-};
+// export function getParsedCookie(key: string) {
+//   try {
+//     return JSON.parse(Cookies.get(key));
+//   } catch (err) {
+//     return undefined;
+//   }
+// }
 
 export default function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Profile Screen</Text>
-      <Text>{users.first_name}</Text>
-      <Text>{users.last_name}</Text>
-      <Text>{users.age}</Text>
-      <Text>{users.short_description}</Text>
       <Button
-        title="Sign out"
-        onPress={() => navigation.navigate('LoginStack')}
+        title="Logout"
+        onPress={async (event) => {
+          event.preventDefault();
+          const logoutResponse = await fetch(
+            // use IP address instead of localhost
+            `http://${IP}:3000/api/logout`,
+            {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            },
+          );
+          await logoutResponse.json();
+          navigation.navigate('LoginStack');
+        }}
       />
     </View>
   );

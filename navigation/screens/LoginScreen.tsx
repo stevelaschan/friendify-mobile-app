@@ -1,6 +1,7 @@
 import styled from '@emotion/native';
 import { useState } from 'react';
 import { Text, View } from 'react-native';
+import { IP } from './SignupScreen';
 
 const LoginPageText = styled.Text`
   font-size: 48px;
@@ -46,10 +47,16 @@ const SignupButton = styled.Button`
   border: 2px solid black;
 `;
 
-export default function LoginScreen({ navigation }, props) {
+type Errors = { message: string }[];
+
+// type Props = {
+//   userObject: { username: string };
+// };
+
+export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<Errors>([]);
 
   return (
     <View>
@@ -68,7 +75,7 @@ export default function LoginScreen({ navigation }, props) {
           event.preventDefault();
           const loginResponse = await fetch(
             // use IP address instead of localhost
-            'http://192.168.0.87:3000/api/login',
+            `http://${IP}:3000/api/login`,
             {
               method: 'POST',
               headers: {

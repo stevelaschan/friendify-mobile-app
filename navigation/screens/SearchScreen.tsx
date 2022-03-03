@@ -5,7 +5,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 // import { users } from '../../util/database';
 
 export default function SearchScreen() {
-  const [searchUser, setSearchUser] = React.useState('');
+  const [searchUser, setSearchUser] = useState('');
 
   // React.useEffect(() => {
   //   async () => {

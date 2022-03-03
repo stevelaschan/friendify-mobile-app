@@ -42,11 +42,14 @@ const SignupButton = styled.Button`
   border: 2px solid black;
 `;
 
+type Errors = { message: string }[];
+
+export const IP = '192.168.1.224';
+
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
-  const [response, setResponse] = useState('');
+  const [errors, setErrors] = useState<Errors>([]);
 
   return (
     <View>
@@ -66,7 +69,7 @@ export default function SignupScreen({ navigation }) {
 
           const signupResponse = await fetch(
             // use IP address instead of localhost (IP address changes)
-            'http://192.168.0.87:3000/api/signup',
+            `http://${IP}:3000/api/signup`,
             {
               method: 'POST',
               headers: {
