@@ -4,10 +4,10 @@ import * as React from 'react';
 import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import CalendarScreen from './screens/CalendarScreen';
-import HomeScreen from './screens/HomeScreen';
-// import ProfileScreen from './screens/ProfileScreen';
-import SearchScreen from './screens/SearchScreen';
-import CalendarStackScreen from './stacks/CalendarStackScreen';
+import HomeScreen from '../screens/HomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SearchScreen from '../screens/SearchScreen';
+import CalendarStackScreen from './CalendarStackScreen';
 // import HomeStackScreen from './stacks/HomeStackScreen';
 import ProfileStackScreen from './stacks/ProfileStackScreen';
 
@@ -73,7 +73,7 @@ export default function TabsContainer() {
       />
       <Tab.Screen
         name={profile}
-        component={ProfileStackScreen}
+        component={ProfileScreen}
         options={{ header: () => null }}
       />
     </Tab.Navigator>

@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
+      <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
     </View>
   );
 }

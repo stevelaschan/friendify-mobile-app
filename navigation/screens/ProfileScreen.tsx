@@ -1,15 +1,6 @@
-import Cookies from 'js-cookie';
 import * as React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { IP } from './SignupScreen';
-
-// export function getParsedCookie(key: string) {
-//   try {
-//     return JSON.parse(Cookies.get(key));
-//   } catch (err) {
-//     return undefined;
-//   }
-// }
 
 export default function ProfileScreen({ navigation }) {
   return (
@@ -19,6 +10,7 @@ export default function ProfileScreen({ navigation }) {
         title="Logout"
         onPress={async (event) => {
           event.preventDefault();
+          navigation.navigate('Login');
           const logoutResponse = await fetch(
             // use IP address instead of localhost
             `http://${IP}:3000/api/logout`,
@@ -29,8 +21,8 @@ export default function ProfileScreen({ navigation }) {
               },
             },
           );
-          await logoutResponse.json();
-          navigation.navigate('LoginStack');
+          const logoutResponseBody = await logoutResponse.json();
+          console.log(logoutResponseBody);
         }}
       />
     </View>

@@ -89,7 +89,7 @@ export default function SignupScreen({ navigation }) {
             return;
           }
 
-          await navigation.navigate('Home');
+          await navigation.navigate('Tabs');
         }}
       />
       <View>

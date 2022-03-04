@@ -114,7 +114,7 @@ export default function LoginScreen({ navigation }) {
           setErrors([]); // clear the errors - maybe not necessary with redirect
           // props.refreshUserProfile();
 
-          await navigation.navigate(`Home`);
+          await navigation.navigate('Tabs');
         }}
       />
       <SignupButton
