@@ -1,3 +1,4 @@
+import styled from '@emotion/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
@@ -11,56 +12,49 @@ import TabsContainer from './navigation/stacks/TabsContainer';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  // const [isSignedIn, setIsSignedIn] = useState(false);
-  let isSignedIn;
+  // const [isSignedIn, setIsSignedIn] = useState<boolean>(false);
 
-  useEffect(() => {
-    user();
-  }, []);
+  // useEffect(() => {
+  //   validSessionToken();
+  // }, [isSignedIn]);
 
-  const user = async () => {
-    // event.preventDefault();
-    const userSignedInResponse = await fetch(
-      `http://${IP}:3000/api/userSignedIn`,
-      { method: 'GET' },
-    );
-    const userSignedInResponseJson = await userSignedInResponse.json();
-    // console.log('session', userSignedInResponseJson.session);
-    if (userSignedInResponseJson.session === undefined) {
-      // setIsSignedIn(false);
-      isSignedIn = false;
-      console.log('token is undefined', isSignedIn);
-      return isSignedIn;
-    } else {
-      // setIsSignedIn(true);
-      isSignedIn = true;
-      console.log('token is defined', isSignedIn);
-      return isSignedIn;
-    }
-    // userSignedInResponseJson === undefined ? false : true;
-  };
+  // const validSessionToken = async () => {
+  //   // event.preventDefault();
+  //   const userSignedInResponse = await fetch(
+  //     `http://${IP}:3000/api/userSignedIn`,
+  //     { method: 'GET' },
+  //   );
+  //   const userSignedInResponseJson = await userSignedInResponse.json();
+  //   if (userSignedInResponseJson.session === undefined) {
+  //     setIsSignedIn(false);
+  //     console.log('token is undefined', isSignedIn);
+  //   } else {
+  //     setIsSignedIn(true);
+  //     console.log('token is defined', isSignedIn);
+  //   }
+  // };
 
   return (
     <NavigationContainer>
       <Header label="Friendify" />
       {/* <Button title="token validity test" /> */}
       <Stack.Navigator>
-        {/* {isSignedIn === false ? (
+        {/* {!isSignedIn ? (
           <> */}
         <Stack.Screen
-          name="Login"
+          name="LoginScreen"
           component={LoginScreen}
           options={{ header: () => null }}
         />
         <Stack.Screen
-          name="Signup"
+          name="SignupScreen"
           component={SignupScreen}
           options={{ header: () => null }}
         />
         {/* </>
         ) : ( */}
         <Stack.Screen
-          name="Tabs"
+          name="TabsContainer"
           component={TabsContainer}
           options={{ header: () => null }}
         />

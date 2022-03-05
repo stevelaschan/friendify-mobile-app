@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
-// import SearchStackScreen from './stacks/SearchStackScreen';
 import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import CalendarScreen from './screens/CalendarScreen';
@@ -8,11 +8,9 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
 import CalendarStackScreen from './CalendarStackScreen';
-// import HomeStackScreen from './stacks/HomeStackScreen';
-import ProfileStackScreen from './stacks/ProfileStackScreen';
 
 const Tab = createBottomTabNavigator();
-const home = 'Home Page';
+const home = 'Home';
 const calendar = 'Calendar';
 const search = 'Search';
 const profile = 'Profile';

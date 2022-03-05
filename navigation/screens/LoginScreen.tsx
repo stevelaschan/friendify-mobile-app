@@ -49,10 +49,6 @@ const SignupButton = styled.Button`
 
 type Errors = { message: string }[];
 
-// type Props = {
-//   userObject: { username: string };
-// };
-
 export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -73,6 +69,7 @@ export default function LoginScreen({ navigation }) {
         title="Login"
         onPress={async (event) => {
           event.preventDefault();
+          navigation.navigate('TabsContainer');
           const loginResponse = await fetch(
             // use IP address instead of localhost
             `http://${IP}:3000/api/login`,
@@ -94,32 +91,12 @@ export default function LoginScreen({ navigation }) {
             setErrors(loginResponseBody.errors);
             return;
           }
-
-          // Get the query parameter from the Next.js router
-          // const returnTo = router.query.returnTo;
-          // console.log('returnTo', returnTo);
-
-          // if (
-          //   returnTo &&
-          //   !Array.isArray(returnTo) &&
-          //   // Security: Validate returnTo parameter against valid path
-          //   // (because this is untrusted user input)
-          //   /^\/[a-zA-Z0-9-?=/]*$/.test(returnTo)
-          // ) {
-          //   await router.push(returnTo);
-          //   return;
-          // }
-
-          // Login worked, redirect to the homepage using the Next.js router
           setErrors([]); // clear the errors - maybe not necessary with redirect
-          // props.refreshUserProfile();
-
-          await navigation.navigate('Tabs');
         }}
       />
       <SignupButton
         title="Sign up"
-        onPress={() => navigation.navigate('Signup')}
+        onPress={() => navigation.navigate('SignupScreen')}
       />
       <View>
         {errors.map((error) => {

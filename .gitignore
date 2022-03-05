@@ -18,3 +18,4 @@ web-build/
 .eslintcache
 *.tsbuildinfo
 *.tsbuildinfo
+*.tsbuildinfo

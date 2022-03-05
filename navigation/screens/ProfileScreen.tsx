@@ -10,7 +10,7 @@ export default function ProfileScreen({ navigation }) {
         title="Logout"
         onPress={async (event) => {
           event.preventDefault();
-          navigation.navigate('Login');
+          navigation.navigate('LoginScreen');
           const logoutResponse = await fetch(
             // use IP address instead of localhost
             `http://${IP}:3000/api/logout`,
@@ -21,8 +21,6 @@ export default function ProfileScreen({ navigation }) {
               },
             },
           );
-          const logoutResponseBody = await logoutResponse.json();
-          console.log(logoutResponseBody);
         }}
       />
     </View>

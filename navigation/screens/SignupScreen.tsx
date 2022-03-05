@@ -44,7 +44,7 @@ const SignupButton = styled.Button`
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.1.224';
+export const IP = '192.168.0.87';
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
@@ -89,7 +89,7 @@ export default function SignupScreen({ navigation }) {
             return;
           }
 
-          await navigation.navigate('Tabs');
+          await navigation.navigate('TabsContainer');
         }}
       />
       <View>
