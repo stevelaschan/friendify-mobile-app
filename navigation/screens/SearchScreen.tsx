@@ -1,38 +1,44 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { IP } from './SignupScreen';
 
 // import { users } from '../../util/database';
 
 export default function SearchScreen() {
   const [searchUser, setSearchUser] = useState('');
 
-  // React.useEffect(() => {
-  //   async () => {
-  //     const response = await fetch(baseUrl)
-  //     const data = await response.json()
-  //     setSearchUser(data)
-  //   };
+  // useEffect(() => {
+  //   getUser();
   // }, [searchUser]);
+
+  // const getUser = async () => {
+  //   const getUserResponse = await fetch(
+  //     // use IP address instead of localhost
+  //     `http://${IP}:3000/api/getUser`,
+  //     {
+  //       method: 'GET',
+  //     },
+  //   );
+  //   const getUserResponseJson = await getUserResponse.json();
+  //   console.log(getUserResponseJson);
+  // };
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Search Screen</Text>
-      <TextInput
+      <Button title="test" />
+      {/* <TextInput
         value={searchUser}
-        onChangeText={setSearchUser}
+        onChangeText={getUser}
         style={styles.input}
         placeholder="Search for name..."
-      />
-      {/* {users.map((user) => {
-        return (
-          <View key={user.id}>
-            <Text>{user.first_name}</Text>
-            <Text>{user.last_name}</Text>
-            <Text>{user.age}</Text>
-          </View>
-        );
-      })} */}
+      /> */}
+      <View>
+        {/* <Text>{searchUser}</Text> */}
+        {/* <Text>{searchUser.last_name}</Text>
+        <Text>{searchUser.age}</Text> */}
+      </View>
     </View>
   );
 }
@@ -41,6 +47,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    marginTop: 22,
   },
 
   input: {

@@ -1,6 +1,7 @@
 import styled from '@emotion/native';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Text, View } from 'react-native';
+import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 const LoginPageText = styled.Text`
@@ -53,6 +54,7 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Errors>([]);
+  const { setIsSignedIn } = useContext(LoginContext);
 
   return (
     <View>
@@ -69,7 +71,6 @@ export default function LoginScreen({ navigation }) {
         title="Login"
         onPress={async (event) => {
           event.preventDefault();
-          navigation.navigate('TabsContainer');
           const loginResponse = await fetch(
             // use IP address instead of localhost
             `http://${IP}:3000/api/login`,
@@ -92,6 +93,7 @@ export default function LoginScreen({ navigation }) {
             return;
           }
           setErrors([]); // clear the errors - maybe not necessary with redirect
+          setIsSignedIn(true);
         }}
       />
       <SignupButton

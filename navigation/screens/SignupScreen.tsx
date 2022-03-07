@@ -1,6 +1,6 @@
 import styled from '@emotion/native';
 import { useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 
 const SignupPageText = styled.Text`
   font-size: 48px;
@@ -10,8 +10,8 @@ const SignupPageText = styled.Text`
 
 const SignupText = styled.Text`
   justify-content: center;
-  margin-left: 144px;
-  margin-top: 60px;
+  margin-left: 90px;
+  /* margin-top: 60px; */
   font-size: 18px;
 `;
 
@@ -25,8 +25,8 @@ const SignupInput = styled.TextInput`
 
 const PasswordText = styled.Text`
   justify-content: center;
-  margin-left: 144px;
-  margin-top: 18px;
+  margin-left: 90px;
+  /* margin-top: 18px; */
   font-size: 18px;
 `;
 
@@ -44,16 +44,25 @@ const SignupButton = styled.Button`
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.0.87';
+export const IP = '192.168.1.224';
 
 export default function SignupScreen({ navigation }) {
   const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Errors>([]);
 
   return (
-    <View>
+    <ScrollView>
       <SignupPageText>Signup</SignupPageText>
+      <SignupText>First Name</SignupText>
+      <SignupInput value={firstName} onChangeText={setFirstName} />
+      <SignupText>Last Name</SignupText>
+      <SignupInput value={lastName} onChangeText={setLastName} />
+      <SignupText>Age</SignupText>
+      <SignupInput value={age} onChangeText={setAge} />
       <SignupText>Username</SignupText>
       <SignupInput value={username} onChangeText={setUsername} />
       <PasswordText>Password</PasswordText>
@@ -76,6 +85,9 @@ export default function SignupScreen({ navigation }) {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
                 username: username,
                 password: password,
               }),
@@ -97,6 +109,6 @@ export default function SignupScreen({ navigation }) {
           return <Text key={`error-${error.message}`}>{error.message}</Text>;
         })}
       </View>
-    </View>
+    </ScrollView>
   );
 }
