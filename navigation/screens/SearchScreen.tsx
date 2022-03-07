@@ -1,12 +1,27 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useCallback, useEffect, useState } from 'react';
+import {
+  Button,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { IP } from './SignupScreen';
 
-// import { users } from '../../util/database';
-
 export default function SearchScreen() {
-  const [searchUser, setSearchUser] = useState('');
+  const [searchUser, setSearchUser] = useState<string>('');
+  const [refreshing, setRefreshing] = useState(false);
+
+  const wait = (timeout: number) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
 
   // useEffect(() => {
   //   getUser();
@@ -25,9 +40,18 @@ export default function SearchScreen() {
   // };
 
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Search Screen</Text>
-      <Button title="test" />
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.container}>
+        <Text
+          style={{ fontSize: 26, fontWeight: 'bold', alignItems: 'center' }}
+        >
+          Search Screen
+        </Text>
+      </View>
       {/* <TextInput
         value={searchUser}
         onChangeText={getUser}
@@ -39,7 +63,7 @@ export default function SearchScreen() {
         {/* <Text>{searchUser.last_name}</Text>
         <Text>{searchUser.age}</Text> */}
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

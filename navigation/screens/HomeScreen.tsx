@@ -1,11 +1,34 @@
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useCallback, useState } from 'react';
+import {
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 export default function HomeScreen() {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const wait = (timeout: number) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(1000).then(() => setRefreshing(false));
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
-    </View>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
+      <View style={styles.container}>
+        <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -14,5 +37,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 22,
   },
 });

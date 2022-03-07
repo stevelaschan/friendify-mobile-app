@@ -1,6 +1,5 @@
 import { Pacifico_400Regular, useFonts } from '@expo-google-fonts/pacifico';
 import AppLoading from 'expo-app-loading';
-import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 export default function Header(props) {
