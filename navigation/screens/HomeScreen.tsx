@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 export default function HomeScreen() {
+  // refresh page on drag down
   const [refreshing, setRefreshing] = useState(false);
 
   const wait = (timeout: number) => {

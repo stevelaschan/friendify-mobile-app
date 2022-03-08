@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import {
   Button,
   GestureResponderEvent,
@@ -12,9 +12,9 @@ import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 export default function ProfileScreen() {
-  const { setIsSignedIn, userFirstName, userLastName, userAge } =
-    useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
 
+  // refresh page on drag down
   const [refreshing, setRefreshing] = useState(false);
 
   const wait = (timeout: number) => {
@@ -36,15 +36,14 @@ export default function ProfileScreen() {
         <Text style={{ fontSize: 26, fontWeight: 'bold', marginBottom: 32 }}>
           Profile Screen
         </Text>
-        <Text style={styles.text}>{userFirstName}</Text>
-        <Text style={styles.text}>{userLastName}</Text>
-        <Text style={styles.text}>{userAge}</Text>
+        <Text style={styles.text}>First name: {user.firstName}</Text>
+        <Text style={styles.text}>Last name: {user.lastName}</Text>
+        <Text style={styles.text}>Age: {user.age}</Text>
         <Button
           title="Logout"
           onPress={async (event: GestureResponderEvent) => {
             event.preventDefault();
-            setIsSignedIn(false);
-            const logoutResponse = await fetch(
+            await fetch(
               // use IP address instead of localhost
               `http://${IP}:3000/api/logout`,
               {
@@ -54,6 +53,7 @@ export default function ProfileScreen() {
                 },
               },
             );
+            setUser(undefined);
           }}
         />
         <Button title="Edit Information" />

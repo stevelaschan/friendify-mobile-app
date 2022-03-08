@@ -1,5 +1,5 @@
 import styled from '@emotion/native';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Button,
   GestureResponderEvent,
@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import { LoginContext } from '../../context/LoginContext';
 
 const SignupPageText = styled.Text`
   font-size: 48px;
@@ -33,7 +34,7 @@ const SignupInput = styled.TextInput`
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.0.88';
+export const IP = '192.168.1.224';
 
 export default function SignupScreen() {
   const [username, setUsername] = useState<string>('');
@@ -42,6 +43,7 @@ export default function SignupScreen() {
   const [age, setAge] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
+  const { setIsSignedIn } = useContext(LoginContext);
 
   return (
     <ScrollView>
@@ -99,6 +101,7 @@ export default function SignupScreen() {
               setErrors(signupResponseBody.errors);
               return;
             }
+            setIsSignedIn(true);
           }}
         />
         <View>

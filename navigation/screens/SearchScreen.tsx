@@ -12,6 +12,8 @@ import { IP } from './SignupScreen';
 
 export default function SearchScreen() {
   const [searchUser, setSearchUser] = useState<string>('');
+
+  // refresh page on drag down
   const [refreshing, setRefreshing] = useState(false);
 
   const wait = (timeout: number) => {

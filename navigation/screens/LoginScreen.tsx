@@ -39,7 +39,7 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setIsSignedIn } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
 
   return (
     <ScrollView>
@@ -56,6 +56,7 @@ export default function LoginScreen({ navigation }) {
         <Button
           title="Login"
           onPress={async (event: GestureResponderEvent) => {
+            // send username and password to api and database
             event.preventDefault();
             const loginResponse = await fetch(
               // use IP address instead of localhost
@@ -78,7 +79,8 @@ export default function LoginScreen({ navigation }) {
               setErrors(loginResponseBody.errors);
               return;
             }
-            setIsSignedIn(true);
+            // session token valid, user signed in return true
+            setUser(loginResponseBody.user);
           }}
         />
         <Button
@@ -87,6 +89,7 @@ export default function LoginScreen({ navigation }) {
         />
         <View>
           {errors.map((error) => {
+            // if username or password invalid return error message
             return <Text key={`error-${error.message}`}>{error.message}</Text>;
           })}
         </View>
@@ -94,9 +97,3 @@ export default function LoginScreen({ navigation }) {
     </ScrollView>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: '#3A3A3A',
-//   },
-// });
