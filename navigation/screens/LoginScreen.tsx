@@ -74,6 +74,7 @@ export default function LoginScreen({ navigation }) {
             );
 
             const loginResponseBody = await loginResponse.json();
+            // console.log(loginResponseBody);
 
             if ('errors' in loginResponseBody) {
               setErrors(loginResponseBody.errors);

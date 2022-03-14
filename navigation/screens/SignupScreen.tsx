@@ -8,29 +8,30 @@ import {
   Text,
   View,
 } from 'react-native';
+import { Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
 
-const SignupPageText = styled.Text`
-  font-size: 48px;
-  margin-left: 114px;
-  margin-top: 48px;
-  margin-bottom: 44px;
-`;
+// const SignupPageText = styled.Text`
+//   font-size: 48px;
+//   margin-left: 114px;
+//   margin-top: 48px;
+//   margin-bottom: 44px;
+// `;
 
-const SignupText = styled.Text`
-  justify-content: center;
-  margin-left: 50px;
-  margin-top: 16px;
-  font-size: 18px;
-`;
+// const SignupText = styled.Text`
+//   justify-content: center;
+//   margin-left: 50px;
+//   margin-top: 16px;
+//   font-size: 18px;
+// `;
 
-const SignupInput = styled.TextInput`
-  border: 2px solid black;
-  margin: 12px 48px;
-  padding: 4px;
-  border-radius: 6px;
-  font-size: 16px;
-`;
+// const SignupInput = styled.TextInput`
+//   border: 2px solid black;
+//   margin: 12px 48px;
+//   padding: 4px;
+//   border-radius: 6px;
+//   font-size: 16px;
+// `;
 
 type Errors = { message: string }[];
 
@@ -43,12 +44,12 @@ export default function SignupScreen() {
   const [age, setAge] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setIsSignedIn } = useContext(LoginContext);
+  const { setUser } = useContext(LoginContext);
 
   return (
     <ScrollView>
       <KeyboardAvoidingView behavior="padding">
-        <SignupPageText>Signup</SignupPageText>
+        {/* <SignupPageText>Signup</SignupPageText>
         <SignupText>First Name</SignupText>
         <SignupInput
           value={firstName}
@@ -68,6 +69,34 @@ export default function SignupScreen() {
         <SignupInput value={username} onChangeText={setUsername} />
         <SignupText>Password</SignupText>
         <SignupInput
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry={true}
+        /> */}
+        <Input
+          placeholder="First Name"
+          value={firstName}
+          onChangeText={setFirstName}
+          autoCapitalize="words"
+        />
+        <Input
+          placeholder="Last Name"
+          value={lastName}
+          onChangeText={setLastName}
+        />
+        <Input
+          placeholder="Age"
+          value={age}
+          onChangeText={setAge}
+          keyboardType="numeric"
+        />
+        <Input
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <Input
+          placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry={true}
@@ -101,7 +130,7 @@ export default function SignupScreen() {
               setErrors(signupResponseBody.errors);
               return;
             }
-            setIsSignedIn(true);
+            setUser(signupResponseBody.user);
           }}
         />
         <View>
