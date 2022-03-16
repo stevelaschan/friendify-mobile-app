@@ -26,8 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   container: {
-    paddingTop: 8,
-    paddingBottom: 10,
+    paddingBottom: 6,
   },
   label: {
     fontSize: 32,

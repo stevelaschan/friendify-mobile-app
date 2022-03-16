@@ -1,24 +1,13 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { AirbnbRating, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
-export default function RestrictedProfileScreen({ route }) {
-  const { restrictedProfile } = route.params;
+export default function OtherUserTimeSlotScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={{ fontSize: 26, fontWeight: 'bold', marginBottom: 32 }}>
-          Other User's Profile
+          Other User's TimeSlots
         </Text>
-        <Text style={styles.text}>{restrictedProfile.firstName}</Text>
-        <Text style={styles.text}>{restrictedProfile.lastName}</Text>
-        <Text style={styles.text}>{restrictedProfile.age}</Text>
-        <Text style={styles.text}>{restrictedProfile.shortDescription}</Text>
-        <AirbnbRating />
-        <Button
-          title="View Free Time Slots"
-          buttonStyle={styles.button}
-          containerStyle={styles.buttonContainer}
-        />
       </View>
     </ScrollView>
   );

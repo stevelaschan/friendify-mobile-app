@@ -1,59 +1,56 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
-import { Button } from 'react-native';
 import Header from './components/Header';
 import { LoginContext } from './context/LoginContext';
 import LoginScreen from './navigation/screens/LoginScreen';
+import OtherUserTimeSlotScreen from './navigation/screens/OtherUserTimeSlotScreen';
 import RestrictedProfileScreen from './navigation/screens/RestrictedProfileScreen';
+import SetTimeSlotScreen from './navigation/screens/SetTimeSlot';
 import SignupScreen, { IP } from './navigation/screens/SignupScreen';
 import TabsContainer from './navigation/stacks/TabsContainer';
 
-type ProtectedUser = {};
-
-type User = {
+type ValidSessionUser = {
+  id: number;
   username: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   age: string;
   shortDescription: string;
 };
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const [user, setUser] = useState<ProtectedUser | undefined>();
+  const [user, setUser] = useState<ValidSessionUser | undefined>();
 
   useEffect(() => {
-    getUserByValidSessionToken();
-  }, []);
-
-  // if session token valid return user and session
-  const getUserByValidSessionToken = async () => {
-    // event.preventDefault();
-    const protectedUserResponse = await fetch(
-      // use IP address instead of localhost
-      `http://${IP}:3000/api/protectedUser`,
-      {
-        method: 'GET',
-      },
-    );
-    const protectedUser = await protectedUserResponse.json();
-    if ('error' in protectedUser) {
-      // if user is undefined (token deleted from database or expired) return
-      console.log('error', protectedUser);
+    // if session token valid return user and session
+    const getUserByValidSessionToken = async () => {
+      // event.preventDefault();
+      const validSessionUserResponse = await fetch(
+        // use IP address instead of localhost
+        `http://${IP}:3000/api/protectedUser`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const validSessionUser = await validSessionUserResponse.json();
+      // console.log(protectedUser.user.firstName);
+      if ('error' in validSessionUser) {
+        // if user is undefined (token deleted from database or expired) return
+        console.log('error', validSessionUser);
+        return;
+      }
+      // if user is not undefined (token in database) set User
+      setUser(validSessionUser.user);
       return;
-    }
-    // if user is not undefined (token in database) set User
-    setUser({
-      username: protectedUser.user.username,
-      firstName: protectedUser.user.firstName,
-      lastName: protectedUser.user.lastName,
-      age: protectedUser.user.age,
-      shortDescription: protectedUser.user.shortDescription,
-    });
-    return;
-  };
-  // console.log(user);
+    };
+
+    getUserByValidSessionToken().catch(() => {});
+  }, []);
 
   return (
     <NavigationContainer>
@@ -62,7 +59,6 @@ export default function App() {
         // export variables/functions to child components using context
         value={{ setUser, user }}
       >
-        {/* <Button title="test" onPress={() => user} /> */}
         <Stack.Navigator>
           {!user ? (
             <>
@@ -87,6 +83,16 @@ export default function App() {
               <Stack.Screen
                 name="RestrictedProfileScreen"
                 component={RestrictedProfileScreen}
+                options={{ header: () => null }}
+              />
+              <Stack.Screen
+                name="SetTimeSlotScreen"
+                component={SetTimeSlotScreen}
+                options={{ header: () => null }}
+              />
+              <Stack.Screen
+                name="OtherUserTimeSlotScreen"
+                component={OtherUserTimeSlotScreen}
                 options={{ header: () => null }}
               />
             </>

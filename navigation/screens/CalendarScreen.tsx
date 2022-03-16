@@ -1,7 +1,6 @@
-import * as React from 'react';
 import { useState } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Agenda, Calendar } from 'react-native-calendars';
+import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
 import { Avatar, Card } from 'react-native-paper';
 
 const users = {
@@ -10,15 +9,19 @@ const users = {
   age: 28,
 };
 
-export default function CalendarScreen({ navigation }) {
+export default function CalendarScreen() {
   const [items, setItems] = useState({});
 
-  const timeToString = (time) => {
+  const timeToString = (time: number) => {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   };
 
-  const loadItems = (day) => {
+  type Day = {
+    timestamp: number;
+  };
+
+  const loadItems = (day: Day) => {
     setTimeout(() => {
       for (let i = 0; i < 2; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -70,15 +73,12 @@ export default function CalendarScreen({ navigation }) {
       <Agenda
         items={items}
         loadItemsForMonth={loadItems}
-        selected={'2022-04-05'}
+        selected="2022-04-05"
         renderItem={renderItem}
+        showClosingKnob={true}
         theme={{
           agendaTodayColor: 'red',
         }}
-      />
-      <Button
-        title="Set Time Slot"
-        onPress={() => navigation.navigate('SetTimeSlotStack')}
       />
     </View>
   );

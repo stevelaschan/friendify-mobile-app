@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function SetTimeSlotScreen({ navigation }) {
+export default function SetTimeSlotScreen() {
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 26, fontWeight: 'bold' }}>

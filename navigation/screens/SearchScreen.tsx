@@ -1,63 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import {
-  Button,
-  FlatList,
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SearchBar } from 'react-native-elements';
 import { IP } from './SignupScreen';
 
 export default function SearchScreen({ navigation }) {
-  const [searchUser, setSearchUser] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
   const [allUsers, setAllUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  // const [filteredUsers, setFilteredUsers] = useState([]);
 
-  // refresh page on drag down
-  const [refreshing, setRefreshing] = useState(false);
-
-  const wait = (timeout: number) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
-  };
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-  }, []);
-
-  // const searchFilterFunction = (text) => {
-  //   // Check if searched text is not blank
-  //   if (text) {
-  //     // Inserted text is not blank
-  //     // Filter the allUsers
-  //     // Update FilteredUsers
-  //     const newData = allUsers.filter(function (user) {
-  //       const userData = user ? user.toUpperCase() : ''.toUpperCase();
-  //       const textData = text.toUpperCase();
-  //       return userData.indexOf(textData) > -1;
-  //     });
-  //     setFilteredUsers(newData);
-  //     setSearchUser(text);
-  //   } else {
-  //     // Inserted text is blank
-  //     // Update FilteredDataSource with allUsers
-  //     setFilteredUsers(allUsers);
-  //     setSearchUser(text);
-  //   }
-  // };
-
-  // const userView = ({ user }) => {
-  //   return (
-  //     // Flat List Item
-  //     <Text>{user.username}</Text>
-  //   );
-  // };
-
+  // get all users from the database
   useEffect(() => {
-    getUser();
+    getUser().catch(() => {});
   }, []);
 
   const getUser = async () => {
@@ -72,30 +25,27 @@ export default function SearchScreen({ navigation }) {
     setAllUsers(users);
   };
 
+  // search for user
+  const updateSearch = () => {
+    setSearch(search);
+  };
+
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
+    <ScrollView>
       <View style={styles.container}>
         <Text
           style={{ fontSize: 26, fontWeight: 'bold', alignItems: 'center' }}
         >
           Search Screen
         </Text>
+        <View style={styles.input}>
+          {/* <SearchBar
+            placeholder="Type Here..."
+            onChangeText={updateSearch}
+            value={search}
+          /> */}
+        </View>
       </View>
-      {/* <TextInput
-        value={searchUser}
-        onChangeText={(text) => searchFilterFunction(text)}
-        style={styles.input}
-        placeholder="Search for name..."
-      />
-      <FlatList
-        data={filteredUsers}
-        keyExtractor={(user, index) => index.toString()}
-        renderItem={userView}
-      /> */}
     </ScrollView>
   );
 }
@@ -106,14 +56,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 22,
   },
-
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 2,
-    padding: 10,
-    borderRadius: 8,
-    width: 240,
-    fontSize: 18,
+    margin: 10,
+    width: 300,
   },
 });

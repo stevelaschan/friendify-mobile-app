@@ -1,10 +1,9 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import CalendarScreen from '../screens/CalendarScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
-import CalendarStackScreen from './CalendarStackScreen';
 
 const Tab = createBottomTabNavigator();
 const home = 'Home';
@@ -20,12 +19,11 @@ export default function TabsContainer() {
         tabBarActiveTintColor: '#ffffff',
         tabBarShowLabel: false,
         tabBarStyle: {
-          position: 'absolute',
+          // position: 'absolute',
           backgroundColor: '#383838',
           borderRadius: 6,
           paddingTop: 8,
           paddingBottom: 18,
-          position: 'absolute',
           // bottom: 30,
           height: 70,
           shadowColor: '#000',
@@ -58,7 +56,7 @@ export default function TabsContainer() {
       />
       <Tab.Screen
         name={calendar}
-        component={CalendarStackScreen}
+        component={CalendarScreen}
         options={{ header: () => null }}
       />
       <Tab.Screen

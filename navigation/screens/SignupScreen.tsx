@@ -1,79 +1,43 @@
-import styled from '@emotion/native';
 import { useContext, useState } from 'react';
 import {
-  Button,
   GestureResponderEvent,
   KeyboardAvoidingView,
   ScrollView,
+  StyleSheet,
   Text,
   View,
 } from 'react-native';
-import { Input } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
-
-// const SignupPageText = styled.Text`
-//   font-size: 48px;
-//   margin-left: 114px;
-//   margin-top: 48px;
-//   margin-bottom: 44px;
-// `;
-
-// const SignupText = styled.Text`
-//   justify-content: center;
-//   margin-left: 50px;
-//   margin-top: 16px;
-//   font-size: 18px;
-// `;
-
-// const SignupInput = styled.TextInput`
-//   border: 2px solid black;
-//   margin: 12px 48px;
-//   padding: 4px;
-//   border-radius: 6px;
-//   font-size: 16px;
-// `;
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.1.224';
+export const IP = '192.168.0.88';
 
 export default function SignupScreen() {
   const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [age, setAge] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
   const { setUser } = useContext(LoginContext);
 
   return (
     <ScrollView>
-      <KeyboardAvoidingView behavior="padding">
-        {/* <SignupPageText>Signup</SignupPageText>
-        <SignupText>First Name</SignupText>
-        <SignupInput
-          value={firstName}
-          onChangeText={setFirstName}
-          autoCapitalize="words"
-          autoFocus={true}
+      <KeyboardAvoidingView behavior="padding" style={styles.mainContainer}>
+        <Input
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
         />
-        <SignupText>Last Name</SignupText>
-        <SignupInput
-          value={lastName}
-          onChangeText={setLastName}
-          autoCapitalize="words"
-        />
-        <SignupText>Age</SignupText>
-        <SignupInput value={age} onChangeText={setAge} keyboardType="numeric" />
-        <SignupText>Username</SignupText>
-        <SignupInput value={username} onChangeText={setUsername} />
-        <SignupText>Password</SignupText>
-        <SignupInput
+        <Input
+          placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={true}
-        /> */}
+          secureTextEntry
+        />
         <Input
           placeholder="First Name"
           value={firstName}
@@ -92,23 +56,17 @@ export default function SignupScreen() {
           keyboardType="numeric"
         />
         <Input
-          placeholder="Username"
-          value={username}
-          onChangeText={setUsername}
-        />
-        <Input
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-        />
-        <Input
-          placeholder="Short Desccription Of Yourself"
+          placeholder="Short Description Of Yourself"
           value={shortDescription}
           onChangeText={setShortDescription}
+          errorMessage={errors.map((error) => {
+            return <Text key={`error-${error.message}`}>{error.message}</Text>;
+          })}
         />
         <Button
           title="Signup"
+          buttonStyle={styles.button}
+          containerStyle={styles.buttonContainer}
           onPress={async (event: GestureResponderEvent) => {
             event.preventDefault();
 
@@ -121,11 +79,11 @@ export default function SignupScreen() {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                  username: username,
+                  password: password,
                   firstName: firstName,
                   lastName: lastName,
                   age: age,
-                  username: username,
-                  password: password,
                   shortDescription: shortDescription,
                 }),
               },
@@ -140,12 +98,25 @@ export default function SignupScreen() {
             setUser(signupResponseBody.user);
           }}
         />
-        <View>
-          {errors.map((error) => {
-            return <Text key={`error-${error.message}`}>{error.message}</Text>;
-          })}
-        </View>
       </KeyboardAvoidingView>
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    marginTop: 28,
+  },
+  button: {
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 5,
+  },
+  buttonContainer: {
+    width: 200,
+    marginHorizontal: 50,
+    marginVertical: 10,
+    marginLeft: 84,
+  },
+});

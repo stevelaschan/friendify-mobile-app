@@ -1,98 +1,104 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import {
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { Button } from 'react-native-elements';
+import { useContext, useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { AirbnbRating, Button, Card } from 'react-native-elements';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { User } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 export default function HomeScreen({ navigation }) {
-  // refresh page on drag down
-  const [refreshing, setRefreshing] = useState(false);
   const { user } = useContext(LoginContext);
   const [allUsers, setAllUsers] = useState([]);
 
-  const wait = (timeout: number) => {
-    return new Promise((resolve) => setTimeout(resolve, timeout));
+  // get all Users from the database
+  type UserObject = {
+    id: number;
+    username: string;
+    age: string;
   };
-
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    wait(1000).then(() => setRefreshing(false));
-  }, []);
 
   useEffect(() => {
-    getUser();
+    const getUsers = async () => {
+      const getUserResponse = await fetch(
+        // use IP address instead of localhost
+        `http://${IP}:3000/api/getUsers`,
+        {
+          method: 'GET',
+        },
+      );
+      const users = await getUserResponse.json();
+      setAllUsers(users);
+    };
+    getUsers().catch(() => {});
   }, []);
 
-  const getUser = async () => {
-    const getUserResponse = await fetch(
-      // use IP address instead of localhost
-      `http://${IP}:3000/api/getUsers`,
-      {
-        method: 'GET',
-      },
-    );
-    const users = await getUserResponse.json();
-    setAllUsers(users);
-  };
+  // filter out the one user which is logged in and has a valid session token
+  const otherUsers = allUsers.filter((userObject: UserObject) => {
+    return userObject.id !== user.id;
+  });
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }
-    >
+    <ScrollView>
       <View style={styles.container}>
-        <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text>
-        <Text style={{ fontSize: 20 }}>
+        {/* <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text> */}
+        <Text
+          style={{
+            fontSize: 20,
+            marginTop: 16,
+            marginBottom: 16,
+          }}
+        >
           Welcome Back {user.firstName} {user.lastName}!
         </Text>
       </View>
-      {allUsers.map((singleUser) => {
+      {otherUsers.map((singleUser: User) => {
         return (
           <View key={singleUser.id}>
-            <Button
-              title={singleUser.username}
-              buttonStyle={{
-                backgroundColor: 'black',
-                borderWidth: 4,
-                borderColor: 'white',
-                borderRadius: 30,
-                padding: 36,
-              }}
-              containerStyle={{
-                // flex: 1,
-                // flexDirection: 'row',
-                // flexWrap: 'wrap',
-                width: 200,
-                marginHorizontal: 80,
-                marginVertical: 10,
-              }}
-              titleStyle={{ fontWeight: 'bold' }}
-              onPress={async () => {
-                // console.log(user.username);
-                const getRestrictedProfileResponse = await fetch(
-                  // use IP address instead of localhost
-                  `http://${IP}:3000/api/restrictedProfile`,
-                  {
-                    method: 'POST',
-                    body: JSON.stringify({
-                      username: singleUser.username,
-                    }),
-                  },
-                );
-                const restrictedProfile =
-                  await getRestrictedProfileResponse.json();
-                navigation.navigate('RestrictedProfileScreen', {
-                  restrictedProfile: restrictedProfile,
-                });
-              }}
-            />
+            <Card>
+              <Card.Title>{singleUser.username}</Card.Title>
+              <Card.Divider />
+              <Text style={styles.description}>
+                {singleUser.shortDescription}
+              </Text>
+              <AirbnbRating reviews="" size={24} />
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Button
+                  // title="Book Now"
+                  icon={
+                    <Ionicons name="person-outline" size={24} color="white" />
+                  }
+                  buttonStyle={styles.button}
+                  containerStyle={styles.buttonsContainer}
+                  titleStyle={{ fontWeight: 'bold' }}
+                  onPress={async () => {
+                    // console.log(user.username);
+                    const getRestrictedProfileResponse = await fetch(
+                      // use IP address instead of localhost
+                      `http://${IP}:3000/api/restrictedProfile`,
+                      {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          username: singleUser.username,
+                        }),
+                      },
+                    );
+                    const restrictedProfile =
+                      await getRestrictedProfileResponse.json();
+                    navigation.navigate('RestrictedProfileScreen', {
+                      restrictedProfile: restrictedProfile,
+                    });
+                  }}
+                />
+                <Button
+                  icon={
+                    <Ionicons name="grid-outline" size={24} color="white" />
+                  }
+                  buttonStyle={styles.button}
+                  containerStyle={styles.buttonsContainer}
+                  onPress={() => navigation.navigate('OtherUserTimeSlotScreen')}
+                />
+              </View>
+            </Card>
           </View>
         );
       })}
@@ -107,7 +113,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 22,
   },
-  profiles: {
+  buttonsContainer: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 18,
+  },
+  button: {
+    backgroundColor: '#383838',
+    borderColor: 'white',
+    borderRadius: 16,
+    width: 'auto',
+    borderWidth: 4,
+  },
+  description: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+    marginTop: 4,
   },
 });
