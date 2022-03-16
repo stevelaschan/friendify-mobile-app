@@ -1,6 +1,4 @@
-import { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { LoginContext } from '../../context/LoginContext';
 
 export default function ProfileScreen({ route }) {
   const { restrictedProfile } = route.params;
@@ -15,6 +13,9 @@ export default function ProfileScreen({ route }) {
         </Text>
         <Text style={styles.text}>Last name: {restrictedProfile.lastName}</Text>
         <Text style={styles.text}>Age: {restrictedProfile.age}</Text>
+        <Text style={styles.text}>
+          Short Description: {restrictedProfile.shortDescription}
+        </Text>
       </View>
     </ScrollView>
   );

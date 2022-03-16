@@ -16,6 +16,7 @@ type User = {
   firstname: string;
   lastname: string;
   age: string;
+  shortDescription: string;
 };
 
 export default function App() {
@@ -48,10 +49,11 @@ export default function App() {
       firstName: protectedUser.user.firstName,
       lastName: protectedUser.user.lastName,
       age: protectedUser.user.age,
+      shortDescription: protectedUser.user.shortDescription,
     });
     return;
   };
-  console.log(user);
+  // console.log(user);
 
   return (
     <NavigationContainer>

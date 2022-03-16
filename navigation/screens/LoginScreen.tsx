@@ -35,7 +35,7 @@ const LoginInput = styled.TextInput`
 
 type Errors = { message: string }[];
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ navigation }: Props) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);

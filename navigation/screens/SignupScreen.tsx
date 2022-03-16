@@ -43,6 +43,7 @@ export default function SignupScreen() {
   const [lastName, setLastName] = useState<string>('');
   const [age, setAge] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [shortDescription, setShortDescription] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
   const { setUser } = useContext(LoginContext);
 
@@ -101,6 +102,11 @@ export default function SignupScreen() {
           onChangeText={setPassword}
           secureTextEntry={true}
         />
+        <Input
+          placeholder="Short Desccription Of Yourself"
+          value={shortDescription}
+          onChangeText={setShortDescription}
+        />
         <Button
           title="Signup"
           onPress={async (event: GestureResponderEvent) => {
@@ -120,6 +126,7 @@ export default function SignupScreen() {
                   age: age,
                   username: username,
                   password: password,
+                  shortDescription: shortDescription,
                 }),
               },
             );

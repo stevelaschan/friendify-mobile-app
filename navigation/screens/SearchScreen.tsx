@@ -28,33 +28,33 @@ export default function SearchScreen({ navigation }) {
     wait(1000).then(() => setRefreshing(false));
   }, []);
 
-  const searchFilterFunction = (text) => {
-    // Check if searched text is not blank
-    if (text) {
-      // Inserted text is not blank
-      // Filter the allUsers
-      // Update FilteredUsers
-      const newData = allUsers.filter(function (user) {
-        const userData = user ? user.toUpperCase() : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return userData.indexOf(textData) > -1;
-      });
-      setFilteredUsers(newData);
-      setSearchUser(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with allUsers
-      setFilteredUsers(allUsers);
-      setSearchUser(text);
-    }
-  };
+  // const searchFilterFunction = (text) => {
+  //   // Check if searched text is not blank
+  //   if (text) {
+  //     // Inserted text is not blank
+  //     // Filter the allUsers
+  //     // Update FilteredUsers
+  //     const newData = allUsers.filter(function (user) {
+  //       const userData = user ? user.toUpperCase() : ''.toUpperCase();
+  //       const textData = text.toUpperCase();
+  //       return userData.indexOf(textData) > -1;
+  //     });
+  //     setFilteredUsers(newData);
+  //     setSearchUser(text);
+  //   } else {
+  //     // Inserted text is blank
+  //     // Update FilteredDataSource with allUsers
+  //     setFilteredUsers(allUsers);
+  //     setSearchUser(text);
+  //   }
+  // };
 
-  const userView = ({ user }) => {
-    return (
-      // Flat List Item
-      <Text>{user.username}</Text>
-    );
-  };
+  // const userView = ({ user }) => {
+  //   return (
+  //     // Flat List Item
+  //     <Text>{user.username}</Text>
+  //   );
+  // };
 
   useEffect(() => {
     getUser();
@@ -96,32 +96,6 @@ export default function SearchScreen({ navigation }) {
         keyExtractor={(user, index) => index.toString()}
         renderItem={userView}
       /> */}
-      {allUsers.map((user) => {
-        return (
-          <Button
-            key={user.id}
-            title={user.username}
-            onPress={async () => {
-              // console.log(user.username);
-              const getRestrictedProfileResponse = await fetch(
-                // use IP address instead of localhost
-                `http://${IP}:3000/api/restrictedProfile`,
-                {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    username: user.username,
-                  }),
-                },
-              );
-              const restrictedProfile =
-                await getRestrictedProfileResponse.json();
-              navigation.navigate('RestrictedProfileScreen', {
-                restrictedProfile: restrictedProfile,
-              });
-            }}
-          />
-        );
-      })}
     </ScrollView>
   );
 }
