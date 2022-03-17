@@ -7,14 +7,15 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Button, CheckBox, Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.0.88';
+export const IP = '192.168.1.224';
 
 export default function SignupScreen() {
+  const { setUser } = useContext(LoginContext);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -22,7 +23,8 @@ export default function SignupScreen() {
   const [age, setAge] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setUser } = useContext(LoginContext);
+  const [isUser, setIsUser] = useState<boolean>(false);
+  const [isProvider, setIsProvider] = useState<boolean>(false);
 
   return (
     <ScrollView>
@@ -63,6 +65,16 @@ export default function SignupScreen() {
             return <Text key={`error-${error.message}`}>{error.message}</Text>;
           })}
         />
+        <CheckBox
+          title="Experience User"
+          checked={isUser}
+          onPress={() => setIsUser(!isUser)}
+        />
+        <CheckBox
+          title="Experience Provider"
+          checked={isProvider}
+          onPress={() => setIsProvider(!isProvider)}
+        />
         <Button
           title="Signup"
           buttonStyle={styles.button}
@@ -85,6 +97,8 @@ export default function SignupScreen() {
                   lastName: lastName,
                   age: age,
                   shortDescription: shortDescription,
+                  isUser: isUser,
+                  isProvider: isProvider,
                 }),
               },
             );

@@ -17,6 +17,9 @@ type ValidSessionUser = {
   lastName: string;
   age: string;
   shortDescription: string;
+  isUser: boolean;
+  isProvider: boolean;
+  rating: number;
 };
 
 export default function App() {
@@ -38,7 +41,6 @@ export default function App() {
         },
       );
       const validSessionUser = await validSessionUserResponse.json();
-      // console.log(protectedUser.user.firstName);
       if ('error' in validSessionUser) {
         // if user is undefined (token deleted from database or expired) return
         console.log('error', validSessionUser);
@@ -51,6 +53,8 @@ export default function App() {
 
     getUserByValidSessionToken().catch(() => {});
   }, []);
+
+  console.log(user);
 
   return (
     <NavigationContainer>

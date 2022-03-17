@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button, Card } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { User } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -10,11 +9,13 @@ export default function HomeScreen({ navigation }) {
   const { user } = useContext(LoginContext);
   const [allUsers, setAllUsers] = useState([]);
 
-  // get all Users from the database
+  // get all Users from the database (without first and last name)
   type UserObject = {
     id: number;
     username: string;
     age: string;
+    isUser: boolean;
+    isProvider: boolean;
   };
 
   useEffect(() => {
@@ -34,7 +35,10 @@ export default function HomeScreen({ navigation }) {
 
   // filter out the one user which is logged in and has a valid session token
   const otherUsers = allUsers.filter((userObject: UserObject) => {
-    return userObject.id !== user.id;
+    if (userObject.isProvider) {
+      return userObject.id !== user.id;
+    }
+    return null;
   });
 
   return (
@@ -60,7 +64,14 @@ export default function HomeScreen({ navigation }) {
               <Text style={styles.description}>
                 {singleUser.shortDescription}
               </Text>
-              <AirbnbRating reviews="" size={24} />
+              <View style={styles.stars}>
+                <AirbnbRating
+                  showRating={false}
+                  size={24}
+                  isDisabled={true}
+                  defaultRating={singleUser.rating}
+                />
+              </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Button
                   // title="Book Now"
@@ -71,7 +82,6 @@ export default function HomeScreen({ navigation }) {
                   containerStyle={styles.buttonsContainer}
                   titleStyle={{ fontWeight: 'bold' }}
                   onPress={async () => {
-                    // console.log(user.username);
                     const getRestrictedProfileResponse = await fetch(
                       // use IP address instead of localhost
                       `http://${IP}:3000/api/restrictedProfile`,
@@ -113,11 +123,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 22,
   },
+  description: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+    marginTop: 4,
+  },
+  stars: {
+    marginTop: 18,
+  },
   buttonsContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 18,
+    marginTop: 14,
   },
   button: {
     backgroundColor: '#383838',
@@ -125,12 +145,5 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     width: 'auto',
     borderWidth: 4,
-  },
-  description: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 18,
-    marginTop: 4,
   },
 });

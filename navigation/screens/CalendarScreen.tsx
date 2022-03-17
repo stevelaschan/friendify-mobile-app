@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
+import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const users = {
   first_name: 'Stefan',
@@ -9,7 +11,7 @@ const users = {
   age: 28,
 };
 
-export default function CalendarScreen() {
+export default function CalendarScreen({ navigation }) {
   const [items, setItems] = useState({});
 
   const timeToString = (time: number) => {
@@ -80,6 +82,13 @@ export default function CalendarScreen() {
           agendaTodayColor: 'red',
         }}
       />
+      <View style={styles.buttonView}>
+        <Button
+          icon={<Ionicons name="add" size={24} color="white" />}
+          buttonStyle={styles.button}
+          onPress={() => navigation.navigate('SetTimeSlotScreen')}
+        />
+      </View>
     </View>
   );
 }
@@ -89,5 +98,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     top: 50,
+  },
+  buttonView: {
+    position: 'absolute',
+    right: 30,
+    top: 530,
+  },
+  button: {
+    backgroundColor: '#383838',
+    borderRadius: 30,
+    width: 'auto',
+    padding: 14,
+    borderWidth: 2,
   },
 });

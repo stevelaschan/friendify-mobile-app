@@ -7,7 +7,10 @@ exports.up = async (sql) => {
       age integer NOT NULL,
       username varchar(20) NOT NULL UNIQUE,
       password_hash varchar(80),
-      short_description text NOT NULL
+      short_description text NOT NULL,
+      is_user boolean,
+      is_provider boolean,
+      rating integer
     )
   `;
 };

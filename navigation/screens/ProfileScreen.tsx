@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { AirbnbRating, Input } from 'react-native-elements';
+import { AirbnbRating, CheckBox, Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -17,12 +17,14 @@ export default function ProfileScreen({ navigation }) {
   // const [talking, setTalking] = useState<boolean>(false);
   // const [diningOut, setDiningOut] = useState<boolean>(false);
   // const [attendingEvents, setAttendingEvents] = useState<boolean>(false);
+  const { user, setUser } = useContext(LoginContext);
   const [editFirstName, setEditFirstName] = useState('');
   const [editLastName, setEditLastName] = useState('');
   const [editAge, setEditAge] = useState('');
   const [editShortDescription, setEditShortDescription] = useState('');
   const [editable, setEditable] = useState(false);
-  const { user, setUser } = useContext(LoginContext);
+  const [isUser, setIsUser] = useState(user.isUser);
+  const [isProvider, setIsProvider] = useState(user.isProvider);
 
   return (
     <ScrollView>
@@ -54,7 +56,31 @@ export default function ProfileScreen({ navigation }) {
           editable={editable}
           style={styles.input}
         />
-        <AirbnbRating />
+        <View style={styles.checkbox}>
+          <CheckBox
+            title="Experience User"
+            checked={isUser}
+            onPress={() => setIsUser(!isUser)}
+            disabled={!editable}
+          />
+          <CheckBox
+            title="Experience Provider"
+            checked={isProvider}
+            onPress={() => setIsProvider(!isProvider)}
+            disabled={!editable}
+          />
+        </View>
+        {isProvider ? (
+          <View style={styles.stars}>
+            <AirbnbRating
+              defaultRating={user.rating}
+              showRating={false}
+              isDisabled={true}
+            />
+          </View>
+        ) : (
+          <View />
+        )}
         {/* <CheckBox
           title="Sports"
           checked={sports}
@@ -113,6 +139,8 @@ export default function ProfileScreen({ navigation }) {
                     lastName: editLastName,
                     age: editAge,
                     shortDescription: editShortDescription,
+                    isUser: isUser,
+                    isProvider: isProvider,
                   }),
                 },
               );
@@ -123,6 +151,8 @@ export default function ProfileScreen({ navigation }) {
                 lastName: updatedProfile.lastName,
                 age: updatedProfile.age,
                 shortDescription: updatedProfile.shortDescription,
+                isUser: isUser,
+                isProvider: isProvider,
               });
               setEditable(false);
             }}
@@ -140,10 +170,6 @@ export default function ProfileScreen({ navigation }) {
           />
         )}
       </View>
-      <Button
-        title="Set Time Slot"
-        onPress={() => navigation.navigate('SetTimeSlotScreen')}
-      />
     </ScrollView>
   );
 }
@@ -168,5 +194,12 @@ const styles = StyleSheet.create({
   },
   input: {
     margin: 12,
+  },
+  stars: {
+    margin: 18,
+  },
+  checkbox: {
+    flex: 1,
+    flexDirection: 'row',
   },
 });
