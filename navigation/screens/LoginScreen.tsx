@@ -17,7 +17,7 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setUser } = useContext(LoginContext);
+  const { setUser, setRating, rating } = useContext(LoginContext);
 
   return (
     <ScrollView>
@@ -70,8 +70,21 @@ export default function LoginScreen({ navigation }) {
                   setErrors(loginResponseBody.errors);
                   return;
                 }
-                // session token valid, user signed in return true
+                // set User Info and Provider Rating
                 setUser(loginResponseBody.user);
+                if (!loginResponseBody.provider) {
+                  return;
+                }
+                const providerRating = loginResponseBody.provider.map(
+                  (object) => object.rating,
+                );
+                const sumProviderRating = providerRating.reduce(
+                  (a: number, b: number) => a + b,
+                  0,
+                );
+                const sumProviderRatingAverage =
+                  sumProviderRating / providerRating.length;
+                setRating(sumProviderRatingAverage);
               }}
             />
             <Button

@@ -23,7 +23,6 @@ export default function SignupScreen() {
   const [age, setAge] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const [isUser, setIsUser] = useState<boolean>(false);
   const [isProvider, setIsProvider] = useState<boolean>(false);
 
   return (
@@ -66,11 +65,6 @@ export default function SignupScreen() {
           })}
         />
         <CheckBox
-          title="Experience User"
-          checked={isUser}
-          onPress={() => setIsUser(!isUser)}
-        />
-        <CheckBox
           title="Experience Provider"
           checked={isProvider}
           onPress={() => setIsProvider(!isProvider)}
@@ -97,7 +91,6 @@ export default function SignupScreen() {
                   lastName: lastName,
                   age: age,
                   shortDescription: shortDescription,
-                  isUser: isUser,
                   isProvider: isProvider,
                 }),
               },

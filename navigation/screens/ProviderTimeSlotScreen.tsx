@@ -1,12 +1,12 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 
-export default function OtherUserTimeSlotScreen() {
+export default function ProviderTimeSlotScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
         <Text style={{ fontSize: 26, fontWeight: 'bold', marginBottom: 32 }}>
-          Other User's TimeSlots
+          Provider's TimeSlots
         </Text>
       </View>
     </ScrollView>

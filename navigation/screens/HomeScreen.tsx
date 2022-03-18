@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button, Card } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { User } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -14,7 +15,6 @@ export default function HomeScreen({ navigation }) {
     id: number;
     username: string;
     age: string;
-    isUser: boolean;
     isProvider: boolean;
   };
 
@@ -69,12 +69,11 @@ export default function HomeScreen({ navigation }) {
                   showRating={false}
                   size={24}
                   isDisabled={true}
-                  defaultRating={singleUser.rating}
+                  defaultRating={0}
                 />
               </View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Button
-                  // title="Book Now"
                   icon={
                     <Ionicons name="person-outline" size={24} color="white" />
                   }
@@ -84,18 +83,19 @@ export default function HomeScreen({ navigation }) {
                   onPress={async () => {
                     const getRestrictedProfileResponse = await fetch(
                       // use IP address instead of localhost
-                      `http://${IP}:3000/api/restrictedProfile`,
+                      `http://${IP}:3000/api/providerProfile`,
                       {
                         method: 'POST',
                         body: JSON.stringify({
-                          username: singleUser.username,
+                          id: singleUser.id,
                         }),
                       },
                     );
-                    const restrictedProfile =
+                    const providerProfile =
                       await getRestrictedProfileResponse.json();
-                    navigation.navigate('RestrictedProfileScreen', {
-                      restrictedProfile: restrictedProfile,
+                    // console.log(providerProfile);
+                    navigation.navigate('ProviderProfileScreen', {
+                      providerProfile: providerProfile,
                     });
                   }}
                 />
@@ -105,7 +105,7 @@ export default function HomeScreen({ navigation }) {
                   }
                   buttonStyle={styles.button}
                   containerStyle={styles.buttonsContainer}
-                  onPress={() => navigation.navigate('OtherUserTimeSlotScreen')}
+                  onPress={() => navigation.navigate('ProviderTimeSlotScreen')}
                 />
               </View>
             </Card>

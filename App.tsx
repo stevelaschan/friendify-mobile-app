@@ -4,27 +4,26 @@ import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import { LoginContext } from './context/LoginContext';
 import LoginScreen from './navigation/screens/LoginScreen';
-import OtherUserTimeSlotScreen from './navigation/screens/OtherUserTimeSlotScreen';
-import RestrictedProfileScreen from './navigation/screens/RestrictedProfileScreen';
+import ProviderProfileScreen from './navigation/screens/ProviderProfileScreen';
+import ProviderTimeSlotScreen from './navigation/screens/ProviderTimeSlotScreen';
 import SetTimeSlotScreen from './navigation/screens/SetTimeSlot';
 import SignupScreen, { IP } from './navigation/screens/SignupScreen';
 import TabsContainer from './navigation/stacks/TabsContainer';
 
-type ValidSessionUser = {
+export type User = {
   id: number;
   username: string;
   firstName: string;
   lastName: string;
   age: string;
   shortDescription: string;
-  isUser: boolean;
   isProvider: boolean;
-  rating: number;
 };
 
 export default function App() {
   const Stack = createNativeStackNavigator();
-  const [user, setUser] = useState<ValidSessionUser | undefined>();
+  const [user, setUser] = useState<User | undefined>();
+  const [rating, setRating] = useState();
 
   useEffect(() => {
     // if session token valid return user and session
@@ -48,20 +47,21 @@ export default function App() {
       }
       // if user is not undefined (token in database) set User
       setUser(validSessionUser.user);
+      setRating(validSessionUser.provider.rating);
       return;
     };
 
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <NavigationContainer>
       <Header label="Friendify" />
       <LoginContext.Provider
         // export variables/functions to child components using context
-        value={{ setUser, user }}
+        value={{ user, setUser, rating, setRating }}
       >
         <Stack.Navigator>
           {!user ? (
@@ -85,8 +85,8 @@ export default function App() {
                 options={{ header: () => null }}
               />
               <Stack.Screen
-                name="RestrictedProfileScreen"
-                component={RestrictedProfileScreen}
+                name="ProviderProfileScreen"
+                component={ProviderProfileScreen}
                 options={{ header: () => null }}
               />
               <Stack.Screen
@@ -95,8 +95,8 @@ export default function App() {
                 options={{ header: () => null }}
               />
               <Stack.Screen
-                name="OtherUserTimeSlotScreen"
-                component={OtherUserTimeSlotScreen}
+                name="ProviderTimeSlotScreen"
+                component={ProviderTimeSlotScreen}
                 options={{ header: () => null }}
               />
             </>

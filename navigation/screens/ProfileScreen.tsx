@@ -17,13 +17,12 @@ export default function ProfileScreen({ navigation }) {
   // const [talking, setTalking] = useState<boolean>(false);
   // const [diningOut, setDiningOut] = useState<boolean>(false);
   // const [attendingEvents, setAttendingEvents] = useState<boolean>(false);
-  const { user, setUser } = useContext(LoginContext);
+  const { user, setUser, rating } = useContext(LoginContext);
   const [editFirstName, setEditFirstName] = useState('');
   const [editLastName, setEditLastName] = useState('');
   const [editAge, setEditAge] = useState('');
   const [editShortDescription, setEditShortDescription] = useState('');
   const [editable, setEditable] = useState(false);
-  const [isUser, setIsUser] = useState(user.isUser);
   const [isProvider, setIsProvider] = useState(user.isProvider);
 
   return (
@@ -58,12 +57,6 @@ export default function ProfileScreen({ navigation }) {
         />
         <View style={styles.checkbox}>
           <CheckBox
-            title="Experience User"
-            checked={isUser}
-            onPress={() => setIsUser(!isUser)}
-            disabled={!editable}
-          />
-          <CheckBox
             title="Experience Provider"
             checked={isProvider}
             onPress={() => setIsProvider(!isProvider)}
@@ -73,7 +66,7 @@ export default function ProfileScreen({ navigation }) {
         {isProvider ? (
           <View style={styles.stars}>
             <AirbnbRating
-              defaultRating={user.rating}
+              defaultRating={rating}
               showRating={false}
               isDisabled={true}
             />
@@ -139,7 +132,6 @@ export default function ProfileScreen({ navigation }) {
                     lastName: editLastName,
                     age: editAge,
                     shortDescription: editShortDescription,
-                    isUser: isUser,
                     isProvider: isProvider,
                   }),
                 },
@@ -151,7 +143,6 @@ export default function ProfileScreen({ navigation }) {
                 lastName: updatedProfile.lastName,
                 age: updatedProfile.age,
                 shortDescription: updatedProfile.shortDescription,
-                isUser: isUser,
                 isProvider: isProvider,
               });
               setEditable(false);
@@ -200,6 +191,6 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     flex: 1,
-    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
