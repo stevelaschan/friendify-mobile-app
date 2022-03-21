@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { LoginContext } from '../../context/LoginContext';
 
 const users = {
   first_name: 'Stefan',
@@ -13,9 +14,13 @@ const users = {
 
 export default function CalendarScreen({ navigation }) {
   const [items, setItems] = useState({});
+  const [selectedDay, setSelectedDay] = useState();
+  const { isProvider, user } = useContext(LoginContext);
 
   const timeToString = (time: number) => {
     const date = new Date(time);
+    const isoDate = date.toISOString().split('T')[0];
+    setSelectedDay(isoDate);
     return date.toISOString().split('T')[0];
   };
 
@@ -75,20 +80,25 @@ export default function CalendarScreen({ navigation }) {
       <Agenda
         items={items}
         loadItemsForMonth={loadItems}
-        selected="2022-04-05"
+        selected={new Date().toString()}
         renderItem={renderItem}
         showClosingKnob={true}
         theme={{
           agendaTodayColor: 'red',
         }}
+        onDayPress={() => console.log(selectedDay)}
       />
-      <View style={styles.buttonView}>
-        <Button
-          icon={<Ionicons name="add" size={24} color="white" />}
-          buttonStyle={styles.button}
-          onPress={() => navigation.navigate('SetTimeSlotScreen')}
-        />
-      </View>
+      {user.isProvider ? (
+        <View style={styles.buttonView}>
+          <Button
+            icon={<Ionicons name="add" size={24} color="white" />}
+            buttonStyle={styles.button}
+            onPress={() => navigation.navigate('SetTimeSlotScreen')}
+          />
+        </View>
+      ) : (
+        <View />
+      )}
     </View>
   );
 }
