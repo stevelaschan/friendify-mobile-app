@@ -14,15 +14,16 @@ const users = {
 
 export default function CalendarScreen({ navigation }) {
   const [items, setItems] = useState({});
-  const [selectedDay, setSelectedDay] = useState();
-  const { isProvider, user } = useContext(LoginContext);
-
-  const timeToString = (time: number) => {
-    const date = new Date(time);
-    const isoDate = date.toISOString().split('T')[0];
-    setSelectedDay(isoDate);
-    return date.toISOString().split('T')[0];
-  };
+  // const now = new Date().toString();
+  const dateObj = new Date();
+  const now =
+    dateObj.getUTCFullYear() +
+    '/' +
+    dateObj.getMonth() +
+    '/' +
+    dateObj.getUTCDate();
+  const [selectedDay, setSelectedDay] = useState(now);
+  const { user } = useContext(LoginContext);
 
   type Day = {
     timestamp: number;
@@ -30,20 +31,18 @@ export default function CalendarScreen({ navigation }) {
 
   const loadItems = (day: Day) => {
     setTimeout(() => {
-      for (let i = 0; i < 2; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = 1; // how many items per day
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Time Spot for ' + users.first_name + ' ' + users.last_name,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
-          }
-        }
-      }
+      const time = day.timestamp;
+      const date = new Date(time);
+      const currentDate = date.toISOString().split('T')[0];
+      setSelectedDay(currentDate);
+      console.log(currentDate);
+      // if (!items[strTime]) {
+      //   items[strTime] = [];
+      //   items[strTime].push({
+      //     name: 'Time Spot for ' + users.first_name + ' ' + users.last_name,
+      //     height: Math.max(50, Math.floor(Math.random() * 150)),
+      //   });
+      // }
       const newItems = {};
       Object.keys(items).forEach((key) => {
         newItems[key] = items[key];
@@ -79,21 +78,31 @@ export default function CalendarScreen({ navigation }) {
     <View style={{ flex: 1 }}>
       <Agenda
         items={items}
-        loadItemsForMonth={loadItems}
-        selected={new Date().toString()}
+        // loadItemsForMonth={loadItems}
+        selected={selectedDay}
         renderItem={renderItem}
         showClosingKnob={true}
         theme={{
           agendaTodayColor: 'red',
         }}
-        onDayPress={() => console.log(selectedDay)}
+        onDayPress={(day) => {
+          const time = day.timestamp;
+          const date = new Date(time);
+          const currentDate = date.toISOString().split('T')[0];
+          setSelectedDay(currentDate);
+          // console.log(currentDate);
+        }}
       />
       {user.isProvider ? (
         <View style={styles.buttonView}>
           <Button
             icon={<Ionicons name="add" size={24} color="white" />}
             buttonStyle={styles.button}
-            onPress={() => navigation.navigate('SetTimeSlotScreen')}
+            onPress={() =>
+              navigation.navigate('SetTimeSlotScreen', {
+                selectedDay: selectedDay,
+              })
+            }
           />
         </View>
       ) : (
