@@ -20,10 +20,18 @@ export type User = {
   isProvider: boolean;
 };
 
+export type Rating = {
+  id: number;
+  userId: number;
+  providerId: number;
+  rating: number;
+};
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [user, setUser] = useState<User | undefined>();
-  const [rating, setRating] = useState();
+  const [rating, setRating] = useState<Rating | undefined>();
+  const [reservedTimeslots, setReservedTimeslots] = useState();
 
   useEffect(() => {
     // if session token valid return user and session
@@ -31,7 +39,7 @@ export default function App() {
       // event.preventDefault();
       const validSessionUserResponse = await fetch(
         // use IP address instead of localhost
-        `http://${IP}:3000/api/protectedUser`,
+        `http://${IP}:3000/api/loggedInUser`,
         {
           method: 'GET',
           headers: {
@@ -47,21 +55,29 @@ export default function App() {
       }
       // if user is not undefined (token in database) set User
       setUser(validSessionUser.user);
-      setRating(validSessionUser.provider.rating);
+      setRating(validSessionUser.provider);
+      setReservedTimeslots(validSessionUser.timeslots);
       return;
     };
 
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  // console.log(user);
+  // console.log(rating);
 
   return (
     <NavigationContainer>
       <Header label="Friendify" />
       <LoginContext.Provider
         // export variables/functions to child components using context
-        value={{ user, setUser, rating, setRating }}
+        value={{
+          user,
+          setUser,
+          rating,
+          setRating,
+          reservedTimeslots,
+          setReservedTimeslots,
+        }}
       >
         <Stack.Navigator>
           {!user ? (
@@ -85,13 +101,13 @@ export default function App() {
                 options={{ header: () => null }}
               />
               <Stack.Screen
-                name="ProviderProfileScreen"
-                component={ProviderProfileScreen}
+                name="SetTimeSlotScreen"
+                component={SetTimeSlotScreen}
                 options={{ header: () => null }}
               />
               <Stack.Screen
-                name="SetTimeSlotScreen"
-                component={SetTimeSlotScreen}
+                name="ProviderProfileScreen"
+                component={ProviderProfileScreen}
                 options={{ header: () => null }}
               />
               <Stack.Screen

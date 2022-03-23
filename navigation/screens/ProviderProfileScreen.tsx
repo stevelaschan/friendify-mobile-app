@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native';
 import { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button } from 'react-native-elements';
@@ -7,7 +6,7 @@ import { IP } from './SignupScreen';
 
 export default function ProviderProfileScreen({ route, navigation }) {
   const { providerProfile } = route.params;
-  const { user, setUser } = useContext(LoginContext);
+  const { user } = useContext(LoginContext);
   const [rating, setRating] = useState(0);
   return (
     <ScrollView>
@@ -47,12 +46,12 @@ export default function ProviderProfileScreen({ route, navigation }) {
             // console.log(createRating);
           }}
         />
-        <Button
+        {/* <Button
           title="View Free Time Slots"
           buttonStyle={styles.button}
           containerStyle={styles.buttonContainer}
-          // onPress={navigation.navigate('ProviderTimeSlotScreen')}
-        />
+          onPress={navigation.navigate('ProviderTimeSlotScreen')}
+        /> */}
       </View>
     </ScrollView>
   );

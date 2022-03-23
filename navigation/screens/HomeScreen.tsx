@@ -34,7 +34,7 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   // filter out the one user which is logged in and has a valid session token
-  const otherUsers = allUsers.filter((userObject: UserObject) => {
+  const providers = allUsers.filter((userObject: UserObject) => {
     if (userObject.isProvider) {
       return userObject.id !== user.id;
     }
@@ -55,7 +55,7 @@ export default function HomeScreen({ navigation }) {
           Welcome Back {user.firstName} {user.lastName}!
         </Text>
       </View>
-      {otherUsers.map((singleUser: User) => {
+      {providers.map((singleUser: User) => {
         return (
           <View key={singleUser.id}>
             <Card>
@@ -93,7 +93,6 @@ export default function HomeScreen({ navigation }) {
                     );
                     const providerProfile =
                       await getRestrictedProfileResponse.json();
-                    // console.log(providerProfile);
                     navigation.navigate('ProviderProfileScreen', {
                       providerProfile: providerProfile,
                     });
@@ -105,7 +104,23 @@ export default function HomeScreen({ navigation }) {
                   }
                   buttonStyle={styles.button}
                   containerStyle={styles.buttonsContainer}
-                  onPress={() => navigation.navigate('ProviderTimeSlotScreen')}
+                  onPress={async () => {
+                    const getRestrictedProfileResponse = await fetch(
+                      // use IP address instead of localhost
+                      `http://${IP}:3000/api/providerProfile`,
+                      {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          id: singleUser.id,
+                        }),
+                      },
+                    );
+                    const providerProfile =
+                      await getRestrictedProfileResponse.json();
+                    navigation.navigate('ProviderTimeSlotScreen', {
+                      providerProfile: providerProfile,
+                    });
+                  }}
                 />
               </View>
             </Card>

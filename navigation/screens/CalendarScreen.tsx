@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Agenda, AgendaEntry, AgendaSchedule } from 'react-native-calendars';
+import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';

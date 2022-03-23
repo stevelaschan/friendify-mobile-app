@@ -5,34 +5,46 @@ import { FlatGrid } from 'react-native-super-grid';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
+type CreatedTimeslot = {
+  id: number;
+  providerId: number;
+  timeslotDate: Date;
+  timeslotTime: string;
+  userUsername: string | null;
+};
+
 export default function SetTimeslotScreen({ route }) {
   const { selectedDay } = route.params;
-  const { user } = useContext(LoginContext);
+  const { user, reservedTimeslots } = useContext(LoginContext);
   const [items, setItems] = useState([
-    { time: '0:00 - 1:00', selectedDay: selectedDay },
-    { time: '1:00 - 2:00', selectedDay: selectedDay },
-    { time: '2:00 - 3:00', selectedDay: selectedDay },
-    { time: '3:00 - 4:00', selectedDay: selectedDay },
-    { time: '4:00 - 5:00', selectedDay: selectedDay },
-    { time: '5:00 - 6:00', selectedDay: selectedDay },
-    { time: '6:00 - 7:00', selectedDay: selectedDay },
-    { time: '7:00 - 8:00', selectedDay: selectedDay },
-    { time: '8:00 - 9:00', selectedDay: selectedDay },
-    { time: '9:00 - 10:00', selectedDay: selectedDay },
-    { time: '11:00 - 12:00', selectedDay: selectedDay },
-    { time: '12:00 - 13:00', selectedDay: selectedDay },
-    { time: '13:00 - 14:00', selectedDay: selectedDay },
-    { time: '14:00 - 15:00', selectedDay: selectedDay },
-    { time: '15:00 - 16:00', selectedDay: selectedDay },
-    { time: '16:00 - 17:00', selectedDay: selectedDay },
-    { time: '17:00 - 18:00', selectedDay: selectedDay },
-    { time: '18:00 - 19:00', selectedDay: selectedDay },
-    { time: '19:00 - 20:00', selectedDay: selectedDay },
-    { time: '20:00 - 21:00', selectedDay: selectedDay },
-    { time: '21:00 - 22:00', selectedDay: selectedDay },
-    { time: '22:00 - 23:00', selectedDay: selectedDay },
-    { time: '23:00 - 24:00', selectedDay: selectedDay },
+    { time: '0:00 - 1:00' },
+    { time: '1:00 - 2:00' },
+    { time: '2:00 - 3:00' },
+    { time: '3:00 - 4:00' },
+    { time: '4:00 - 5:00' },
+    { time: '5:00 - 6:00' },
+    { time: '6:00 - 7:00' },
+    { time: '7:00 - 8:00' },
+    { time: '8:00 - 9:00' },
+    { time: '9:00 - 10:00' },
+    { time: '11:00 - 12:00' },
+    { time: '12:00 - 13:00' },
+    { time: '13:00 - 14:00' },
+    { time: '14:00 - 15:00' },
+    { time: '15:00 - 16:00' },
+    { time: '16:00 - 17:00' },
+    { time: '17:00 - 18:00' },
+    { time: '18:00 - 19:00' },
+    { time: '19:00 - 20:00' },
+    { time: '20:00 - 21:00' },
+    { time: '21:00 - 22:00' },
+    { time: '22:00 - 23:00' },
+    { time: '23:00 - 24:00' },
   ]);
+
+  const itemFiltered = items.map((item) =>
+    reservedTimeslots.filter((day) => day !== item.time),
+  );
 
   return (
     <FlatGrid
@@ -44,7 +56,7 @@ export default function SetTimeslotScreen({ route }) {
       spacing={10}
       renderItem={({ item }) => (
         <View>
-          <Text style={styles.selectedDay}>{item.selectedDay}</Text>
+          <Text style={styles.selectedDay}>{selectedDay}</Text>
           <Button
             buttonStyle={styles.itemContainer}
             title={item.time}
@@ -58,14 +70,16 @@ export default function SetTimeslotScreen({ route }) {
                   method: 'POST',
                   body: JSON.stringify({
                     id: user.id,
-                    date: item.selectedDay,
+                    date: selectedDay,
                     time: item.time,
                   }),
                 },
               );
 
-              const newTimeslotBody = await newTimeslotResponse.json();
-              console.log(newTimeslotBody);
+              const createdTimeslot: CreatedTimeslot =
+                await newTimeslotResponse.json();
+              // console.log(createdTimeslot);
+              // const createdTimesslotmapped = createdTimeslot.map((a) => a.timeslotTime)
             }}
           />
         </View>

@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import { Button, Input } from 'react-native-elements';
+import { Rating } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -17,7 +18,7 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setUser, setRating, rating } = useContext(LoginContext);
+  const { setUser, setRating, setReservedTimeslots } = useContext(LoginContext);
 
   return (
     <ScrollView>
@@ -75,16 +76,9 @@ export default function LoginScreen({ navigation }) {
                 if (!loginResponseBody.provider) {
                   return;
                 }
-                const providerRating = loginResponseBody.provider.map(
-                  (object) => object.rating,
-                );
-                const sumProviderRating = providerRating.reduce(
-                  (a: number, b: number) => a + b,
-                  0,
-                );
-                const sumProviderRatingAverage =
-                  sumProviderRating / providerRating.length;
-                setRating(sumProviderRatingAverage);
+                setRating(loginResponseBody.provider);
+                // console.log('login', loginResponse);
+                // setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />
             <Button

@@ -11,12 +11,7 @@ import { AirbnbRating, CheckBox, Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-export default function ProfileScreen({ navigation }) {
-  // const [sports, setSports] = useState<boolean>(false);
-  // const [walking, setWalking] = useState<boolean>(false);
-  // const [talking, setTalking] = useState<boolean>(false);
-  // const [diningOut, setDiningOut] = useState<boolean>(false);
-  // const [attendingEvents, setAttendingEvents] = useState<boolean>(false);
+export default function ProfileScreen() {
   const { user, setUser, rating } = useContext(LoginContext);
   const [editFirstName, setEditFirstName] = useState('');
   const [editLastName, setEditLastName] = useState('');
@@ -74,31 +69,6 @@ export default function ProfileScreen({ navigation }) {
         ) : (
           <View />
         )}
-        {/* <CheckBox
-          title="Sports"
-          checked={sports}
-          onPress={() => setSports(!sports)}
-        />
-        <CheckBox
-          title="Walking"
-          checked={walking}
-          onPress={() => setWalking(!walking)}
-        />
-        <CheckBox
-          title="Talking"
-          checked={talking}
-          onPress={() => setTalking(!talking)}
-        />
-        <CheckBox
-          title="Dining out"
-          checked={diningOut}
-          onPress={() => setDiningOut(!diningOut)}
-        />
-        <CheckBox
-          title="Attending Events"
-          checked={attendingEvents}
-          onPress={() => setAttendingEvents(!attendingEvents)}
-        /> */}
         <Button
           title="Logout"
           onPress={async (event: GestureResponderEvent) => {
