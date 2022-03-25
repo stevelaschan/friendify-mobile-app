@@ -35,7 +35,7 @@ export default function CalendarScreen({ navigation }) {
       const date = new Date(time);
       const currentDate = date.toISOString().split('T')[0];
       setSelectedDay(currentDate);
-      console.log(currentDate);
+      // console.log(currentDate);
       // if (!items[strTime]) {
       //   items[strTime] = [];
       //   items[strTime].push({

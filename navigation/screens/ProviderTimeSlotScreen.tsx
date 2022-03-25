@@ -1,56 +1,65 @@
 import { useContext } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Calendar } from 'react-native-calendars';
+import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
+import { FlatGrid } from 'react-native-super-grid';
 import { LoginContext } from '../../context/LoginContext';
+import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <Text style={{ fontSize: 26, fontWeight: 'bold', marginBottom: 32 }}>
-          Provider's TimeSlots
-        </Text>
-        <Calendar />
-        <View style={styles.itemContainer}>
-          {providerProfile.timeslots.map((timeslot) => {
-            return (
-              <Button
-                key={timeslot.id}
-                title={timeslot.timeslotTime}
-                buttonStyle={styles.itemButton}
-                onPress={() => console.log(timeslot)}
-              />
-            );
-          })}
+    <FlatGrid
+      itemDimension={130}
+      data={providerProfile.timeslots}
+      style={styles.gridView}
+      // staticDimension={300}
+      // fixed
+      spacing={10}
+      renderItem={({ item }) => (
+        <View>
+          <Text>{item.timeslotDate}</Text>
+          <Button
+            buttonStyle={styles.itemContainer}
+            title={item.timeslotTime}
+            onPress={async (event) => {
+              event.preventDefault();
+              await fetch(
+                // use IP address instead of localhost
+                `http://${IP}:3000/api/updateTimeslot`,
+                {
+                  method: 'PUT',
+                  body: JSON.stringify({
+                    username: user.username,
+                    providerId: providerProfile.id.id,
+                    date: item.timeslotDate,
+                    time: item.timeslotTime,
+                  }),
+                },
+              );
+            }}
+          />
         </View>
-      </View>
-    </ScrollView>
+      )}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   marginTop: 22,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  // },
-  text: {
-    fontSize: 18,
+  gridView: {
+    marginTop: 10,
+    flex: 1,
   },
   itemContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
-  itemButton: {
     justifyContent: 'center',
     borderRadius: 8,
     padding: 10,
     height: 100,
     backgroundColor: '#383838',
   },
+  //   selectedDay: {
+  //     top: 40,
+  //     left: 10,
+  //     color: 'white',
+  //   },
 });
