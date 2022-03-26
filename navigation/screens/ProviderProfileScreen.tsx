@@ -1,10 +1,19 @@
+import { RouteProp } from '@react-navigation/native';
 import { useContext, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button } from 'react-native-elements';
+import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-export default function ProviderProfileScreen({ route, navigation }) {
+type ProviderProfileRouteParams = RouteProp<
+  RootStackParams,
+  'ProviderProfileScreen'
+>;
+
+export default function ProviderProfileScreen({
+  route,
+}: ProviderProfileRouteParams) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
   const [rating, setRating] = useState(0);
@@ -30,7 +39,7 @@ export default function ProviderProfileScreen({ route, navigation }) {
           containerStyle={styles.buttonContainer}
           onPress={async (event) => {
             event.preventDefault();
-            const createRatingResponse = await fetch(
+            await fetch(
               // use IP address instead of localhost
               `http://${IP}:3000/api/createRating`,
               {
@@ -42,7 +51,7 @@ export default function ProviderProfileScreen({ route, navigation }) {
                 }),
               },
             );
-            const createRating = await createRatingResponse.json();
+            // const createRating = await createRatingResponse.json();
             // console.log(createRating);
           }}
         />

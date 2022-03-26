@@ -1,7 +1,9 @@
+import { RouteProp } from '@react-navigation/native';
 import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
+import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -14,7 +16,9 @@ type CreatedTimeslot = {
   timeslotSet: boolean;
 };
 
-export default function SetTimeslotScreen({ route }) {
+type SelectedDayRouteParam = RouteProp<RootStackParams, 'SetTimeSlotScreen'>;
+
+export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
   const { selectedDay } = route.params;
   const { user, reservedTimeslots, setReservedTimeslots } =
     useContext(LoginContext);
@@ -62,6 +66,7 @@ export default function SetTimeslotScreen({ route }) {
                 title={item.time}
                 onPress={async (event) => {
                   event.preventDefault();
+                  alert('Timeslot Set!');
                   const newTimeslotResponse = await fetch(
                     // use IP address instead of localhost (IP address changes)
                     `http://${IP}:3000/api/createNewTimeSlot`,
@@ -80,9 +85,9 @@ export default function SetTimeslotScreen({ route }) {
 
                   setReservedTimeslots([...reservedTimeslots, createdTimeslot]);
 
-                  const timeslotDateToString = createdTimeslot.timeslotDate
-                    .toString()
-                    .split('T')[0];
+                  // const timeslotDateToString = createdTimeslot.timeslotDate
+                  //   .toString()
+                  //   .split('T')[0];
 
                   // const timeslot = {
                   //   time: createdTimeslot.timeslotTime,
@@ -106,7 +111,7 @@ export default function SetTimeslotScreen({ route }) {
                   // );
 
                   // setItems([... timeslotInDatabase, timeslotsNotInDatabase]);
-                  console.log(timeslotNotInDatabase);
+                  // console.log(timeslotNotInDatabase);
                 }}
               />
             </View>
@@ -117,7 +122,7 @@ export default function SetTimeslotScreen({ route }) {
                 title="Timeslot Set"
                 onPress={async (event) => {
                   event.preventDefault();
-                  const deletedTimeslotResponse = await fetch(
+                  await fetch(
                     // use IP address instead of localhost (IP address changes)
                     `http://${IP}:3000/api/deleteTimeslot`,
                     {
@@ -129,7 +134,7 @@ export default function SetTimeslotScreen({ route }) {
                       }),
                     },
                   );
-                  const deletedTimeslot = await deletedTimeslotResponse.json();
+                  // const deletedTimeslot = await deletedTimeslotResponse.json();
                   setReservedTimeslots(reservedTimeslots);
                 }}
               />

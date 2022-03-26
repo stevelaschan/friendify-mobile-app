@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useContext, useState } from 'react';
 import {
   GestureResponderEvent,
@@ -8,13 +9,18 @@ import {
   View,
 } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import { Rating } from '../../App';
+import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 type Errors = { message: string }[];
 
-export default function LoginScreen({ navigation }) {
+type SignupScreenProps = NativeStackScreenProps<
+  RootStackParams,
+  'SignupScreen'
+>;
+
+export default function LoginScreen({ navigation }: SignupScreenProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
@@ -25,11 +31,13 @@ export default function LoginScreen({ navigation }) {
       <KeyboardAvoidingView>
         <View style={styles.mainContainer}>
           <Input
+            autoCompleteType={undefined}
             placeholder="Username"
             value={username}
             onChangeText={setUsername}
           />
           <Input
+            autoCompleteType={undefined}
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
@@ -77,7 +85,7 @@ export default function LoginScreen({ navigation }) {
                   return;
                 }
                 setRating(loginResponseBody.provider);
-                // console.log('login', loginResponse);
+                console.log('login', loginResponse);
                 setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />

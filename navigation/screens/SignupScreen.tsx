@@ -28,34 +28,40 @@ export default function SignupScreen() {
     <ScrollView>
       <KeyboardAvoidingView behavior="padding" style={styles.mainContainer}>
         <Input
+          autoCompleteType={undefined}
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
         />
         <Input
+          autoCompleteType={undefined}
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         <Input
+          autoCompleteType={undefined}
           placeholder="First Name"
           value={firstName}
           onChangeText={setFirstName}
           autoCapitalize="words"
         />
         <Input
+          autoCompleteType={undefined}
           placeholder="Last Name"
           value={lastName}
           onChangeText={setLastName}
         />
         <Input
+          autoCompleteType={undefined}
           placeholder="Age"
           value={age}
           onChangeText={setAge}
           keyboardType="numeric"
         />
         <Input
+          autoCompleteType={undefined}
           placeholder="Short Description Of Yourself"
           value={shortDescription}
           onChangeText={setShortDescription}

@@ -7,7 +7,7 @@ import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
-  const { user, reservedTimeslots } = useContext(LoginContext);
+  const { user } = useContext(LoginContext);
   return (
     <FlatGrid
       itemDimension={130}
@@ -24,6 +24,7 @@ export default function ProviderTimeSlotScreen({ route }) {
             title={item.timeslotTime}
             onPress={async (event) => {
               event.preventDefault();
+              alert('Timeslot booked!');
               await fetch(
                 // use IP address instead of localhost
                 `http://${IP}:3000/api/updateTimeslot`,

@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-// import React in our code
-// import all the components we are going to use
+import { useContext, useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 const styles = StyleSheet.create({
@@ -39,6 +38,7 @@ export default function SearchScreen() {
   const [search, setSearch] = useState('');
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
+  const { user } = useContext(LoginContext);
 
   useEffect(() => {
     fetch(`http://${IP}:3000/api/getUsers`)
@@ -58,6 +58,7 @@ export default function SearchScreen() {
       // Inserted text is not blank
       // Filter the masterDataSource
       // Update FilteredDataSource
+      // const filteredUsers = masterDataSource.filter((userObject) => userObject.username !== user.username)
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.username;
         const textData = text;

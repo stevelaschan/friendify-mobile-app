@@ -3,12 +3,56 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import { LoginContext } from './context/LoginContext';
+import ConfirmScreen from './navigation/screens/ConfirmScreen';
 import LoginScreen from './navigation/screens/LoginScreen';
 import ProviderProfileScreen from './navigation/screens/ProviderProfileScreen';
 import ProviderTimeSlotScreen from './navigation/screens/ProviderTimeSlotScreen';
 import SetTimeSlotScreen from './navigation/screens/SetTimeSlot';
 import SignupScreen, { IP } from './navigation/screens/SignupScreen';
 import TabsContainer from './navigation/stacks/TabsContainer';
+
+export type RootStackParams = {
+  ProviderProfileScreen: {
+    profile: {
+      firstName: string;
+      lastName: string;
+      age: string;
+      username: string;
+      shortDescription: string;
+      isProvider: boolean;
+    };
+    id: number;
+    timeslots: {
+      id: number;
+      providerId: number;
+      timeslotDate: Date;
+      timeslotTime: string;
+      timeslotset: boolean;
+    };
+  };
+  ProviderTimeslotScreen: {
+    profile: {
+      firstName: string;
+      lastName: string;
+      age: string;
+      username: string;
+      shortDescription: string;
+      isProvider: boolean;
+    };
+    id: number;
+    timeslots: {
+      id: number;
+      providerId: number;
+      timeslotDate: Date;
+      timeslotTime: string;
+      timeslotset: boolean;
+    };
+  };
+  SignupScreen: undefined;
+  SetTimeSlotScreen: {
+    selectedDay: string;
+  };
+};
 
 export type User = {
   id: number;
@@ -113,6 +157,11 @@ export default function App() {
               <Stack.Screen
                 name="ProviderTimeSlotScreen"
                 component={ProviderTimeSlotScreen}
+                options={{ header: () => null }}
+              />
+              <Stack.Screen
+                name="ConfirmScreen"
+                component={ConfirmScreen}
                 options={{ header: () => null }}
               />
             </>

@@ -1,12 +1,22 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button, Card } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { User } from '../../App';
+import { RootStackParams, User } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-export default function HomeScreen({ navigation }) {
+type ProviderProfileProps = NativeStackScreenProps<
+  RootStackParams,
+  'ProviderProfileScreen'
+>;
+// type ProviderTimeslotProps = NativeStackScreenProps<
+//   RootStackParams,
+//   'ProviderTimeslotScreen'
+// >;
+
+export default function HomeScreen({ navigation }: ProviderProfileProps) {
   const { user } = useContext(LoginContext);
   const [allUsers, setAllUsers] = useState([]);
 

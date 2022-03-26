@@ -26,18 +26,21 @@ export default function ProfileScreen() {
         {/* <Text style={styles.header}>Profile Screen</Text> */}
         <Text style={styles.text}>{user.username}</Text>
         <Input
+          autoCompleteType={undefined}
           onChangeText={setEditFirstName}
           value={editable ? editFirstName : user.firstName}
           editable={editable}
           style={styles.input}
         />
         <Input
+          autoCompleteType={undefined}
           onChangeText={setEditLastName}
           value={editable ? editLastName : user.lastName}
           editable={editable}
           style={styles.input}
         />
         <Input
+          autoCompleteType={undefined}
           onChangeText={setEditAge}
           value={editable ? editAge.toString() : user.age.toString()}
           editable={editable}
@@ -45,6 +48,7 @@ export default function ProfileScreen() {
           keyboardType="numeric"
         />
         <Input
+          autoCompleteType={undefined}
           onChangeText={setEditShortDescription}
           value={editable ? editShortDescription : user.shortDescription}
           editable={editable}

@@ -6,11 +6,25 @@ import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginContext } from '../../context/LoginContext';
 
-const users = {
-  first_name: 'Stefan',
-  last_name: 'Laschan',
-  age: 28,
-};
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    top: 50,
+  },
+  buttonView: {
+    position: 'absolute',
+    right: 30,
+    top: 530,
+  },
+  button: {
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    borderRadius: 30,
+    width: 'auto',
+    padding: 14,
+    borderWidth: 2,
+  },
+});
 
 export default function CalendarScreen({ navigation }) {
   const [items, setItems] = useState({});
@@ -19,11 +33,7 @@ export default function CalendarScreen({ navigation }) {
   const { user, reservedTimeslots, setReservedTimeslots } =
     useContext(LoginContext);
 
-  type Day = {
-    timestamp: number;
-  };
-
-  const loadItems = (day: Day) => {
+  const loadItems = (day) => {
     setTimeout(() => {
       const time = day.timestamp;
       const date = new Date(time);
@@ -105,23 +115,3 @@ export default function CalendarScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    top: 50,
-  },
-  buttonView: {
-    position: 'absolute',
-    right: 30,
-    top: 530,
-  },
-  button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderRadius: 30,
-    width: 'auto',
-    padding: 14,
-    borderWidth: 2,
-  },
-});
