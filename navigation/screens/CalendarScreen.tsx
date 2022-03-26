@@ -14,16 +14,10 @@ const users = {
 
 export default function CalendarScreen({ navigation }) {
   const [items, setItems] = useState({});
-  // const now = new Date().toString();
-  const dateObj = new Date();
-  const now =
-    dateObj.getUTCFullYear() +
-    '/' +
-    dateObj.getMonth() +
-    '/' +
-    dateObj.getUTCDate();
+  const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user } = useContext(LoginContext);
+  const { user, reservedTimeslots, setReservedTimeslots } =
+    useContext(LoginContext);
 
   type Day = {
     timestamp: number;
@@ -34,8 +28,6 @@ export default function CalendarScreen({ navigation }) {
       const time = day.timestamp;
       const date = new Date(time);
       const currentDate = date.toISOString().split('T')[0];
-      setSelectedDay(currentDate);
-      // console.log(currentDate);
       // if (!items[strTime]) {
       //   items[strTime] = [];
       //   items[strTime].push({
@@ -44,10 +36,10 @@ export default function CalendarScreen({ navigation }) {
       //   });
       // }
       const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
+      Object.keys(reservedTimeslots).forEach((key) => {
+        newItems[key] = reservedTimeslots[key];
       });
-      setItems(newItems);
+      setReservedTimeslots(newItems);
     }, 1000);
   };
 
@@ -63,10 +55,12 @@ export default function CalendarScreen({ navigation }) {
                 alignItems: 'center',
               }}
             >
-              <Text>{item.name}</Text>
-              <Avatar.Text
-                label={users.first_name.charAt(0) + users.last_name.charAt(0)}
-              />
+              {reservedTimeslots.map((timeslot) => (
+                <View key={timeslot.id}>
+                  <Text>{timeslot.username}</Text>
+                  <Avatar.Text label={timeslot.timeslotTime} />
+                </View>
+              ))}
             </View>
           </Card.Content>
         </Card>
@@ -124,7 +118,7 @@ const styles = StyleSheet.create({
     top: 530,
   },
   button: {
-    backgroundColor: '#383838',
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
     borderRadius: 30,
     width: 'auto',
     padding: 14,

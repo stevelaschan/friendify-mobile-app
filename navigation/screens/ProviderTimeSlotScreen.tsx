@@ -7,7 +7,7 @@ import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
-  const { user } = useContext(LoginContext);
+  const { user, reservedTimeslots } = useContext(LoginContext);
   return (
     <FlatGrid
       itemDimension={130}
@@ -18,7 +18,7 @@ export default function ProviderTimeSlotScreen({ route }) {
       spacing={10}
       renderItem={({ item }) => (
         <View>
-          <Text>{item.timeslotDate}</Text>
+          <Text>{item.timeslotDate.toString().split('T')[0]}</Text>
           <Button
             buttonStyle={styles.itemContainer}
             title={item.timeslotTime}
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     height: 100,
-    backgroundColor: '#383838',
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
   },
   //   selectedDay: {
   //     top: 40,

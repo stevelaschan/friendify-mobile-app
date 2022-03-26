@@ -22,14 +22,14 @@ export default function Header(props) {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#383838',
+    backgroundColor: '#312e2e',
     borderRadius: 4,
   },
   container: {
     paddingBottom: 6,
   },
   label: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#cfcc19',

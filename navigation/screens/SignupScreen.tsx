@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.1.224';
+export const IP = '192.168.0.88';
 
 export default function SignupScreen() {
   const { setUser } = useContext(LoginContext);

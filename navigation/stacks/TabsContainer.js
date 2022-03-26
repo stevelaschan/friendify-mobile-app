@@ -20,7 +20,7 @@ export default function TabsContainer() {
         tabBarShowLabel: false,
         tabBarStyle: {
           // position: 'absolute',
-          backgroundColor: '#383838',
+          backgroundColor: '#312e2e',
           borderRadius: 6,
           paddingTop: 8,
           paddingBottom: 18,

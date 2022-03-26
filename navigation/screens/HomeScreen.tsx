@@ -28,6 +28,7 @@ export default function HomeScreen({ navigation }) {
         },
       );
       const users = await getUserResponse.json();
+      // console.log(users);
       setAllUsers(users);
     };
     getUsers().catch(() => {});
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   button: {
-    backgroundColor: '#383838',
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
     borderColor: 'white',
     borderRadius: 16,
     width: 'auto',

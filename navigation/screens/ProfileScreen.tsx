@@ -69,23 +69,6 @@ export default function ProfileScreen() {
         ) : (
           <View />
         )}
-        <Button
-          title="Logout"
-          onPress={async (event: GestureResponderEvent) => {
-            event.preventDefault();
-            await fetch(
-              // use IP address instead of localhost
-              `http://${IP}:3000/api/logout`,
-              {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-              },
-            );
-            setUser(undefined);
-          }}
-        />
         {editable ? (
           <Button
             title="Save Information"
@@ -130,6 +113,23 @@ export default function ProfileScreen() {
             }}
           />
         )}
+        <Button
+          title="Logout"
+          onPress={async (event: GestureResponderEvent) => {
+            event.preventDefault();
+            await fetch(
+              // use IP address instead of localhost
+              `http://${IP}:3000/api/logout`,
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              },
+            );
+            setUser(undefined);
+          }}
+        />
       </View>
     </ScrollView>
   );
@@ -148,13 +148,15 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   text: {
-    fontSize: 24,
+    fontSize: 28,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    marginBottom: 12,
+    marginTop: 8,
   },
   input: {
-    margin: 12,
+    margin: 6,
   },
   stars: {
     margin: 18,

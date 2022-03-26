@@ -63,7 +63,7 @@ export default function App() {
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  // console.log(rating);
+  // console.log(reservedTimeslots);
 
   return (
     <NavigationContainer>

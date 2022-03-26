@@ -78,7 +78,7 @@ export default function LoginScreen({ navigation }) {
                 }
                 setRating(loginResponseBody.provider);
                 // console.log('login', loginResponse);
-                // setReservedTimeslots(loginResponseBody.timeslots);
+                setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />
             <Button
