@@ -71,6 +71,13 @@ export type Rating = {
   rating: number;
 };
 
+export type Timeslot = {
+  id: number;
+  providerId: number;
+  timeslotDate: Date;
+  timeslotTime: string;
+};
+
 export default function App() {
   const Stack = createNativeStackNavigator();
   const [user, setUser] = useState<User | undefined>();
