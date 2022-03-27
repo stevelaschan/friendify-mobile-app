@@ -33,56 +33,74 @@ export default function CalendarScreen({ navigation }) {
   const { user, reservedTimeslots, setReservedTimeslots } =
     useContext(LoginContext);
 
+  const timeToString = (time) => {
+    const date = selectedDay;
+    return date.toString().split('T')[0];
+  };
+
   const loadItems = (day) => {
     setTimeout(() => {
-      const time = day.timestamp;
-      const date = new Date(time);
-      const currentDate = date.toISOString().split('T')[0];
-      // if (!items[strTime]) {
-      //   items[strTime] = [];
-      //   items[strTime].push({
-      //     name: 'Time Spot for ' + users.first_name + ' ' + users.last_name,
-      //     height: Math.max(50, Math.floor(Math.random() * 150)),
-      //   });
-      // }
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = timeToString(time);
+        if (!items[strTime]) {
+          items[strTime] = [];
+          const numItems = Math.floor(Math.random() * 3 + 1);
+          for (let j = 0; j < numItems; j++) {
+            items[strTime].push({
+              name: 'Item for ' + strTime + ' #' + j,
+              height: Math.max(50, Math.floor(Math.random() * 150)),
+            });
+          }
+        }
+      }
       const newItems = {};
-      Object.keys(reservedTimeslots).forEach((key) => {
-        newItems[key] = reservedTimeslots[key];
+      Object.keys(items).forEach((key) => {
+        newItems[key] = items[key];
       });
-      setReservedTimeslots(newItems);
+      setItems(newItems);
     }, 1000);
   };
 
-  const renderItem = (item) => {
-    return (
-      <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
-        <Card>
-          <Card.Content>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              {reservedTimeslots.map((timeslot) => (
-                <View key={timeslot.id}>
-                  <Text>{timeslot.username}</Text>
-                  <Avatar.Text label={timeslot.timeslotTime} />
+  const renderItem = () => {
+    reservedTimeslots.map((timeslot) => {
+      return (
+        <View key={timeslot.id}>
+          <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
+            <Card>
+              <Card.Content>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  {timeslot.userUsername !== null ? (
+                    <View key={timeslot.id}>
+                      <Text>{timeslot.userUsername}</Text>
+                      <Text>{timeslot.timeslotTime}</Text>
+                      <Avatar.Text
+                        label={timeslot.userUsername.charAt(0).toUpperCase()}
+                      />
+                    </View>
+                  ) : (
+                    <View />
+                  )}
                 </View>
-              ))}
-            </View>
-          </Card.Content>
-        </Card>
-      </TouchableOpacity>
-    );
+              </Card.Content>
+            </Card>
+          </TouchableOpacity>
+        </View>
+      );
+    });
   };
 
   return (
     <View style={{ flex: 1 }}>
       <Agenda
         items={items}
-        // loadItemsForMonth={loadItems}
+        loadItemsForMonth={loadItems}
         selected={selectedDay}
         renderItem={renderItem}
         showClosingKnob={true}

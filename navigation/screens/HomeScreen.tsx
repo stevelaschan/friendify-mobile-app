@@ -38,8 +38,8 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
         },
       );
       const users = await getUserResponse.json();
-      // console.log(users);
-      setAllUsers(users);
+      // console.log('userinfo', users.providerRatings);
+      setAllUsers(users.users);
     };
     getUsers().catch(() => {});
   }, []);
@@ -104,6 +104,7 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
                     );
                     const providerProfile =
                       await getRestrictedProfileResponse.json();
+                    // console.log(providerProfile);
                     navigation.navigate('ProviderProfileScreen', {
                       providerProfile: providerProfile,
                     });

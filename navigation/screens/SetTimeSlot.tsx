@@ -48,6 +48,8 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
+  // console.log(reservedTimeslots);
+
   return (
     <FlatGrid
       itemDimension={130}
@@ -71,7 +73,6 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
                 title={item.time}
                 onPress={async (event) => {
                   event.preventDefault();
-                  // alert('Timeslot Set!');
                   const newTimeslotResponse = await fetch(
                     // use IP address instead of localhost (IP address changes)
                     `http://${IP}:3000/api/createNewTimeSlot`,
@@ -115,9 +116,10 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
 
                   const timeslotsInDatabase = reservedTimeslots.filter(
                     (reservedTimeslot: Timeslot) =>
-                      reservedTimeslot.timeslotTime === deletedTimeslot.time &&
-                      reservedTimeslot.timeslotDate.toString().split('T')[0] ===
-                        deletedTimeslot.date,
+                      reservedTimeslot.timeslotTime !==
+                        deletedTimeslot.timeslotTime &&
+                      reservedTimeslot.timeslotDate.toString().split('T')[0] !==
+                        deletedTimeslot.timeslotDate,
                   );
                   setReservedTimeslots(timeslotsInDatabase);
                 }}

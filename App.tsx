@@ -73,6 +73,7 @@ export type Rating = {
 
 export type Timeslot = {
   id: number;
+  userUsername: string;
   providerId: number;
   timeslotDate: Date;
   timeslotTime: string;

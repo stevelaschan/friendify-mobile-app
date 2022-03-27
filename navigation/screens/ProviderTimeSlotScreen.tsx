@@ -1,13 +1,18 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
+import { Timeslot } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
+  // const [bookedTimeslots, setBookedTimeslots] = useState<Timeslot[]>([]);
+
+  console.log(providerProfile);
+
   return (
     <FlatGrid
       itemDimension={130}
@@ -19,31 +24,46 @@ export default function ProviderTimeSlotScreen({ route }) {
       renderItem={({ item }) => (
         <View>
           <Text>{item.timeslotDate.toString().split('T')[0]}</Text>
-          <Button
-            buttonStyle={styles.itemContainer}
-            title={item.timeslotTime}
-            onPress={async (event) => {
-              event.preventDefault();
-              alert(
-                `${item.timeslotTime} on ${
-                  item.timeslotDate.toString().split('T')[0]
-                } booked!`,
-              );
-              await fetch(
-                // use IP address instead of localhost
-                `http://${IP}:3000/api/updateTimeslot`,
-                {
-                  method: 'PUT',
-                  body: JSON.stringify({
-                    username: user.username,
-                    providerId: providerProfile.id.id,
-                    date: item.timeslotDate,
-                    time: item.timeslotTime,
-                  }),
-                },
-              );
-            }}
-          />
+          {!item.userUsername ? (
+            <View>
+              <Button
+                buttonStyle={styles.itemContainer}
+                title={item.timeslotTime}
+                onPress={async (event) => {
+                  event.preventDefault();
+                  const bookTimeslotResponse = await fetch(
+                    // use IP address instead of localhost
+                    `http://${IP}:3000/api/updateTimeslot`,
+                    {
+                      method: 'PUT',
+                      body: JSON.stringify({
+                        username: user.username,
+                        providerId: providerProfile.id.id,
+                        date: item.timeslotDate,
+                        time: item.timeslotTime,
+                      }),
+                    },
+                  );
+                  const bookedTimeslot = await bookTimeslotResponse.json();
+                  alert(
+                    `${item.timeslotTime} on ${
+                      item.timeslotDate.toString().split('T')[0]
+                    } booked!`,
+                  );
+                  // setBookedTimeslots([
+                  //   ...providerProfile.timeslots,
+                  //   bookedTimeslot,
+                  // ]);
+                  // console.log(bookedTimeslot);
+                }}
+              />
+            </View>
+          ) : (
+            <Button
+              buttonStyle={styles.itemContainer}
+              title="Time Slot booked!"
+            />
+          )}
         </View>
       )}
     />
