@@ -85,7 +85,7 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                   return;
                 }
                 setRating(loginResponseBody.provider);
-                console.log('login', loginResponse);
+                // console.log('login', loginResponse);
                 setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />

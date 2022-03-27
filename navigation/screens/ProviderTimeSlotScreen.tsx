@@ -24,7 +24,11 @@ export default function ProviderTimeSlotScreen({ route }) {
             title={item.timeslotTime}
             onPress={async (event) => {
               event.preventDefault();
-              alert('Timeslot booked!');
+              alert(
+                `${item.timeslotTime} on ${
+                  item.timeslotDate.toString().split('T')[0]
+                } booked!`,
+              );
               await fetch(
                 // use IP address instead of localhost
                 `http://${IP}:3000/api/updateTimeslot`,
