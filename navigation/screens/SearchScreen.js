@@ -42,8 +42,8 @@ export default function SearchScreen() {
     fetch(`http://${IP}:3000/api/getUsers`)
       .then((response) => response.json())
       .then((responseJson) => {
-        setFilteredDataSource(responseJson);
-        setMasterDataSource(responseJson);
+        setFilteredDataSource(responseJson.users);
+        setMasterDataSource(responseJson.users);
       })
       .catch((error) => {
         console.error(error);
@@ -56,7 +56,6 @@ export default function SearchScreen() {
       // Inserted text is not blank
       // Filter the masterDataSource
       // Update FilteredDataSource
-      // const filteredUsers = masterDataSource.filter((userObject) => userObject.username !== user.username)
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.username;
         const textData = text;

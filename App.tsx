@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
 import Header from './components/Header';
 import { LoginContext } from './context/LoginContext';
-import ConfirmScreen from './navigation/screens/ConfirmScreen';
 import LoginScreen from './navigation/screens/LoginScreen';
 import ProviderProfileScreen from './navigation/screens/ProviderProfileScreen';
 import ProviderTimeSlotScreen from './navigation/screens/ProviderTimeSlotScreen';
@@ -165,11 +164,6 @@ export default function App() {
               <stack.Screen
                 name="ProviderTimeSlotScreen"
                 component={ProviderTimeSlotScreen}
-                options={{ header: () => null }}
-              />
-              <stack.Screen
-                name="ConfirmScreen"
-                component={ConfirmScreen}
                 options={{ header: () => null }}
               />
             </>
