@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginContext } from '../../context/LoginContext';
-import SetTimeslotScreen from './SetTimeSlot';
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +45,7 @@ export default function CalendarScreen({ navigation }) {
     });
   });
 
-  // console.log(bookedTimeslots);
+  console.log(bookedTimeslots);
 
   const renderItem = (item) => {
     return (
@@ -54,27 +53,27 @@ export default function CalendarScreen({ navigation }) {
         <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
           <Card>
             <Card.Content>
-              {/* {item.userUsername !== null ? ( */}
-              <View
-                key={item.id}
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <Text>{item.userUsername}</Text>
-                <Text>{item.timeslotTime}</Text>
-                <Avatar.Text
-                  label={item.userUsername.charAt(0).toUpperCase()}
-                />
-              </View>
-              {/* ) : (
+              {item.userUsername !== null ? (
+                <View
+                  key={item.id}
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>{item.userUsername}</Text>
+                  <Text>{item.timeslotTime}</Text>
+                  <Avatar.Text
+                    label={item.userUsername.charAt(0).toUpperCase()}
+                  />
+                </View>
+              ) : (
                 <View>
                   <Text>Timeslot set, but not booked</Text>
                 </View>
-              )} */}
+              )}
             </Card.Content>
           </Card>
         </TouchableOpacity>

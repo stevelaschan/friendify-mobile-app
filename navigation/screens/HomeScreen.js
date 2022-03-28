@@ -52,9 +52,9 @@ export default function HomeScreen({ navigation }) {
           method: 'GET',
         },
       );
-      const users = await getUserResponse.json();
-      // console.log('userinfo', users.providerRatings);
-      setAllUsers(users.users);
+      const getuserResponseBody = await getUserResponse.json();
+      // console.log('userinfo', getuserResponseBody.providerRatings);
+      setAllUsers(getuserResponseBody.users);
     };
     getUsers().catch(() => {});
   }, []);

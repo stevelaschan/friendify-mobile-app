@@ -48,7 +48,7 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
-  // console.log(reservedTimeslots);
+  console.log(reservedTimeslots);
 
   return (
     <FlatGrid

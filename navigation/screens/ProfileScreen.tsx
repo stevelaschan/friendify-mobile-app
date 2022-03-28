@@ -65,7 +65,7 @@ export default function ProfileScreen() {
         {isProvider ? (
           <View style={styles.stars}>
             <AirbnbRating
-              defaultRating={rating}
+              defaultRating={!rating ? 0 : rating}
               showRating={false}
               isDisabled={true}
             />

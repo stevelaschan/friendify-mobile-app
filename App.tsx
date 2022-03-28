@@ -106,7 +106,7 @@ export default function App() {
       }
       // if user is not undefined (token in database) set User
       setUser(validSessionUser.user);
-      setRating(validSessionUser.provider);
+      setRating(validSessionUser.rating);
       setReservedTimeslots(validSessionUser.timeslots);
       return;
     };
