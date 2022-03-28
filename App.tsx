@@ -104,7 +104,7 @@ export default function App() {
         console.log('error', validSessionUser);
         return;
       }
-      // if user is not undefined (token in database) set User
+      // if user is not undefined (token in database) retrieve User, Rating and Timeslots from database and set to state
       setUser(validSessionUser.user);
       setRating(validSessionUser.rating);
       setReservedTimeslots(validSessionUser.timeslots);

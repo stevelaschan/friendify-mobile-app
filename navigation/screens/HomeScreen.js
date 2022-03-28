@@ -53,13 +53,13 @@ export default function HomeScreen({ navigation }) {
         },
       );
       const getuserResponseBody = await getUserResponse.json();
-      // console.log('userinfo', getuserResponseBody.providerRatings);
+      // get all the users from the database
       setAllUsers(getuserResponseBody.users);
     };
     getUsers().catch(() => {});
   }, []);
 
-  // filter out the one user which is logged in and has a valid session token
+  // filter out user with valid session token and all users who aren't providers
   const providers = allUsers.filter((userObject) => {
     if (userObject.isProvider) {
       return userObject.id !== user.id;
@@ -118,7 +118,7 @@ export default function HomeScreen({ navigation }) {
                     );
                     const providerProfile =
                       await getRestrictedProfileResponse.json();
-                    // console.log(providerProfile);
+                    // get provider information and pass it as param to provider profile screen
                     navigation.navigate('ProviderProfileScreen', {
                       providerProfile: providerProfile,
                     });
@@ -143,6 +143,7 @@ export default function HomeScreen({ navigation }) {
                     );
                     const providerProfile =
                       await getRestrictedProfileResponse.json();
+                      // get provider information and pass it as param to provider timeslot screen
                     navigation.navigate('ProviderTimeSlotScreen', {
                       providerProfile: providerProfile,
                     });

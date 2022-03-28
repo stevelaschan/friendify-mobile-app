@@ -52,7 +52,6 @@ export default function ProviderProfileScreen({
               },
             );
             // const createRating = await createRatingResponse.json();
-            // console.log(createRating);
           }}
         />
         {/* <Button
