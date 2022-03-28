@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
@@ -9,7 +9,7 @@ import { LoginContext } from '../../context/LoginContext';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignBookedTimeslots: 'center',
     top: 50,
   },
   buttonView: {
@@ -27,80 +27,82 @@ const styles = StyleSheet.create({
 });
 
 export default function CalendarScreen({ navigation }) {
-  const [items, setItems] = useState({});
+  const [bookedTimeslots, setBookedTimeslots] = useState({});
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user, reservedTimeslots, setReservedTimeslots } =
-    useContext(LoginContext);
+  const { user, reservedTimeslots } = useContext(LoginContext);
 
-  const timeToString = (time) => {
-    const date = selectedDay;
-    return date.toString().split('T')[0];
-  };
+  useEffect(() => {
+    // run once
+    const getData = async () => {
+      // const mappedData = await reservedTimeslots.map((timeslot, index) => {
+      //   const date = addDays(new Date(), index);
 
-  const loadItems = (day) => {
-    setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
-          }
-        }
-      }
-      const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
+      //   return {
+      //     ...timeslot,
+      //     date: format(date, 'yyyy-MM-dd'),
+      //   };
+      // });
+
+      // const reduced = await mappedData.reduce((acc, currentItem) => {
+      //   const { date, ...coolItem } = currentItem;
+
+      //   acc[date] = [coolItem];
+
+      //   return acc;
+      // }, {});
+
+      const calendarData = await reservedTimeslots.map((timeslot) => {
+        const date = timeslot.timeslotDate.toString().split('T')[0];
+        bookedTimeslots[date] = timeslot;
+        return;
       });
-      setItems(newItems);
-    }, 1000);
-  };
+      setBookedTimeslots(calendarData);
+    };
 
-  const renderItem = () => {
-    reservedTimeslots.map((timeslot) => {
-      return (
-        <View key={timeslot.id}>
-          <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
-            <Card>
-              <Card.Content>
+    getData().catch(() => {});
+  }, [reservedTimeslots]);
+
+  console.log(bookedTimeslots);
+
+  const renderItem = (item) => {
+    return (
+      <View key={item.id}>
+        <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
+          <Card>
+            <Card.Content>
+              {item.userUsername !== null ? (
                 <View
+                  key={item.id}
                   style={{
+                    flex: 1,
                     flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    justifyContent: 'space-evenly',
+                    alignBookedTimeslots: 'center',
                   }}
                 >
-                  {timeslot.userUsername !== null ? (
-                    <View key={timeslot.id}>
-                      <Text>{timeslot.userUsername}</Text>
-                      <Text>{timeslot.timeslotTime}</Text>
-                      <Avatar.Text
-                        label={timeslot.userUsername.charAt(0).toUpperCase()}
-                      />
-                    </View>
-                  ) : (
-                    <View />
-                  )}
+                  <Text>{item.userUsername}</Text>
+                  <Text>{item.timeslotTime}</Text>
+                  <Avatar.Text
+                    label={item.userUsername.charAt(0).toUpperCase()}
+                  />
                 </View>
-              </Card.Content>
-            </Card>
-          </TouchableOpacity>
-        </View>
-      );
-    });
+              ) : (
+                <View>
+                  <Text>Timeslot set, but not booked</Text>
+                </View>
+              )}
+            </Card.Content>
+          </Card>
+        </TouchableOpacity>
+      </View>
+    );
   };
 
   return (
     <View style={{ flex: 1 }}>
       <Agenda
-        items={items}
-        loadItemsForMonth={loadItems}
+        bookedTimeslots={bookedTimeslots}
         selected={selectedDay}
         renderItem={renderItem}
         showClosingKnob={true}
@@ -112,7 +114,6 @@ export default function CalendarScreen({ navigation }) {
           const date = new Date(time);
           const currentDate = date.toISOString().split('T')[0];
           setSelectedDay(currentDate);
-          // console.log(currentDate);
         }}
       />
       {user.isProvider ? (

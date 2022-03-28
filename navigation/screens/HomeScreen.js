@@ -1,32 +1,47 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useContext, useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button, Card } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { RootStackParams, User } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-type ProviderProfileProps = NativeStackScreenProps<
-  RootStackParams,
-  'ProviderProfileScreen'
->;
-// type ProviderTimeslotProps = NativeStackScreenProps<
-//   RootStackParams,
-//   'ProviderTimeslotScreen'
-// >;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 22,
+  },
+  description: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 18,
+    marginTop: 4,
+  },
+  stars: {
+    marginTop: 18,
+  },
+  buttonsContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 14,
+  },
+  button: {
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    borderColor: 'white',
+    borderRadius: 16,
+    width: 'auto',
+    borderWidth: 4,
+  },
+});
 
-export default function HomeScreen({ navigation }: ProviderProfileProps) {
+export default function HomeScreen({ navigation }) {
   const { user } = useContext(LoginContext);
   const [allUsers, setAllUsers] = useState([]);
 
   // get all Users from the database (without first and last name)
-  type UserObject = {
-    id: number;
-    username: string;
-    age: string;
-    isProvider: boolean;
-  };
 
   useEffect(() => {
     const getUsers = async () => {
@@ -45,7 +60,7 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
   }, []);
 
   // filter out the one user which is logged in and has a valid session token
-  const providers = allUsers.filter((userObject: UserObject) => {
+  const providers = allUsers.filter((userObject) => {
     if (userObject.isProvider) {
       return userObject.id !== user.id;
     }
@@ -55,7 +70,6 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {/* <Text style={{ fontSize: 26, fontWeight: 'bold' }}>Home Screen</Text> */}
         <Text
           style={{
             fontSize: 20,
@@ -66,7 +80,7 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
           Welcome Back {user.firstName} {user.lastName}!
         </Text>
       </View>
-      {providers.map((singleUser: User) => {
+      {providers.map((singleUser) => {
         return (
           <View key={singleUser.id}>
             <Card>
@@ -142,35 +156,3 @@ export default function HomeScreen({ navigation }: ProviderProfileProps) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 22,
-  },
-  description: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 18,
-    marginTop: 4,
-  },
-  stars: {
-    marginTop: 18,
-  },
-  buttonsContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 14,
-  },
-  button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderColor: 'white',
-    borderRadius: 16,
-    width: 'auto',
-    borderWidth: 4,
-  },
-});

@@ -1,8 +1,7 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
-import { Timeslot } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -44,25 +43,17 @@ export default function ProviderTimeSlotScreen({ route }) {
                       }),
                     },
                   );
-                  const bookedTimeslot = await bookTimeslotResponse.json();
+                  await bookTimeslotResponse.json();
                   alert(
                     `${item.timeslotTime} on ${
                       item.timeslotDate.toString().split('T')[0]
                     } booked!`,
                   );
-                  // setBookedTimeslots([
-                  //   ...providerProfile.timeslots,
-                  //   bookedTimeslot,
-                  // ]);
-                  // console.log(bookedTimeslot);
                 }}
               />
             </View>
           ) : (
-            <Button
-              buttonStyle={styles.itemContainer}
-              title="Time Slot booked!"
-            />
+            <View />
           )}
         </View>
       )}

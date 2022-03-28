@@ -2,24 +2,6 @@ import { Pacifico_400Regular, useFonts } from '@expo-google-fonts/pacifico';
 import AppLoading from 'expo-app-loading';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-export default function Header(props) {
-  let [fontsLoaded] = useFonts({
-    Pacifico_400Regular,
-  });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  } else {
-    return (
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.container}>
-          <Text style={styles.label}>{props.label}</Text>
-        </View>
-      </SafeAreaView>
-    );
-  }
-}
-
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#312e2e',
@@ -36,3 +18,21 @@ const styles = StyleSheet.create({
     fontFamily: 'Pacifico_400Regular',
   },
 });
+
+export default function Header(props) {
+  const [fontsLoaded] = useFonts({
+    Pacifico_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } else {
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.container}>
+          <Text style={styles.label}>{props.label}</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+}

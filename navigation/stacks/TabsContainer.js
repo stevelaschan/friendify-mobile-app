@@ -5,7 +5,7 @@ import HomeScreen from '../screens/HomeScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import SearchScreen from '../screens/SearchScreen';
 
-const Tab = createBottomTabNavigator();
+const tab = createBottomTabNavigator();
 const home = 'Home';
 const calendar = 'Calendar';
 const search = 'Search';
@@ -13,7 +13,7 @@ const profile = 'Profile';
 
 export default function TabsContainer() {
   return (
-    <Tab.Navigator
+    <tab.Navigator
       initialRouteName={home}
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: '#ffffff',
@@ -33,7 +33,7 @@ export default function TabsContainer() {
             height: 10,
           },
         },
-        tabBarIcon: ({ focused, color, size }, icon) => {
+        tabBarIcon: ({ focused, color }, icon) => {
           let rn = route.name;
 
           if (rn === home) {
@@ -49,26 +49,26 @@ export default function TabsContainer() {
         },
       })}
     >
-      <Tab.Screen
+      <tab.Screen
         name={home}
         component={HomeScreen}
         options={{ header: () => null }}
       />
-      <Tab.Screen
+      <tab.Screen
         name={calendar}
         component={CalendarScreen}
         options={{ header: () => null }}
       />
-      <Tab.Screen
+      <tab.Screen
         name={search}
         component={SearchScreen}
         options={{ header: () => null }}
       />
-      <Tab.Screen
+      <tab.Screen
         name={profile}
         component={ProfileScreen}
         options={{ header: () => null }}
       />
-    </Tab.Navigator>
+    </tab.Navigator>
   );
 }

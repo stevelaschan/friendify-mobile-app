@@ -31,7 +31,7 @@ export type RootStackParams = {
     };
   };
   ProviderTimeslotScreen: {
-    profile: {
+    providerProfile: {
       firstName: string;
       lastName: string;
       age: string;
@@ -80,7 +80,7 @@ export type Timeslot = {
 };
 
 export default function App() {
-  const Stack = createNativeStackNavigator();
+  const stack = createNativeStackNavigator();
   const [user, setUser] = useState<User | undefined>();
   const [rating, setRating] = useState<Rating | undefined>();
   const [reservedTimeslots, setReservedTimeslots] = useState();
@@ -131,15 +131,15 @@ export default function App() {
           setReservedTimeslots,
         }}
       >
-        <Stack.Navigator>
+        <stack.Navigator>
           {!user ? (
             <>
-              <Stack.Screen
+              <stack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
                 options={{ header: () => null }}
               />
-              <Stack.Screen
+              <stack.Screen
                 name="SignupScreen"
                 component={SignupScreen}
                 options={{ header: () => null }}
@@ -147,34 +147,34 @@ export default function App() {
             </>
           ) : (
             <>
-              <Stack.Screen
+              <stack.Screen
                 name="TabsContainer"
                 component={TabsContainer}
                 options={{ header: () => null }}
               />
-              <Stack.Screen
+              <stack.Screen
                 name="SetTimeSlotScreen"
                 component={SetTimeSlotScreen}
                 options={{ header: () => null }}
               />
-              <Stack.Screen
+              <stack.Screen
                 name="ProviderProfileScreen"
                 component={ProviderProfileScreen}
                 options={{ header: () => null }}
               />
-              <Stack.Screen
+              <stack.Screen
                 name="ProviderTimeSlotScreen"
                 component={ProviderTimeSlotScreen}
                 options={{ header: () => null }}
               />
-              <Stack.Screen
+              <stack.Screen
                 name="ConfirmScreen"
                 component={ConfirmScreen}
                 options={{ header: () => null }}
               />
             </>
           )}
-        </Stack.Navigator>
+        </stack.Navigator>
       </LoginContext.Provider>
     </NavigationContainer>
   );
