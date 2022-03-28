@@ -22,9 +22,9 @@ export default function ProviderTimeSlotScreen({ route }) {
       spacing={10}
       renderItem={({ item }) => (
         <View>
-          <Text>{item.timeslotDate.toString().split('T')[0]}</Text>
           {!item.userUsername ? (
             <View>
+              <Text>{item.timeslotDate.toString().split('T')[0]}</Text>
               <Button
                 buttonStyle={styles.itemContainer}
                 title={item.timeslotTime}

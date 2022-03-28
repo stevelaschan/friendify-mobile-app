@@ -14,7 +14,7 @@ type Errors = { message: string }[];
 export const IP = '192.168.1.224';
 
 export default function SignupScreen() {
-  const { setUser } = useContext(LoginContext);
+  const { setUser, setRating } = useContext(LoginContext);
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [firstName, setFirstName] = useState<string>('');
@@ -108,6 +108,7 @@ export default function SignupScreen() {
               return;
             }
             setUser(signupResponseBody.user);
+            setRating(0);
           }}
         />
       </KeyboardAvoidingView>
