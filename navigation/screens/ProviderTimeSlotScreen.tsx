@@ -7,7 +7,7 @@ import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
-  const { user } = useContext(LoginContext);
+  const { user, setBookedTimeslots } = useContext(LoginContext);
   // const [bookedTimeslots, setBookedTimeslots] = useState<Timeslot[]>([]);
 
   console.log(providerProfile);
@@ -43,7 +43,10 @@ export default function ProviderTimeSlotScreen({ route }) {
                       }),
                     },
                   );
-                  await bookTimeslotResponse.json();
+                  const bookedTimeslotResponseBody =
+                    await bookTimeslotResponse.json();
+                  setBookedTimeslots(bookedTimeslotResponseBody);
+
                   alert(
                     `${item.timeslotTime} on ${
                       item.timeslotDate.toString().split('T')[0]

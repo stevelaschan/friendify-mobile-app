@@ -27,25 +27,33 @@ const styles = StyleSheet.create({
 });
 
 export default function CalendarScreen({ navigation }) {
-  const [bookedTimeslots, setBookedTimeslots] = useState({});
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user, reservedTimeslots } = useContext(LoginContext);
+  const { user, reservedTimeslots, bookedTimeslots } = useContext(LoginContext);
 
+  if (!reservedTimeslots) {
+    return;
+  }
   const dates = reservedTimeslots.map(
     (timeslot) => timeslot.timeslotDate.toString().split('T')[0],
   );
 
   dates.forEach((date) => {
+    if (!reservedTimeslots) {
+      return;
+    }
     reservedTimeslots.map((timeslot) => {
-      if (date === timeslot.timeslotDate.toString().split('T')[0]) {
+      if (
+        date === timeslot.timeslotDate.toString().split('T')[0] &&
+        user.id === timeslot.providerId
+      ) {
         return (bookedTimeslots[date] = [timeslot]);
       }
       return undefined;
     });
   });
 
-  console.log(bookedTimeslots);
+  // console.log(bookedTimeslots);
 
   const renderItem = (item) => {
     return (

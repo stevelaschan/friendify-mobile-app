@@ -30,7 +30,7 @@ export default function ProviderProfileScreen({
           {providerProfile.profile.shortDescription}
         </Text>
         <AirbnbRating
-          defaultRating={0}
+          defaultRating={!providerProfile.rating ? 0 : providerProfile.rating}
           onFinishRating={(number) => setRating(number)}
         />
         <Button
@@ -46,7 +46,7 @@ export default function ProviderProfileScreen({
                 method: 'POST',
                 body: JSON.stringify({
                   userId: user.id,
-                  providerId: providerProfile.id.id,
+                  providerId: providerProfile.profile.id,
                   rating: rating,
                 }),
               },
