@@ -83,8 +83,7 @@ export default function App() {
   const [user, setUser] = useState<User | undefined>();
   const [rating, setRating] = useState<Rating | undefined>();
   const [reservedTimeslots, setReservedTimeslots] = useState();
-  const [bookedTimeslots, setBookedTimeslots] = useState({});
-
+  const [inCalendarTimeslots, setinCalendarTimeslots] = useState({});
 
   useEffect(() => {
     // if session token valid return user and session
@@ -130,8 +129,8 @@ export default function App() {
           setRating,
           reservedTimeslots,
           setReservedTimeslots,
-          bookedTimeslots,
-          setBookedTimeslots
+          inCalendarTimeslots,
+          setinCalendarTimeslots,
         }}
       >
         <stack.Navigator>

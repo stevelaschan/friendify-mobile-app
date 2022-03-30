@@ -20,8 +20,12 @@ type SelectedDayRouteParam = RouteProp<RootStackParams, 'SetTimeSlotScreen'>;
 
 export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
   const { selectedDay } = route.params;
-  const { user, reservedTimeslots, setReservedTimeslots } =
-    useContext(LoginContext);
+  const {
+    user,
+    reservedTimeslots,
+    setReservedTimeslots,
+    setInCalendarTimeslots,
+  } = useContext(LoginContext);
   const initialTimeslots = [
     { id: 1, time: '0:00 - 1:00' },
     { id: 2, time: '1:00 - 2:00' },
@@ -121,7 +125,9 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
                       reservedTimeslot.timeslotDate.toString().split('T')[0] !==
                         deletedTimeslot.timeslotDate,
                   );
+                  // console.log(timeslotsInDatabase);
                   setReservedTimeslots(timeslotsInDatabase);
+                  setInCalendarTimeslots(timeslotsInDatabase);
                 }}
               />
             </View>

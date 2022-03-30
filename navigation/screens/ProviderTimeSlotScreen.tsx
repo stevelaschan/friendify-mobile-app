@@ -7,10 +7,9 @@ import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
-  const { user, setBookedTimeslots } = useContext(LoginContext);
-  // const [bookedTimeslots, setBookedTimeslots] = useState<Timeslot[]>([]);
+  const { user } = useContext(LoginContext);
 
-  console.log(providerProfile);
+  console.log(providerProfile.profile);
 
   return (
     <FlatGrid
@@ -37,15 +36,14 @@ export default function ProviderTimeSlotScreen({ route }) {
                       method: 'PUT',
                       body: JSON.stringify({
                         username: user.username,
-                        providerId: providerProfile.id.id,
+                        providerId: providerProfile.profile.id,
                         date: item.timeslotDate,
                         time: item.timeslotTime,
                       }),
                     },
                   );
-                  const bookedTimeslotResponseBody =
-                    await bookTimeslotResponse.json();
-                  setBookedTimeslots(bookedTimeslotResponseBody);
+                  await bookTimeslotResponse.json();
+                  // setInCalendarTimeslots(bookedTimeslotResponseBody);
 
                   alert(
                     `${item.timeslotTime} on ${

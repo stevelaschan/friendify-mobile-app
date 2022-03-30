@@ -39,32 +39,29 @@ const styles = StyleSheet.create({
 
 export default function HomeScreen({ navigation }) {
   const { user } = useContext(LoginContext);
-  const [allUsers, setAllUsers] = useState([]);
+  const [allProviders, setAllProviders] = useState([]);
 
   // get all Users from the database (without first and last name)
 
   useEffect(() => {
-    const getUsers = async () => {
-      const getUserResponse = await fetch(
+    const getProviders = async () => {
+      const getProvidersResponse = await fetch(
         // use IP address instead of localhost
-        `http://${IP}:3000/api/getUsers`,
+        `http://${IP}:3000/api/getProviders`,
         {
           method: 'GET',
         },
       );
-      const getuserResponseBody = await getUserResponse.json();
+      const getProvidersResponseBody = await getProvidersResponse.json();
       // get all the users from the database
-      setAllUsers(getuserResponseBody.users);
+      setAllProviders(getProvidersResponseBody);
     };
-    getUsers().catch(() => {});
+    getProviders().catch(() => {});
   }, []);
 
   // filter out user with valid session token and all users who aren't providers
-  const providers = allUsers.filter((userObject) => {
-    if (userObject.isProvider) {
-      return userObject.id !== user.id;
-    }
-    return null;
+  const providers = allProviders.filter((userObject) => {
+    return userObject.id !== user.id;
   });
 
   return (
@@ -75,19 +72,20 @@ export default function HomeScreen({ navigation }) {
             fontSize: 20,
             marginTop: 16,
             marginBottom: 16,
+            fontWeight: 'bold',
           }}
         >
           Welcome Back {user.firstName} {user.lastName}!
         </Text>
       </View>
-      {providers.map((singleUser) => {
+      {providers.map((provider) => {
         return (
-          <View key={singleUser.id}>
-            <Card>
-              <Card.Title>{singleUser.username}</Card.Title>
+          <View key={provider.id}>
+            <Card containerStyle={{ borderRadius: 18 }}>
+              <Card.Title>{provider.username}</Card.Title>
               <Card.Divider />
               <Text style={styles.description}>
-                {singleUser.shortDescription}
+                {provider.shortDescription}
               </Text>
               <View style={styles.stars}>
                 <AirbnbRating
@@ -112,7 +110,7 @@ export default function HomeScreen({ navigation }) {
                       {
                         method: 'POST',
                         body: JSON.stringify({
-                          id: singleUser.id,
+                          id: provider.id,
                         }),
                       },
                     );
@@ -137,13 +135,13 @@ export default function HomeScreen({ navigation }) {
                       {
                         method: 'POST',
                         body: JSON.stringify({
-                          id: singleUser.id,
+                          id: provider.id,
                         }),
                       },
                     );
                     const providerProfile =
                       await getRestrictedProfileResponse.json();
-                      // get provider information and pass it as param to provider timeslot screen
+                    // get provider information and pass it as param to provider timeslot screen
                     navigation.navigate('ProviderTimeSlotScreen', {
                       providerProfile: providerProfile,
                     });

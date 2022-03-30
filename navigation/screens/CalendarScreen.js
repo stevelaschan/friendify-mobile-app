@@ -29,31 +29,50 @@ const styles = StyleSheet.create({
 export default function CalendarScreen({ navigation }) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user, reservedTimeslots, bookedTimeslots } = useContext(LoginContext);
+  const { user, reservedTimeslots, inCalendarTimeslots } =
+    useContext(LoginContext);
+
+  // how the date should look like for it to be displayed in the calendar
+  const datesExample = {
+    '2022-03.30': [{}],
+    '2022-03.31': [{}],
+  };
+
+  let dates;
 
   if (!reservedTimeslots) {
     return;
+  } else {
+    dates = reservedTimeslots.map(
+      (timeslot) => timeslot.timeslotDate.toString().split('T')[0],
+    );
   }
-  const dates = reservedTimeslots.map(
-    (timeslot) => timeslot.timeslotDate.toString().split('T')[0],
-  );
 
   dates.forEach((date) => {
     if (!reservedTimeslots) {
-      return;
-    }
-    reservedTimeslots.map((timeslot) => {
-      if (
-        date === timeslot.timeslotDate.toString().split('T')[0] &&
-        user.id === timeslot.providerId
-      ) {
-        return (bookedTimeslots[date] = [timeslot]);
-      }
       return undefined;
-    });
+    }
+    if (user.isProvider) {
+      reservedTimeslots.map((timeslot) => {
+        if (
+          date === timeslot.timeslotDate.toString().split('T')[0] &&
+          user.id === timeslot.providerId
+        ) {
+          inCalendarTimeslots[date] = inCalendarTimeslots[date]
+            ? [...inCalendarTimeslots[date], timeslot]
+            : [timeslot];
+          return inCalendarTimeslots;
+        }
+        return undefined;
+      });
+    }
   });
 
-  // console.log(bookedTimeslots);
+  // if (
+  //   date === timeslot.timeslotDate.toString().split('T')[0] &&
+  //   user.username === timeslot.userUsername
+  // )
+  console.log('hello', reservedTimeslots);
 
   const renderItem = (item) => {
     return (
@@ -79,7 +98,7 @@ export default function CalendarScreen({ navigation }) {
                 </View>
               ) : (
                 <View>
-                  <Text>Timeslot set, but not booked</Text>
+                  <Text>Timeslot set, but not booked {item.timeslotTime}</Text>
                 </View>
               )}
             </Card.Content>
@@ -92,7 +111,7 @@ export default function CalendarScreen({ navigation }) {
   return (
     <View style={{ flex: 1 }}>
       <Agenda
-        items={bookedTimeslots}
+        items={inCalendarTimeslots}
         selected={selectedDay}
         renderItem={renderItem}
         showClosingKnob={true}
