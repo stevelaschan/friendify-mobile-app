@@ -83,7 +83,7 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
                     {
                       method: 'POST',
                       body: JSON.stringify({
-                        id: user.id,
+                        username: user.username,
                         date: selectedDay,
                         time: item.time,
                         timeslotSet: true,
@@ -110,7 +110,7 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
                     {
                       method: 'DELETE',
                       body: JSON.stringify({
-                        id: user.id,
+                        username: user.username,
                         date: selectedDay,
                         time: item.time,
                       }),

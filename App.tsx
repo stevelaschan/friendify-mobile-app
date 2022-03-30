@@ -23,7 +23,7 @@ export type RootStackParams = {
     id: number;
     timeslots: {
       id: number;
-      providerId: number;
+      providerUsername: string;
       timeslotDate: Date;
       timeslotTime: string;
       timeslotset: boolean;
@@ -83,7 +83,7 @@ export default function App() {
   const [user, setUser] = useState<User | undefined>();
   const [rating, setRating] = useState<Rating | undefined>();
   const [reservedTimeslots, setReservedTimeslots] = useState();
-  const [inCalendarTimeslots, setinCalendarTimeslots] = useState({});
+  const [inCalendarTimeslots, setInCalendarTimeslots] = useState({});
 
   useEffect(() => {
     // if session token valid return user and session
@@ -115,7 +115,7 @@ export default function App() {
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  // console.log(reservedTimeslots);
+  console.log(reservedTimeslots);
 
   return (
     <NavigationContainer>
@@ -130,7 +130,7 @@ export default function App() {
           reservedTimeslots,
           setReservedTimeslots,
           inCalendarTimeslots,
-          setinCalendarTimeslots,
+          setInCalendarTimeslots,
         }}
       >
         <stack.Navigator>

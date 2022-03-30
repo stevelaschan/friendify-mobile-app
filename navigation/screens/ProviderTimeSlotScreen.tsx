@@ -1,15 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
+import { Timeslot } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
 export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
+  // const [providerTimeslots, setProviderTimeslots] = useState(
+  //   providerProfile.timeslots,
+  // );
 
-  console.log(providerProfile.profile);
+  // console.log(providerTimeslots);
 
   return (
     <FlatGrid
@@ -35,15 +39,21 @@ export default function ProviderTimeSlotScreen({ route }) {
                     {
                       method: 'PUT',
                       body: JSON.stringify({
-                        username: user.username,
-                        providerId: providerProfile.profile.id,
+                        userUsername: user.username,
+                        providerUsername: providerProfile.profile.username,
                         date: item.timeslotDate,
                         time: item.timeslotTime,
                       }),
                     },
                   );
-                  await bookTimeslotResponse.json();
-                  // setInCalendarTimeslots(bookedTimeslotResponseBody);
+                  const bookedTimeslotResponseBody =
+                    await bookTimeslotResponse.json();
+
+                  // const timeslotsUpdated = providerTimeslots.filter(
+                  //   (timeslot: Timeslot) =>
+                  //     timeslot.id !== bookedTimeslotResponseBody.id,
+                  // );
+                  // setProviderTimeslots(timeslotsUpdated);
 
                   alert(
                     `${item.timeslotTime} on ${

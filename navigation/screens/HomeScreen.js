@@ -60,8 +60,8 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   // filter out user with valid session token and all users who aren't providers
-  const providers = allProviders.filter((userObject) => {
-    return userObject.id !== user.id;
+  const providers = allProviders.filter((provider) => {
+    return provider.username !== user.username;
   });
 
   return (
@@ -111,6 +111,7 @@ export default function HomeScreen({ navigation }) {
                         method: 'POST',
                         body: JSON.stringify({
                           id: provider.id,
+                          username: provider.username,
                         }),
                       },
                     );
@@ -136,6 +137,7 @@ export default function HomeScreen({ navigation }) {
                         method: 'POST',
                         body: JSON.stringify({
                           id: provider.id,
+                          username: provider.username,
                         }),
                       },
                     );

@@ -1,10 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginContext } from '../../context/LoginContext';
+import { IP } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,50 +30,44 @@ const styles = StyleSheet.create({
 export default function CalendarScreen({ navigation }) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user, reservedTimeslots, inCalendarTimeslots } =
-    useContext(LoginContext);
+  const {
+    user,
+    inCalendarTimeslots,
+    reservedTimeslots,
+    setInCalendarTimeslots,
+  } = useContext(LoginContext);
 
-  // how the date should look like for it to be displayed in the calendar
-  const datesExample = {
-    '2022-03.30': [{}],
-    '2022-03.31': [{}],
-  };
+  useEffect(() => {
+    const getTimeslots = async () => {
+      const timeslotsResponse = await fetch(
+        // use IP address instead of localhost
+        `http://${IP}:3000/api/getTimeslots`,
+        {
+          method: 'GET',
+        },
+      );
+      const allTimeslots = await timeslotsResponse.json();
 
-  let dates;
-
-  if (!reservedTimeslots) {
-    return;
-  } else {
-    dates = reservedTimeslots.map(
-      (timeslot) => timeslot.timeslotDate.toString().split('T')[0],
-    );
-  }
-
-  dates.forEach((date) => {
-    if (!reservedTimeslots) {
-      return undefined;
-    }
-    if (user.isProvider) {
-      reservedTimeslots.map((timeslot) => {
+      allTimeslots.forEach((timeslot) => {
+        const date = timeslot.timeslotDate.toString().split('T')[0];
         if (
-          date === timeslot.timeslotDate.toString().split('T')[0] &&
-          user.id === timeslot.providerId
+          user.username === timeslot.providerUsername ||
+          user.username === timeslot.userUsername
         ) {
-          inCalendarTimeslots[date] = inCalendarTimeslots[date]
-            ? [...inCalendarTimeslots[date], timeslot]
+          const newState = inCalendarTimeslots;
+          newState[date] = newState[date]
+            ? [...newState[date], timeslot]
             : [timeslot];
-          return inCalendarTimeslots;
+          setInCalendarTimeslots(newState);
         }
-        return undefined;
       });
-    }
-  });
+    };
+    getTimeslots().catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
-  // if (
-  //   date === timeslot.timeslotDate.toString().split('T')[0] &&
-  //   user.username === timeslot.userUsername
-  // )
-  console.log('hello', reservedTimeslots);
+  console.log(inCalendarTimeslots);
 
   const renderItem = (item) => {
     return (
@@ -80,7 +75,11 @@ export default function CalendarScreen({ navigation }) {
         <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
           <Card>
             <Card.Content>
-              {item.userUsername !== null ? (
+              {user.username === item.providerUsername && !item.userUsername ? (
+                <View>
+                  <Text>Timeslot set, but not booked {item.timeslotTime}</Text>
+                </View>
+              ) : user.username === item.providerUsername ? (
                 <View
                   key={item.id}
                   style={{
@@ -97,8 +96,20 @@ export default function CalendarScreen({ navigation }) {
                   />
                 </View>
               ) : (
-                <View>
-                  <Text>Timeslot set, but not booked {item.timeslotTime}</Text>
+                <View
+                  key={item.id}
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text>{item.providerUsername}</Text>
+                  <Text>{item.timeslotTime}</Text>
+                  <Avatar.Text
+                    label={item.providerUsername.charAt(0).toUpperCase()}
+                  />
                 </View>
               )}
             </Card.Content>
