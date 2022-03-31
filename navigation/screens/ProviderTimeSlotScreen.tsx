@@ -1,17 +1,24 @@
-import { useContext, useState } from 'react';
+import { RouteProp } from '@react-navigation/native';
+import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
-import { Timeslot } from '../../App';
+import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-export default function ProviderTimeSlotScreen({ route }) {
+type ScreenRouteProp<T extends keyof RootStackParams> = RouteProp<
+  RootStackParams,
+  T
+>;
+
+type Props<T extends keyof RootStackParams> = {
+  route: ScreenRouteProp<T>;
+};
+
+export default function ProviderTimeSlotScreen({ route }: Props) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
-  // const [providerTimeslots, setProviderTimeslots] = useState(
-  //   providerProfile.timeslots,
-  // );
 
   // console.log(providerTimeslots);
 
@@ -27,7 +34,9 @@ export default function ProviderTimeSlotScreen({ route }) {
         <View>
           {!item.userUsername ? (
             <View>
-              <Text>{item.timeslotDate.toString().split('T')[0]}</Text>
+              <Text style={styles.selectedDay}>
+                {item.timeslotDate.toString().split('T')[0]}
+              </Text>
               <Button
                 buttonStyle={styles.itemContainer}
                 title={item.timeslotTime}
@@ -46,14 +55,7 @@ export default function ProviderTimeSlotScreen({ route }) {
                       }),
                     },
                   );
-                  const bookedTimeslotResponseBody =
-                    await bookTimeslotResponse.json();
-
-                  // const timeslotsUpdated = providerTimeslots.filter(
-                  //   (timeslot: Timeslot) =>
-                  //     timeslot.id !== bookedTimeslotResponseBody.id,
-                  // );
-                  // setProviderTimeslots(timeslotsUpdated);
+                  await bookTimeslotResponse.json();
 
                   alert(
                     `${item.timeslotTime} on ${
@@ -84,9 +86,9 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: 'rgba(18, 57, 162, 0.8)',
   },
-  //   selectedDay: {
-  //     top: 40,
-  //     left: 10,
-  //     color: 'white',
-  //   },
+  selectedDay: {
+    top: 24,
+    left: 10,
+    color: 'red',
+  },
 });

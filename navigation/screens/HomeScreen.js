@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
 export default function HomeScreen({ navigation }) {
   const { user } = useContext(LoginContext);
   const [allProviders, setAllProviders] = useState([]);
+  const [allRatings, setAllRatings] = useState();
 
   // get all Users from the database (without first and last name)
 
@@ -53,8 +54,10 @@ export default function HomeScreen({ navigation }) {
         },
       );
       const getProvidersResponseBody = await getProvidersResponse.json();
-      // get all the users from the database
-      setAllProviders(getProvidersResponseBody);
+      // get all the providers from the database
+      setAllProviders(getProvidersResponseBody.providers);
+      // console.log('hello there', getProvidersResponseBody.ratings);
+      setAllRatings(getProvidersResponseBody.ratings);
     };
     getProviders().catch(() => {});
   }, []);
@@ -63,6 +66,8 @@ export default function HomeScreen({ navigation }) {
   const providers = allProviders.filter((provider) => {
     return provider.username !== user.username;
   });
+
+  // console.log('öalksjdf', allRatings);
 
   return (
     <ScrollView>
@@ -92,6 +97,9 @@ export default function HomeScreen({ navigation }) {
                   showRating={false}
                   size={24}
                   isDisabled={true}
+                  // defaultRating={allRatings.map((rating) =>
+                  //   rating.providerId !== provider.id ? 0 : rating.rating,
+                  // )}
                   defaultRating={0}
                 />
               </View>

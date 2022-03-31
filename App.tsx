@@ -6,6 +6,7 @@ import { LoginContext } from './context/LoginContext';
 import LoginScreen from './navigation/screens/LoginScreen';
 import ProviderProfileScreen from './navigation/screens/ProviderProfileScreen';
 import ProviderTimeSlotScreen from './navigation/screens/ProviderTimeSlotScreen';
+import RatingScreen from './navigation/screens/RatingScreen';
 import SetTimeSlotScreen from './navigation/screens/SetTimeSlot';
 import SignupScreen, { IP } from './navigation/screens/SignupScreen';
 import TabsContainer from './navigation/stacks/TabsContainer';
@@ -20,7 +21,6 @@ export type RootStackParams = {
       shortDescription: string;
       isProvider: boolean;
     };
-    id: number;
     timeslots: {
       id: number;
       providerUsername: string;
@@ -105,17 +105,17 @@ export default function App() {
         console.log('error', validSessionUser);
         return;
       }
-      // if user is not undefined (token in database) retrieve User, Rating and Timeslots from database and set to state
+      // if user is not undefined (token in session) retrieve User, Rating and Timeslots from database and set to state
       setUser(validSessionUser.user);
       setRating(validSessionUser.rating);
-      setReservedTimeslots(validSessionUser.timeslots);
+      // setReservedTimeslots(validSessionUser.timeslots);
       return;
     };
 
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  console.log(reservedTimeslots);
+  // console.log(rating);
 
   return (
     <NavigationContainer>
@@ -167,6 +167,11 @@ export default function App() {
               <stack.Screen
                 name="ProviderTimeSlotScreen"
                 component={ProviderTimeSlotScreen}
+                options={{ header: () => null }}
+              />
+              <stack.Screen
+                name="RatingScreen"
+                component={RatingScreen}
                 options={{ header: () => null }}
               />
             </>

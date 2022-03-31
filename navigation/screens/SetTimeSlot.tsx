@@ -16,16 +16,21 @@ type CreatedTimeslot = {
   timeslotSet: boolean;
 };
 
-type SelectedDayRouteParam = RouteProp<RootStackParams, 'SetTimeSlotScreen'>;
+type ScreenRouteProp<T extends keyof RootStackParams> = RouteProp<
+  RootStackParams,
+  T
+>;
 
-export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
+type Props<T extends keyof RootStackParams> = {
+  route: ScreenRouteProp<T>;
+};
+
+// type SelectedDayRouteParam = RouteProp<RootStackParams, 'SetTimeSlotScreen'>;
+
+export default function SetTimeslotScreen({ route }: Props) {
   const { selectedDay } = route.params;
-  const {
-    user,
-    reservedTimeslots,
-    setReservedTimeslots,
-    setInCalendarTimeslots,
-  } = useContext(LoginContext);
+  const { user, reservedTimeslots, setReservedTimeslots } =
+    useContext(LoginContext);
   const initialTimeslots = [
     { id: 1, time: '0:00 - 1:00' },
     { id: 2, time: '1:00 - 2:00' },
@@ -52,7 +57,7 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
-  // console.log(reservedTimeslots);
+  console.log(selectedDay);
 
   return (
     <FlatGrid
@@ -127,7 +132,6 @@ export default function SetTimeslotScreen({ route }: SelectedDayRouteParam) {
                   );
                   // console.log(timeslotsInDatabase);
                   setReservedTimeslots(timeslotsInDatabase);
-                  setInCalendarTimeslots(timeslotsInDatabase);
                 }}
               />
             </View>

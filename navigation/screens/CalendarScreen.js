@@ -30,12 +30,8 @@ const styles = StyleSheet.create({
 export default function CalendarScreen({ navigation }) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const {
-    user,
-    inCalendarTimeslots,
-    reservedTimeslots,
-    setInCalendarTimeslots,
-  } = useContext(LoginContext);
+  const { user, inCalendarTimeslots, setInCalendarTimeslots } =
+    useContext(LoginContext);
 
   useEffect(() => {
     const getTimeslots = async () => {
@@ -59,15 +55,16 @@ export default function CalendarScreen({ navigation }) {
             ? [...newState[date], timeslot]
             : [timeslot];
           setInCalendarTimeslots(newState);
+          return;
         }
       });
     };
     getTimeslots().catch((error) => {
       console.log(error);
     });
-  }, []);
+  }, [user, inCalendarTimeslots, setInCalendarTimeslots]);
 
-  console.log(inCalendarTimeslots);
+  // console.log(inCalendarTimeslots);
 
   const renderItem = (item) => {
     return (
@@ -96,21 +93,29 @@ export default function CalendarScreen({ navigation }) {
                   />
                 </View>
               ) : (
-                <View
-                  key={item.id}
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('RatingScreen', {
+                      provider: item.providerUsername,
+                    })
+                  }
                 >
-                  <Text>{item.providerUsername}</Text>
-                  <Text>{item.timeslotTime}</Text>
-                  <Avatar.Text
-                    label={item.providerUsername.charAt(0).toUpperCase()}
-                  />
-                </View>
+                  <View
+                    key={item.id}
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Text>{item.providerUsername}</Text>
+                    <Text>{item.timeslotTime}</Text>
+                    <Avatar.Text
+                      label={item.providerUsername.charAt(0).toUpperCase()}
+                    />
+                  </View>
+                </TouchableOpacity>
               )}
             </Card.Content>
           </Card>

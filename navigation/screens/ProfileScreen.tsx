@@ -23,7 +23,6 @@ export default function ProfileScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
-        {/* <Text style={styles.header}>Profile Screen</Text> */}
         <Text style={styles.text}>{user.username}</Text>
         <Input
           autoCompleteType={undefined}

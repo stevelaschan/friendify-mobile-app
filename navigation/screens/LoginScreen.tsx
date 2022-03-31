@@ -24,7 +24,7 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [errors, setErrors] = useState<Errors>([]);
-  const { setUser, setRating, setReservedTimeslots } = useContext(LoginContext);
+  const { setUser, setRating } = useContext(LoginContext);
 
   return (
     <ScrollView>
@@ -85,8 +85,7 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                   return;
                 }
                 setRating(loginResponseBody.provider);
-                // console.log('login', loginResponse);
-                setReservedTimeslots(loginResponseBody.timeslots);
+                // setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />
             <Button
