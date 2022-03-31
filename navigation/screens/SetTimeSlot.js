@@ -1,33 +1,30 @@
-import { RouteProp } from '@react-navigation/native';
 import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
-import { RootStackParams, Timeslot } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-type CreatedTimeslot = {
-  id: number;
-  providerId: number;
-  timeslotDate: Date;
-  timeslotTime: string;
-  userUsername: string | null;
-  timeslotSet: boolean;
-};
+const styles = StyleSheet.create({
+  gridView: {
+    marginTop: 10,
+    flex: 1,
+  },
+  itemContainer: {
+    justifyContent: 'center',
+    borderRadius: 8,
+    padding: 10,
+    height: 100,
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+  },
+  selectedDay: {
+    bottom: 100,
+    left: 10,
+    color: 'white',
+  },
+});
 
-type ScreenRouteProp<T extends keyof RootStackParams> = RouteProp<
-  RootStackParams,
-  T
->;
-
-type Props<T extends keyof RootStackParams> = {
-  route: ScreenRouteProp<T>;
-};
-
-// type SelectedDayRouteParam = RouteProp<RootStackParams, 'SetTimeSlotScreen'>;
-
-export default function SetTimeslotScreen({ route }: Props) {
+export default function SetTimeslotScreen({ route }) {
   const { selectedDay } = route.params;
   const { user, reservedTimeslots, setReservedTimeslots } =
     useContext(LoginContext);
@@ -57,7 +54,7 @@ export default function SetTimeslotScreen({ route }: Props) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
-  console.log(selectedDay);
+  // console.log(selectedDay);
 
   return (
     <FlatGrid
@@ -71,7 +68,7 @@ export default function SetTimeslotScreen({ route }: Props) {
         <View>
           <Text style={styles.selectedDay}>{selectedDay}</Text>
           {!reservedTimeslots.some(
-            (reservedTimeslot: Timeslot) =>
+            (reservedTimeslot) =>
               reservedTimeslot.timeslotTime === item.time &&
               reservedTimeslot.timeslotDate.toString().split('T')[0] ===
                 selectedDay,
@@ -95,8 +92,7 @@ export default function SetTimeslotScreen({ route }: Props) {
                       }),
                     },
                   );
-                  const createdTimeslot: CreatedTimeslot =
-                    await newTimeslotResponse.json();
+                  const createdTimeslot = await newTimeslotResponse.json();
 
                   setReservedTimeslots([...reservedTimeslots, createdTimeslot]);
                 }}
@@ -124,7 +120,7 @@ export default function SetTimeslotScreen({ route }: Props) {
                   const deletedTimeslot = await deletedTimeslotResponse.json();
 
                   const timeslotsInDatabase = reservedTimeslots.filter(
-                    (reservedTimeslot: Timeslot) =>
+                    (reservedTimeslot) =>
                       reservedTimeslot.timeslotTime !==
                         deletedTimeslot.timeslotTime &&
                       reservedTimeslot.timeslotDate.toString().split('T')[0] !==
@@ -141,22 +137,3 @@ export default function SetTimeslotScreen({ route }: Props) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  gridView: {
-    marginTop: 10,
-    flex: 1,
-  },
-  itemContainer: {
-    justifyContent: 'center',
-    borderRadius: 8,
-    padding: 10,
-    height: 100,
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-  },
-  selectedDay: {
-    bottom: 100,
-    left: 10,
-    color: 'white',
-  },
-});

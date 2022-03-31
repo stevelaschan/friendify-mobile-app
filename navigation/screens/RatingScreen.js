@@ -57,6 +57,7 @@ export default function RatingScreen({ route }) {
               }),
             },
           );
+          alert(`Thank you for rating ${provider}`);
           // const createRating = await createRatingResponse.json();
         }}
       />

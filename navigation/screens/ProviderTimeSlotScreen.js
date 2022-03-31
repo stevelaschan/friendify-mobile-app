@@ -1,26 +1,32 @@
-import { RouteProp } from '@react-navigation/native';
 import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
-import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
-type ScreenRouteProp<T extends keyof RootStackParams> = RouteProp<
-  RootStackParams,
-  T
->;
+const styles = StyleSheet.create({
+  gridView: {
+    marginTop: 10,
+    flex: 1,
+  },
+  itemContainer: {
+    justifyContent: 'center',
+    borderRadius: 8,
+    padding: 10,
+    height: 100,
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+  },
+  selectedDay: {
+    top: 24,
+    left: 10,
+    color: 'red',
+  },
+});
 
-type Props<T extends keyof RootStackParams> = {
-  route: ScreenRouteProp<T>;
-};
-
-export default function ProviderTimeSlotScreen({ route }: Props) {
+export default function ProviderTimeSlotScreen({ route }) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
-
-  // console.log(providerTimeslots);
 
   return (
     <FlatGrid
@@ -73,22 +79,3 @@ export default function ProviderTimeSlotScreen({ route }: Props) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  gridView: {
-    marginTop: 10,
-    flex: 1,
-  },
-  itemContainer: {
-    justifyContent: 'center',
-    borderRadius: 8,
-    padding: 10,
-    height: 100,
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-  },
-  selectedDay: {
-    top: 24,
-    left: 10,
-    color: 'red',
-  },
-});

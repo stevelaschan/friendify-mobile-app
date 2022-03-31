@@ -62,7 +62,7 @@ export default function CalendarScreen({ navigation }) {
     getTimeslots().catch((error) => {
       console.log(error);
     });
-  }, [user, inCalendarTimeslots, setInCalendarTimeslots]);
+  }, []);
 
   // console.log(inCalendarTimeslots);
 
