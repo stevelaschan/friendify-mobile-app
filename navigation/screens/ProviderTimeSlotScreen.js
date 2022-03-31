@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   gridView: {
@@ -50,7 +50,7 @@ export default function ProviderTimeSlotScreen({ route }) {
                   event.preventDefault();
                   const bookTimeslotResponse = await fetch(
                     // use IP address instead of localhost
-                    `http://${IP}:3000/api/updateTimeslot`,
+                    `${url}/api/updateTimeslot`,
                     {
                       method: 'PUT',
                       body: JSON.stringify({

@@ -11,7 +11,7 @@ import {
 import { Button, Input } from 'react-native-elements';
 import { RootStackParams } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 type Errors = { message: string }[];
 
@@ -60,7 +60,7 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                 event.preventDefault();
                 const loginResponse = await fetch(
                   // use IP address instead of localhost
-                  `http://${IP}:3000/api/login`,
+                  `${url}/api/login`,
                   {
                     method: 'POST',
                     headers: {

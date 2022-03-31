@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   gridView: {
@@ -81,7 +81,7 @@ export default function SetTimeslotScreen({ route }) {
                   event.preventDefault();
                   const newTimeslotResponse = await fetch(
                     // use IP address instead of localhost (IP address changes)
-                    `http://${IP}:3000/api/createNewTimeSlot`,
+                    `${url}/api/createNewTimeSlot`,
                     {
                       method: 'POST',
                       body: JSON.stringify({
@@ -107,7 +107,7 @@ export default function SetTimeslotScreen({ route }) {
                   event.preventDefault();
                   const deletedTimeslotResponse = await fetch(
                     // use IP address instead of localhost (IP address changes)
-                    `http://${IP}:3000/api/deleteTimeslot`,
+                    `${url}/api/deleteTimeslot`,
                     {
                       method: 'DELETE',
                       body: JSON.stringify({

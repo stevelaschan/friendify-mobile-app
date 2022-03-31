@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +39,7 @@ export default function SearchScreen() {
   const [masterDataSource, setMasterDataSource] = useState([]);
 
   useEffect(() => {
-    fetch(`http://${IP}:3000/api/getUsers`)
+    fetch(`${url}/api/getUsers`)
       .then((response) => response.json())
       .then((responseJson) => {
         setFilteredDataSource(responseJson.users);

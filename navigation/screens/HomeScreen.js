@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Button, Card } from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +48,7 @@ export default function HomeScreen({ navigation }) {
     const getProviders = async () => {
       const getProvidersResponse = await fetch(
         // use IP address instead of localhost
-        `http://${IP}:3000/api/getProviders`,
+        `${url}/api/getProviders`,
         {
           method: 'GET',
         },
@@ -112,7 +112,7 @@ export default function HomeScreen({ navigation }) {
                   onPress={async () => {
                     const getRestrictedProfileResponse = await fetch(
                       // use IP address instead of localhost
-                      `http://${IP}:3000/api/providerProfile`,
+                      `${url}/api/providerProfile`,
                       {
                         method: 'POST',
                         body: JSON.stringify({
@@ -138,7 +138,7 @@ export default function HomeScreen({ navigation }) {
                   onPress={async () => {
                     const getRestrictedProfileResponse = await fetch(
                       // use IP address instead of localhost
-                      `http://${IP}:3000/api/providerProfile`,
+                      `${url}/api/providerProfile`,
                       {
                         method: 'POST',
                         body: JSON.stringify({

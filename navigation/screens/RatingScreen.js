@@ -2,7 +2,7 @@ import { View, StyleSheet } from 'react-native';
 import { AirbnbRating, Button, Text } from 'react-native-elements';
 import { useContext, useState } from 'react';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -48,7 +48,7 @@ export default function RatingScreen({ route }) {
           event.preventDefault();
           await fetch(
             // use IP address instead of localhost
-            `http://${IP}:3000/api/createRating`,
+            `${url}/api/createRating`,
             {
               method: 'POST',
               body: JSON.stringify({

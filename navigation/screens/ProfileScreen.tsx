@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { AirbnbRating, CheckBox, Input } from 'react-native-elements';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 export default function ProfileScreen() {
   const { user, setUser, rating } = useContext(LoginContext);
@@ -79,7 +79,7 @@ export default function ProfileScreen() {
               event.preventDefault();
               const updateProfile = await fetch(
                 // use IP address instead of localhost
-                `http://${IP}:3000/api/updateProfile`,
+                `${url}/api/updateProfile`,
                 {
                   method: 'PUT',
                   body: JSON.stringify({
@@ -122,7 +122,7 @@ export default function ProfileScreen() {
             event.preventDefault();
             await fetch(
               // use IP address instead of localhost
-              `http://${IP}:3000/api/logout`,
+              `${url}/api/logout`,
               {
                 method: 'DELETE',
                 headers: {

@@ -5,7 +5,7 @@ import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { LoginContext } from '../../context/LoginContext';
-import { IP } from './SignupScreen';
+import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +37,7 @@ export default function CalendarScreen({ navigation }) {
     const getTimeslots = async () => {
       const timeslotsResponse = await fetch(
         // use IP address instead of localhost
-        `http://${IP}:3000/api/getTimeslots`,
+        `${url}/api/getTimeslots`,
         {
           method: 'GET',
         },

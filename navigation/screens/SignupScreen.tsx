@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const IP = '192.168.1.224';
+export const url = 'https://friendify-backend.herokuapp.com';
 
 export default function SignupScreen() {
   const { setUser, setRating } = useContext(LoginContext);
@@ -83,7 +83,7 @@ export default function SignupScreen() {
 
             const signupResponse = await fetch(
               // use IP address instead of localhost (IP address changes)
-              `http://${IP}:3000/api/signup`,
+              `${url}/api/signup`,
               {
                 method: 'POST',
                 headers: {

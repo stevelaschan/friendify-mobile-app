@@ -8,7 +8,7 @@ import ProviderProfileScreen from './navigation/screens/ProviderProfileScreen';
 import ProviderTimeSlotScreen from './navigation/screens/ProviderTimeSlotScreen';
 import RatingScreen from './navigation/screens/RatingScreen';
 import SetTimeSlotScreen from './navigation/screens/SetTimeSlot';
-import SignupScreen, { IP } from './navigation/screens/SignupScreen';
+import SignupScreen, { url } from './navigation/screens/SignupScreen';
 import TabsContainer from './navigation/stacks/TabsContainer';
 
 export type RootStackParams = {
@@ -91,7 +91,7 @@ export default function App() {
       // event.preventDefault();
       const validSessionUserResponse = await fetch(
         // use IP address instead of localhost
-        `http://${IP}:3000/api/loggedInUser`,
+        `${url}/api/loggedInUser`,
         {
           method: 'GET',
           headers: {
