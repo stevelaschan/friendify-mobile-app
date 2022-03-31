@@ -86,10 +86,11 @@ export default function CalendarScreen({ navigation }) {
                     alignItems: 'center',
                   }}
                 >
-                  <Text>{item.userUsername}</Text>
+                  <Text style={{ color: '#ce3b3b' }}>{item.userUsername}</Text>
                   <Text>{item.timeslotTime}</Text>
                   <Avatar.Text
                     label={item.userUsername.charAt(0).toUpperCase()}
+                    style={{ backgroundColor: '#ce3b3b' }}
                   />
                 </View>
               ) : (
@@ -109,10 +110,13 @@ export default function CalendarScreen({ navigation }) {
                       alignItems: 'center',
                     }}
                   >
-                    <Text>{item.providerUsername}</Text>
+                    <Text style={{ color: '#14bdbf' }}>
+                      {item.providerUsername}
+                    </Text>
                     <Text>{item.timeslotTime}</Text>
                     <Avatar.Text
                       label={item.providerUsername.charAt(0).toUpperCase()}
+                      style={{ backgroundColor: '#14bdbf' }}
                     />
                   </View>
                 </TouchableOpacity>

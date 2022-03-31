@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import { AirbnbRating, Button, Text } from 'react-native-elements';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { LoginContext } from '../../context/LoginContext';
 import { IP } from './SignupScreen';
 
@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
 
 export default function RatingScreen({ route }) {
   const { provider } = route.params;
-  const { rating, setRating, user } = useContext(LoginContext);
+  const { user } = useContext(LoginContext);
+  const [rateProvider, setRateProvider] = useState();
 
   return (
     <View style={styles.container}>
@@ -37,7 +38,7 @@ export default function RatingScreen({ route }) {
       </Text>
       <AirbnbRating
         defaultRating={0}
-        onFinishRating={(number) => setRating(number)}
+        onFinishRating={(number) => setRateProvider(number)}
       />
       <Button
         title="Submit Rating"
@@ -53,7 +54,7 @@ export default function RatingScreen({ route }) {
               body: JSON.stringify({
                 userId: user.id,
                 providerUsername: provider,
-                rating: rating,
+                rating: rateProvider,
               }),
             },
           );

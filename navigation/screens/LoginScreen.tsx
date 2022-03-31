@@ -74,17 +74,14 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                 );
 
                 const loginResponseBody = await loginResponse.json();
+                setRating(loginResponseBody.provider);
 
                 if ('errors' in loginResponseBody) {
                   setErrors(loginResponseBody.errors);
                   return;
                 }
-                // set User Info and Provider Rating
                 setUser(loginResponseBody.user);
-                if (!loginResponseBody.provider) {
-                  return;
-                }
-                setRating(loginResponseBody.provider);
+                // console.log(loginResponseBody);
                 // setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />
