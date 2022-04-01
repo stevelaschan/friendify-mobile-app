@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    borderColor: 'rgba(18, 57, 162, 0.8)',
     borderRadius: 30,
     width: 'auto',
     padding: 14,
@@ -30,8 +31,9 @@ const styles = StyleSheet.create({
 export default function CalendarScreen({ navigation }) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
-  const { user, inCalendarTimeslots, setInCalendarTimeslots } =
-    useContext(LoginContext);
+  const [inCalendarTimeslots, setInCalendarTimeslots] = useState({});
+
+  const { user, reservedTimeslots } = useContext(LoginContext);
 
   useEffect(() => {
     const getTimeslots = async () => {
@@ -39,42 +41,34 @@ export default function CalendarScreen({ navigation }) {
         // use IP address instead of localhost
         `${url}/api/getTimeslots`,
         {
-          method: 'GET',
+          method: 'POST',
+          body: JSON.stringify({
+            username: user.username,
+          }),
         },
       );
-      const allTimeslots = await timeslotsResponse.json();
+      const timeslotsByUsername = await timeslotsResponse.json();
 
-      allTimeslots.forEach((timeslot) => {
-        const date = timeslot.timeslotDate.toString().split('T')[0];
-        if (
-          user.username === timeslot.providerUsername ||
-          user.username === timeslot.userUsername
-        ) {
-          const newState = inCalendarTimeslots;
-          newState[date] = newState[date]
-            ? [...newState[date], timeslot]
-            : [timeslot];
-          setInCalendarTimeslots(newState);
-          return;
-        }
-      });
+      setInCalendarTimeslots(timeslotsByUsername);
     };
     getTimeslots().catch((error) => {
       console.log(error);
     });
-  }, []);
-
-  // console.log(inCalendarTimeslots);
+  }, [reservedTimeslots]);
 
   const renderItem = (item) => {
     return (
       <View key={item.id}>
         <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
-          <Card>
-            <Card.Content>
+          <Card style={{ backgroundColor: '#121212' }}>
+            <Card.Content
+              style={{ backgroundColor: '#312e2e', borderRadius: 8 }}
+            >
               {user.username === item.providerUsername && !item.userUsername ? (
                 <View>
-                  <Text>Timeslot set, but not booked {item.timeslotTime}</Text>
+                  <Text style={{ color: 'white' }}>
+                    Timeslot set, but not booked {item.timeslotTime}
+                  </Text>
                 </View>
               ) : user.username === item.providerUsername ? (
                 <View
@@ -86,8 +80,8 @@ export default function CalendarScreen({ navigation }) {
                     alignItems: 'center',
                   }}
                 >
-                  <Text style={{ color: '#ce3b3b' }}>{item.userUsername}</Text>
-                  <Text>{item.timeslotTime}</Text>
+                  <Text style={{ color: 'white' }}>{item.userUsername}</Text>
+                  <Text style={{ color: 'white' }}>{item.timeslotTime}</Text>
                   <Avatar.Text
                     label={item.userUsername.charAt(0).toUpperCase()}
                     style={{ backgroundColor: '#ce3b3b' }}
@@ -110,10 +104,10 @@ export default function CalendarScreen({ navigation }) {
                       alignItems: 'center',
                     }}
                   >
-                    <Text style={{ color: '#14bdbf' }}>
+                    <Text style={{ color: 'white' }}>
                       {item.providerUsername}
                     </Text>
-                    <Text>{item.timeslotTime}</Text>
+                    <Text style={{ color: 'white' }}>{item.timeslotTime}</Text>
                     <Avatar.Text
                       label={item.providerUsername.charAt(0).toUpperCase()}
                       style={{ backgroundColor: '#14bdbf' }}
@@ -137,7 +131,9 @@ export default function CalendarScreen({ navigation }) {
         showClosingKnob={true}
         theme={{
           agendaTodayColor: 'red',
+          backgroundColor: '#121212',
         }}
+        style={{ backgroundColor: '#121212' }}
         onDayPress={(day) => {
           const time = day.timestamp;
           const date = new Date(time);

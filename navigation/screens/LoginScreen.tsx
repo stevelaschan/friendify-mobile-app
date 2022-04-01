@@ -27,16 +27,18 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
   const { setUser, setRating } = useContext(LoginContext);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#121212' }}>
       <KeyboardAvoidingView>
         <View style={styles.mainContainer}>
           <Input
+            inputStyle={{ color: 'white' }}
             autoCompleteType={undefined}
             placeholder="Username"
             value={username}
             onChangeText={setUsername}
           />
           <Input
+            inputStyle={{ color: 'white' }}
             autoCompleteType={undefined}
             placeholder="Password"
             value={password}

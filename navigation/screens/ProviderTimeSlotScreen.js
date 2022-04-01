@@ -7,8 +7,9 @@ import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   gridView: {
-    marginTop: 10,
+    paddingTop: 10,
     flex: 1,
+    backgroundColor: '#121212',
   },
   itemContainer: {
     justifyContent: 'center',

@@ -21,7 +21,7 @@ export default function ProfileScreen() {
   const [isProvider, setIsProvider] = useState(user.isProvider);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#121212' }}>
       <View style={styles.container}>
         <Text style={styles.text}>{user.username}</Text>
         <Input
@@ -59,6 +59,8 @@ export default function ProfileScreen() {
             checked={isProvider}
             onPress={() => setIsProvider(!isProvider)}
             disabled={!editable}
+            containerStyle={{ backgroundColor: '#121212' }}
+            textStyle={{ color: 'white' }}
           />
         </View>
         {isProvider ? (
@@ -157,9 +159,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     marginTop: 8,
+    color: 'white',
   },
   input: {
     margin: 6,
+    color: 'white',
   },
   stars: {
     margin: 18,

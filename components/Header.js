@@ -4,8 +4,8 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: '#312e2e',
-    borderRadius: 4,
+    backgroundColor: '#1a1818',
+    // borderRadius: 4,
   },
   container: {
     paddingBottom: 6,

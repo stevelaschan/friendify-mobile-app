@@ -5,10 +5,12 @@ import { url } from './SignupScreen';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    backgroundColor: '#121212',
+    color: 'white',
   },
   itemStyle: {
     padding: 10,
+    color: 'white',
   },
 });
 
@@ -72,7 +74,7 @@ export default function SearchScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#121212' }}>
       <View style={styles.container}>
         <SearchBar
           round
@@ -81,6 +83,9 @@ export default function SearchScreen() {
           onClear={() => searchFilterFunction('')}
           placeholder="Type Here..."
           value={search}
+          containerStyle={{
+            backgroundColor: '#121212',
+          }}
         />
         <FlatList
           data={filteredDataSource}

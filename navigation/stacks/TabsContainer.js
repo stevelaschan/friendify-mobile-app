@@ -20,18 +20,18 @@ export default function TabsContainer() {
         tabBarShowLabel: false,
         tabBarStyle: {
           // position: 'absolute',
-          backgroundColor: '#312e2e',
-          borderRadius: 6,
+          backgroundColor: '#1a1818',
+          // borderRadius: 6,
           paddingTop: 8,
           paddingBottom: 18,
           // bottom: 30,
           height: 70,
-          shadowColor: '#000',
-          shadowOpacity: 0.06,
-          shadowOffset: {
-            width: 10,
-            height: 10,
-          },
+          // shadowColor: '#000',
+          // shadowOpacity: 0.06,
+          // shadowOffset: {
+          //   width: 10,
+          //   height: 10,
+          // },
         },
         tabBarIcon: ({ focused, color }, icon) => {
           let rn = route.name;

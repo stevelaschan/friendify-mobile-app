@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: 18,
     marginTop: 4,
+    color: 'white',
   },
   stars: {
     marginTop: 18,
@@ -30,10 +31,10 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderColor: 'white',
+    borderColor: 'rgba(18, 57, 162, 0.8)',
     borderRadius: 16,
     width: 'auto',
-    borderWidth: 4,
+    borderWidth: 2,
   },
 });
 
@@ -68,14 +69,15 @@ export default function HomeScreen({ navigation }) {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#121212' }}>
       <View style={styles.container}>
         <Text
           style={{
             fontSize: 20,
-            marginTop: 16,
-            marginBottom: 16,
+            marginTop: 24,
+            marginBottom: 24,
             fontWeight: 'bold',
+            color: 'white',
           }}
         >
           Welcome Back {user.firstName} {user.lastName}!
@@ -84,8 +86,12 @@ export default function HomeScreen({ navigation }) {
       {providers.map((provider) => {
         return (
           <View key={provider.id}>
-            <Card containerStyle={{ borderRadius: 18 }}>
-              <Card.Title>{provider.username}</Card.Title>
+            <Card
+              containerStyle={{ borderRadius: 18, backgroundColor: '#121212' }}
+            >
+              <Card.Title style={{ color: 'white' }}>
+                {provider.username}
+              </Card.Title>
               <Card.Divider />
               <Text style={styles.description}>
                 {provider.shortDescription}

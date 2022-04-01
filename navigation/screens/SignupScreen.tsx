@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const url = 'https://friendify-backend.herokuapp.com';
+export const url = 'http://192.168.1.224:3000';
 
 export default function SignupScreen() {
   const { setUser, setRating } = useContext(LoginContext);
@@ -25,15 +25,17 @@ export default function SignupScreen() {
   const [isProvider, setIsProvider] = useState<boolean>(false);
 
   return (
-    <ScrollView>
+    <ScrollView style={{ backgroundColor: '#121212' }}>
       <KeyboardAvoidingView behavior="padding" style={styles.mainContainer}>
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="Username"
           value={username}
           onChangeText={setUsername}
         />
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="Password"
           value={password}
@@ -41,6 +43,7 @@ export default function SignupScreen() {
           secureTextEntry
         />
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="First Name"
           value={firstName}
@@ -48,12 +51,14 @@ export default function SignupScreen() {
           autoCapitalize="words"
         />
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="Last Name"
           value={lastName}
           onChangeText={setLastName}
         />
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="Age"
           value={age}
@@ -61,6 +66,7 @@ export default function SignupScreen() {
           keyboardType="numeric"
         />
         <Input
+          inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
           placeholder="Short Description Of Yourself"
           value={shortDescription}
@@ -73,6 +79,8 @@ export default function SignupScreen() {
           title="Experience Provider"
           checked={isProvider}
           onPress={() => setIsProvider(!isProvider)}
+          containerStyle={{ backgroundColor: '#121212' }}
+          textStyle={{ color: 'white' }}
         />
         <Button
           title="Signup"
