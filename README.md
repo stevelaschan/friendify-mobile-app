@@ -11,6 +11,8 @@ This mobile application is build on React Native. Friendify is an app to connect
 - Next.js
 - Node.js
 - PostgreSQL
+- Figma
+- Draw SQL
 
 ## What is Friendify
 
