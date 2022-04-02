@@ -1,4 +1,4 @@
-# Friendify - An App to book Experiences
+# Friendify - Make Memories With New Friends
 
 ## Technologies used
 
