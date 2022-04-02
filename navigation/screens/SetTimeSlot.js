@@ -55,6 +55,8 @@ export default function SetTimeslotScreen({ route }) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
+  // console.log(reservedTimeslots);
+
   return (
     <FlatGrid
       itemDimension={130}
@@ -68,8 +70,7 @@ export default function SetTimeslotScreen({ route }) {
             (reservedTimeslot) =>
               reservedTimeslot.timeslotTime === item.time &&
               reservedTimeslot.timeslotDate.toString().split('T')[0] ===
-                selectedDay &&
-              reservedTimeslot.providerUsername === user.username,
+                selectedDay,
           ) ? (
             <View>
               <Button
@@ -95,7 +96,14 @@ export default function SetTimeslotScreen({ route }) {
                 }}
               />
             </View>
-          ) : (
+          ) : reservedTimeslots.some(
+              (reservedTimeslot) =>
+                reservedTimeslot.timeslotTime === item.time &&
+                reservedTimeslot.timeslotDate.toString().split('T')[0] ===
+                  selectedDay &&
+                reservedTimeslot.providerUsername === user.username &&
+                reservedTimeslot.userUsername === null,
+            ) ? (
             <View>
               <Button
                 buttonStyle={styles.itemContainer}
@@ -124,6 +132,14 @@ export default function SetTimeslotScreen({ route }) {
                   );
                   setReservedTimeslots(timeslotsInDatabase);
                 }}
+              />
+            </View>
+          ) : (
+            <View>
+              <Button
+                title="Booked!"
+                buttonStyle={styles.itemContainer}
+                onPress={() => console.log('Booked!')}
               />
             </View>
           )}

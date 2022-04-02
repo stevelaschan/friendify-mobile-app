@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const url = 'https://friendify-backend.herokuapp.com';
+export const url = 'http://192.168.0.88:3000';
 
 export default function SignupScreen() {
   const { setUser, setRating } = useContext(LoginContext);

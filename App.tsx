@@ -88,15 +88,12 @@ export default function App() {
   useEffect(() => {
     // if session token valid return user and session
     const getUserByValidSessionToken = async () => {
-      const validSessionUserResponse = await fetch(
-        `${url}/api/loggedInUser`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const validSessionUserResponse = await fetch(`${url}/api/loggedInUser`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      );
+      });
       const validSessionUser = await validSessionUserResponse.json();
       if ('error' in validSessionUser) {
         // if user is undefined (token deleted from database or expired) return
@@ -114,7 +111,7 @@ export default function App() {
     getUserByValidSessionToken().catch((error) => console.log(error));
   }, []);
 
-  // console.log(reservedTimeslots);
+  // console.log('timeslots', reservedTimeslots);
 
   return (
     <NavigationContainer>
