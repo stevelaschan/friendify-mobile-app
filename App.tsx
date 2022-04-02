@@ -82,7 +82,8 @@ export default function App() {
   const stack = createNativeStackNavigator();
   const [user, setUser] = useState<User | undefined>();
   const [rating, setRating] = useState<Rating | undefined>();
-  const [reservedTimeslots, setReservedTimeslots] = useState();
+  const [reservedTimeslots, setReservedTimeslots] = useState([]);
+  const [bookedTimeslots, setBookedTimeslots] = useState([]);
 
   useEffect(() => {
     // if session token valid return user and session
@@ -115,7 +116,7 @@ export default function App() {
     getUserByValidSessionToken().catch(() => {});
   }, []);
 
-  // console.log(rating);
+  // console.log(reservedTimeslots);
 
   return (
     <NavigationContainer>
@@ -129,6 +130,8 @@ export default function App() {
           setRating,
           reservedTimeslots,
           setReservedTimeslots,
+          bookedTimeslots,
+          setBookedTimeslots,
         }}
       >
         <stack.Navigator>

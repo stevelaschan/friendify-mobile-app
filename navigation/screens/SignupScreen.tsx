@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const url = 'http://192.168.1.224:3000';
+export const url = 'https://friendify-backend.herokuapp.com';
 
 export default function SignupScreen() {
   const { setUser, setRating } = useContext(LoginContext);
@@ -27,21 +27,6 @@ export default function SignupScreen() {
   return (
     <ScrollView style={{ backgroundColor: '#121212' }}>
       <KeyboardAvoidingView behavior="padding" style={styles.mainContainer}>
-        <Input
-          inputStyle={{ color: 'white' }}
-          autoCompleteType={undefined}
-          placeholder="Username"
-          value={username}
-          onChangeText={setUsername}
-        />
-        <Input
-          inputStyle={{ color: 'white' }}
-          autoCompleteType={undefined}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-        />
         <Input
           inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
@@ -68,7 +53,24 @@ export default function SignupScreen() {
         <Input
           inputStyle={{ color: 'white' }}
           autoCompleteType={undefined}
-          placeholder="Short Description Of Yourself"
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <Input
+          inputStyle={{ color: 'white' }}
+          autoCompleteType={undefined}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <Input
+          inputStyle={{ color: 'white', paddingBottom: 24 }}
+          multiline={true}
+          numberOfLines={6}
+          autoCompleteType={undefined}
+          placeholder="If you are a provider, what experience do you provide? Write a short description of yourself."
           value={shortDescription}
           onChangeText={setShortDescription}
           errorMessage={errors.map((error) => {
@@ -79,7 +81,11 @@ export default function SignupScreen() {
           title="Experience Provider"
           checked={isProvider}
           onPress={() => setIsProvider(!isProvider)}
-          containerStyle={{ backgroundColor: '#121212' }}
+          containerStyle={{
+            backgroundColor: '#121212',
+            borderRadius: 8,
+            marginBottom: 48,
+          }}
           textStyle={{ color: 'white' }}
         />
         <Button

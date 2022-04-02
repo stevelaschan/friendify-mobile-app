@@ -55,8 +55,6 @@ export default function SetTimeslotScreen({ route }) {
     { id: 23, time: '23:00 - 24:00' },
   ];
 
-  // console.log(selectedDay);
-
   return (
     <FlatGrid
       itemDimension={130}
@@ -72,7 +70,8 @@ export default function SetTimeslotScreen({ route }) {
             (reservedTimeslot) =>
               reservedTimeslot.timeslotTime === item.time &&
               reservedTimeslot.timeslotDate.toString().split('T')[0] ===
-                selectedDay,
+                selectedDay &&
+              reservedTimeslot.providerUsername === user.username,
           ) ? (
             <View>
               <Button

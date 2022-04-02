@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(18, 57, 162, 0.8)',
   },
   selectedDay: {
-    top: 24,
+    bottom: 90,
     left: 10,
-    color: 'red',
+    color: 'white',
   },
 });
 
@@ -41,9 +41,6 @@ export default function ProviderTimeSlotScreen({ route }) {
         <View>
           {!item.userUsername ? (
             <View>
-              <Text style={styles.selectedDay}>
-                {item.timeslotDate.toString().split('T')[0]}
-              </Text>
               <Button
                 buttonStyle={styles.itemContainer}
                 title={item.timeslotTime}
@@ -63,6 +60,9 @@ export default function ProviderTimeSlotScreen({ route }) {
                     },
                   );
                   await bookTimeslotResponse.json();
+                  // bookedTimeslots.length === 0
+                  //   ? setBookedTimeslots(bookTimeslot)
+                  //   : setBookedTimeslots([...bookedTimeslots, bookTimeslot]);
 
                   alert(
                     `${item.timeslotTime} on ${
@@ -71,6 +71,9 @@ export default function ProviderTimeSlotScreen({ route }) {
                   );
                 }}
               />
+              <Text style={styles.selectedDay}>
+                {item.timeslotDate.toString().split('T')[0]}
+              </Text>
             </View>
           ) : (
             <View />

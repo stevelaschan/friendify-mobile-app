@@ -48,6 +48,8 @@ export default function ProfileScreen() {
         />
         <Input
           autoCompleteType={undefined}
+          multiline={true}
+          numberOfLines={6}
           onChangeText={setEditShortDescription}
           value={editable ? editShortDescription : user.shortDescription}
           editable={editable}
@@ -59,7 +61,7 @@ export default function ProfileScreen() {
             checked={isProvider}
             onPress={() => setIsProvider(!isProvider)}
             disabled={!editable}
-            containerStyle={{ backgroundColor: '#121212' }}
+            containerStyle={{ backgroundColor: '#121212', borderRadius: 8 }}
             textStyle={{ color: 'white' }}
           />
         </View>
@@ -118,23 +120,25 @@ export default function ProfileScreen() {
             }}
           />
         )}
-        <Button
-          title="Logout"
-          onPress={async (event: GestureResponderEvent) => {
-            event.preventDefault();
-            await fetch(
-              // use IP address instead of localhost
-              `${url}/api/logout`,
-              {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json',
+        <View style={{ marginBottom: 24 }}>
+          <Button
+            title="Logout"
+            onPress={async (event: GestureResponderEvent) => {
+              event.preventDefault();
+              await fetch(
+                // use IP address instead of localhost
+                `${url}/api/logout`,
+                {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
                 },
-              },
-            );
-            setUser(undefined);
-          }}
-        />
+              );
+              setUser(undefined);
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );

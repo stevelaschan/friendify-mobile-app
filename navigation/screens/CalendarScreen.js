@@ -32,7 +32,6 @@ export default function CalendarScreen({ navigation }) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
   const [inCalendarTimeslots, setInCalendarTimeslots] = useState({});
-
   const { user, reservedTimeslots } = useContext(LoginContext);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function CalendarScreen({ navigation }) {
     getTimeslots().catch((error) => {
       console.log(error);
     });
-  }, [reservedTimeslots]);
+  }, [reservedTimeslots, user]);
 
   const renderItem = (item) => {
     return (
@@ -131,9 +130,9 @@ export default function CalendarScreen({ navigation }) {
         showClosingKnob={true}
         theme={{
           agendaTodayColor: 'red',
+          calendarBackground: '#121212',
           backgroundColor: '#121212',
         }}
-        style={{ backgroundColor: '#121212' }}
         onDayPress={(day) => {
           const time = day.timestamp;
           const date = new Date(time);

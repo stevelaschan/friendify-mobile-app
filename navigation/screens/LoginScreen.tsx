@@ -83,7 +83,6 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                   return;
                 }
                 setUser(loginResponseBody.user);
-                // console.log(loginResponseBody);
                 // setReservedTimeslots(loginResponseBody.timeslots);
               }}
             />
