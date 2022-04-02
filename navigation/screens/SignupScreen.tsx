@@ -95,25 +95,21 @@ export default function SignupScreen() {
           onPress={async (event: GestureResponderEvent) => {
             event.preventDefault();
 
-            const signupResponse = await fetch(
-              // use IP address instead of localhost (IP address changes)
-              `${url}/api/signup`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  username: username,
-                  password: password,
-                  firstName: firstName,
-                  lastName: lastName,
-                  age: age,
-                  shortDescription: shortDescription,
-                  isProvider: isProvider,
-                }),
+            const signupResponse = await fetch(`${url}/api/signup`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-            );
+              body: JSON.stringify({
+                username: username,
+                password: password,
+                firstName: firstName,
+                lastName: lastName,
+                age: age,
+                shortDescription: shortDescription,
+                isProvider: isProvider,
+              }),
+            });
 
             const signupResponseBody = await signupResponse.json();
 

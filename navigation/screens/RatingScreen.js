@@ -48,20 +48,15 @@ export default function RatingScreen({ route }) {
           containerStyle={styles.buttonContainer}
           onPress={async (event) => {
             event.preventDefault();
-            await fetch(
-              // use IP address instead of localhost
-              `${url}/api/createRating`,
-              {
-                method: 'POST',
-                body: JSON.stringify({
-                  userId: user.id,
-                  providerUsername: provider,
-                  rating: rateProvider,
-                }),
-              },
-            );
+            await fetch(`${url}/api/createRating`, {
+              method: 'POST',
+              body: JSON.stringify({
+                userId: user.id,
+                providerUsername: provider,
+                rating: rateProvider,
+              }),
+            });
             alert(`Thank you for rating ${provider}`);
-            // const createRating = await createRatingResponse.json();
           }}
         />
       </View>

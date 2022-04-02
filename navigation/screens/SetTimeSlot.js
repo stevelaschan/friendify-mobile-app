@@ -60,8 +60,6 @@ export default function SetTimeslotScreen({ route }) {
       itemDimension={130}
       data={initialTimeslots}
       style={styles.gridView}
-      // staticDimension={300}
-      // fixed
       spacing={10}
       renderItem={({ item }) => (
         <View>
@@ -80,7 +78,6 @@ export default function SetTimeslotScreen({ route }) {
                 onPress={async (event) => {
                   event.preventDefault();
                   const newTimeslotResponse = await fetch(
-                    // use IP address instead of localhost (IP address changes)
                     `${url}/api/createNewTimeSlot`,
                     {
                       method: 'POST',
@@ -106,7 +103,6 @@ export default function SetTimeslotScreen({ route }) {
                 onPress={async (event) => {
                   event.preventDefault();
                   const deletedTimeslotResponse = await fetch(
-                    // use IP address instead of localhost (IP address changes)
                     `${url}/api/deleteTimeslot`,
                     {
                       method: 'DELETE',
@@ -126,7 +122,6 @@ export default function SetTimeslotScreen({ route }) {
                       reservedTimeslot.timeslotDate.toString().split('T')[0] !==
                         deletedTimeslot.timeslotDate,
                   );
-                  // console.log(timeslotsInDatabase);
                   setReservedTimeslots(timeslotsInDatabase);
                 }}
               />

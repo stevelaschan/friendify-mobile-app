@@ -34,8 +34,6 @@ export default function ProviderTimeSlotScreen({ route }) {
       itemDimension={130}
       data={providerProfile.timeslots}
       style={styles.gridView}
-      // staticDimension={300}
-      // fixed
       spacing={10}
       renderItem={({ item }) => (
         <View>
@@ -60,9 +58,6 @@ export default function ProviderTimeSlotScreen({ route }) {
                     },
                   );
                   await bookTimeslotResponse.json();
-                  // bookedTimeslots.length === 0
-                  //   ? setBookedTimeslots(bookTimeslot)
-                  //   : setBookedTimeslots([...bookedTimeslots, bookTimeslot]);
 
                   alert(
                     `${item.timeslotTime} on ${

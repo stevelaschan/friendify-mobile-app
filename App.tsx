@@ -88,9 +88,7 @@ export default function App() {
   useEffect(() => {
     // if session token valid return user and session
     const getUserByValidSessionToken = async () => {
-      // event.preventDefault();
       const validSessionUserResponse = await fetch(
-        // use IP address instead of localhost
         `${url}/api/loggedInUser`,
         {
           method: 'GET',
@@ -113,7 +111,7 @@ export default function App() {
       return;
     };
 
-    getUserByValidSessionToken().catch(() => {});
+    getUserByValidSessionToken().catch((error) => console.log(error));
   }, []);
 
   // console.log(reservedTimeslots);

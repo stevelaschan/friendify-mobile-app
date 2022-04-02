@@ -36,16 +36,12 @@ export default function CalendarScreen({ navigation }) {
 
   useEffect(() => {
     const getTimeslots = async () => {
-      const timeslotsResponse = await fetch(
-        // use IP address instead of localhost
-        `${url}/api/getTimeslots`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            username: user.username,
-          }),
-        },
-      );
+      const timeslotsResponse = await fetch(`${url}/api/getTimeslots`, {
+        method: 'POST',
+        body: JSON.stringify({
+          username: user.username,
+        }),
+      });
       const timeslotsByUsername = await timeslotsResponse.json();
 
       setInCalendarTimeslots(timeslotsByUsername);

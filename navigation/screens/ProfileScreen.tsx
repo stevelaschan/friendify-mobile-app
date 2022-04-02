@@ -81,21 +81,17 @@ export default function ProfileScreen() {
             title="Save Information"
             onPress={async (event: GestureResponderEvent) => {
               event.preventDefault();
-              const updateProfile = await fetch(
-                // use IP address instead of localhost
-                `${url}/api/updateProfile`,
-                {
-                  method: 'PUT',
-                  body: JSON.stringify({
-                    username: user.username,
-                    firstName: editFirstName,
-                    lastName: editLastName,
-                    age: editAge,
-                    shortDescription: editShortDescription,
-                    isProvider: isProvider,
-                  }),
-                },
-              );
+              const updateProfile = await fetch(`${url}/api/updateProfile`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                  username: user.username,
+                  firstName: editFirstName,
+                  lastName: editLastName,
+                  age: editAge,
+                  shortDescription: editShortDescription,
+                  isProvider: isProvider,
+                }),
+              });
               const updatedProfile = await updateProfile.json();
               setUser({
                 username: user.username,
@@ -125,16 +121,12 @@ export default function ProfileScreen() {
             title="Logout"
             onPress={async (event: GestureResponderEvent) => {
               event.preventDefault();
-              await fetch(
-                // use IP address instead of localhost
-                `${url}/api/logout`,
-                {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
+              await fetch(`${url}/api/logout`, {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
                 },
-              );
+              });
               setUser(undefined);
             }}
           />
