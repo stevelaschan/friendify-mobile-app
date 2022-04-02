@@ -66,7 +66,7 @@ yarn start
 Your project can then be viewed with Expo Go.
 Due to React Native not having API routes, a separate project has to be created for the back-end.
 I used a next.js app for creating my back-end. It can be found in my repos under: https://github.com/stevelaschan/upleveled-final-project-backend
-The deployed version can be found under: friendify-backend.herokuapp.com/
+The deployed version can be found under: https://friendify-backend.herokuapp.com/
 
 ## Deployment
 
