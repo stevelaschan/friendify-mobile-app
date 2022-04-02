@@ -1,4 +1,6 @@
-# Friendify - An App to book Experiences
+# Friendify - Make Memories With New Friends
+
+This mobile application is build on React Native. Friendify is an app to connect you to new people and make memories.
 
 ## Technologies used
 
@@ -9,10 +11,10 @@
 - Next.js
 - Node.js
 - PostgreSQL
+- Figma
+- Draw SQL
 
 ## What is Friendify
-
-This mobile application is build on React Native. Friendify is an app to find people who would like to provide an experience for you.
 
 What was my motivation for this app? Some people have a harder time to come out ouf their shell to find friends. Friendify simplifies the whole experience and connects you to aweseome people. Friendify is for everyone, whether it's experiencing adventures with various people or if you just feel the need to talk to someone about personal problems.
 
@@ -66,7 +68,7 @@ yarn start
 Your project can then be viewed with Expo Go.
 Due to React Native not having API routes, a separate project has to be created for the back-end.
 I used a next.js app for creating my back-end. It can be found in my repos under: https://github.com/stevelaschan/upleveled-final-project-backend
-The deployed version can be found under: friendify-backend.herokuapp.com/
+The deployed version can be found under: https://friendify-backend.herokuapp.com/
 
 ## Deployment
 
