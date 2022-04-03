@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
     top: 530,
   },
   button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderColor: 'rgba(18, 57, 162, 0.8)',
+    backgroundColor: '#312e2e',
+    borderColor: '#312e2e',
     borderRadius: 30,
     width: 'auto',
     padding: 14,
@@ -105,7 +105,7 @@ export default function CalendarScreen({ navigation }) {
                     <Text style={{ color: 'white' }}>{item.timeslotTime}</Text>
                     <Avatar.Text
                       label={item.providerUsername.charAt(0).toUpperCase()}
-                      style={{ backgroundColor: '#14bdbf' }}
+                      style={{ backgroundColor: '#0A7EC3' }}
                     />
                   </View>
                 </TouchableOpacity>

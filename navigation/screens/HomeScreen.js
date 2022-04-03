@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderColor: 'rgba(18, 57, 162, 0.8)',
+    backgroundColor: '#312e2e',
+    borderColor: '#312e2e',
     borderRadius: 16,
     width: 'auto',
     borderWidth: 2,

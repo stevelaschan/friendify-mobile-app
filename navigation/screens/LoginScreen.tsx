@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     marginTop: 24,
   },
   button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    backgroundColor: '#0A7EC3',
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 5,

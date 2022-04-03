@@ -11,7 +11,7 @@ import { LoginContext } from '../../context/LoginContext';
 
 type Errors = { message: string }[];
 
-export const url = 'http://192.168.0.88:3000';
+export const url = 'https://friendify-backend.herokuapp.com';
 
 export default function SignupScreen() {
   const { setUser, setRating } = useContext(LoginContext);
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     marginTop: 28,
   },
   button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    backgroundColor: '#0A7EC3',
     borderColor: 'transparent',
     borderWidth: 0,
     borderRadius: 5,
