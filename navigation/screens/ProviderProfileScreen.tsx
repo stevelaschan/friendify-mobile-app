@@ -1,16 +1,7 @@
-import { RouteProp } from '@react-navigation/native';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { AirbnbRating, Card } from 'react-native-elements';
-import { RootStackParams } from '../../App';
 
-type ProviderProfileRouteParams = RouteProp<
-  RootStackParams,
-  'ProviderProfileScreen'
->;
-
-export default function ProviderProfileScreen({
-  route,
-}: ProviderProfileRouteParams) {
+export default function ProviderProfileScreen({ route }: any) {
   const { providerProfile } = route.params;
   return (
     <ScrollView style={{ backgroundColor: '#121212' }}>
@@ -32,6 +23,7 @@ export default function ProviderProfileScreen({
           <AirbnbRating
             defaultRating={!providerProfile.rating ? 0 : providerProfile.rating}
             isDisabled={true}
+            showRating={false}
           />
         </View>
       </Card>

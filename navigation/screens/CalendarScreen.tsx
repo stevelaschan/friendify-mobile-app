@@ -4,31 +4,11 @@ import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
 import { Avatar, Card } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Timeslot } from '../../App';
 import { LoginContext } from '../../context/LoginContext';
 import { url } from './SignupScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    top: 50,
-  },
-  buttonView: {
-    position: 'absolute',
-    right: 30,
-    top: 530,
-  },
-  button: {
-    backgroundColor: '#312e2e',
-    borderColor: '#312e2e',
-    borderRadius: 30,
-    width: 'auto',
-    padding: 14,
-    borderWidth: 2,
-  },
-});
-
-export default function CalendarScreen({ navigation }) {
+export default function CalendarScreen({ navigation }: any) {
   const now = new Date().toISOString().split('T')[0];
   const [selectedDay, setSelectedDay] = useState(now);
   const [inCalendarTimeslots, setInCalendarTimeslots] = useState({});
@@ -51,7 +31,7 @@ export default function CalendarScreen({ navigation }) {
     });
   }, [reservedTimeslots, user]);
 
-  const renderItem = (item) => {
+  const renderItem = (item: Timeslot) => {
     return (
       <View key={item.id}>
         <TouchableOpacity style={{ marginRight: 10, marginTop: 17 }}>
@@ -154,3 +134,24 @@ export default function CalendarScreen({ navigation }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    top: 50,
+  },
+  buttonView: {
+    position: 'absolute',
+    right: 30,
+    top: 530,
+  },
+  button: {
+    backgroundColor: '#312e2e',
+    borderColor: '#312e2e',
+    borderRadius: 30,
+    width: 'auto',
+    padding: 14,
+    borderWidth: 2,
+  },
+});

@@ -73,7 +73,7 @@ export type Rating = {
 export type Timeslot = {
   id: number;
   userUsername: string;
-  providerId: number;
+  providerUsername: string;
   timeslotDate: Date;
   timeslotTime: string;
 };
@@ -110,8 +110,6 @@ export default function App() {
 
     getUserByValidSessionToken().catch((error) => console.log(error));
   }, []);
-
-  // console.log('timeslots', reservedTimeslots);
 
   return (
     <NavigationContainer>

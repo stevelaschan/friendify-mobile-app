@@ -1,5 +1,12 @@
 import { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { url } from './SignupScreen';
 
@@ -30,9 +37,9 @@ const ItemSeparatorView = () => {
 const ItemView = ({ item }) => {
   return (
     // Flat List Item
-    <Text style={styles.itemStyle} onPress={() => console.log(item)}>
-      {item.username}
-    </Text>
+    <TouchableOpacity>
+      <Text style={styles.itemStyle}>{item.username}</Text>
+    </TouchableOpacity>
   );
 };
 export default function SearchScreen() {
@@ -41,11 +48,11 @@ export default function SearchScreen() {
   const [masterDataSource, setMasterDataSource] = useState([]);
 
   useEffect(() => {
-    fetch(`${url}/api/getUsers`)
+    fetch(`${url}/api/getProviders`)
       .then((response) => response.json())
       .then((responseJson) => {
-        setFilteredDataSource(responseJson.users);
-        setMasterDataSource(responseJson.users);
+        setFilteredDataSource(responseJson.providers);
+        setMasterDataSource(responseJson.providers);
       })
       .catch((error) => {
         console.error(error);

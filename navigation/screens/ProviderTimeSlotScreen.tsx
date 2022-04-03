@@ -5,27 +5,7 @@ import { FlatGrid } from 'react-native-super-grid';
 import { LoginContext } from '../../context/LoginContext';
 import { url } from './SignupScreen';
 
-const styles = StyleSheet.create({
-  gridView: {
-    paddingTop: 10,
-    flex: 1,
-    backgroundColor: '#121212',
-  },
-  itemContainer: {
-    justifyContent: 'center',
-    borderRadius: 8,
-    padding: 10,
-    height: 100,
-    backgroundColor: '#0A7EC3',
-  },
-  selectedDay: {
-    bottom: 90,
-    left: 10,
-    color: 'white',
-  },
-});
-
-export default function ProviderTimeSlotScreen({ route }) {
+export default function ProviderTimeSlotScreen({ route }: any) {
   const { providerProfile } = route.params;
   const { user } = useContext(LoginContext);
 
@@ -78,3 +58,23 @@ export default function ProviderTimeSlotScreen({ route }) {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  gridView: {
+    paddingTop: 10,
+    flex: 1,
+    backgroundColor: '#121212',
+  },
+  itemContainer: {
+    justifyContent: 'center',
+    borderRadius: 8,
+    padding: 10,
+    height: 100,
+    backgroundColor: '#0A7EC3',
+  },
+  selectedDay: {
+    bottom: 90,
+    left: 10,
+    color: 'white',
+  },
+});

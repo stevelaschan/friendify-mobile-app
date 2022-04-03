@@ -4,30 +4,8 @@ import { useContext, useState } from 'react';
 import { LoginContext } from '../../context/LoginContext';
 import { url } from './SignupScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 96,
-  },
-  text: {
-    fontSize: 22,
-    color: 'white',
-  },
-  button: {
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
-    borderColor: 'transparent',
-    borderWidth: 0,
-    borderRadius: 5,
-  },
-  buttonContainer: {
-    width: 200,
-    marginVertical: 10,
-    marginTop: 48,
-  },
-});
 
-export default function RatingScreen({ route }) {
+export default function RatingScreen({ route }: any) {
   const { provider } = route.params;
   const { user } = useContext(LoginContext);
   const [rateProvider, setRateProvider] = useState();
@@ -63,3 +41,26 @@ export default function RatingScreen({ route }) {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 96,
+  },
+  text: {
+    fontSize: 22,
+    color: 'white',
+  },
+  button: {
+    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    borderColor: 'transparent',
+    borderWidth: 0,
+    borderRadius: 5,
+  },
+  buttonContainer: {
+    width: 200,
+    marginVertical: 10,
+    marginTop: 48,
+  },
+});
