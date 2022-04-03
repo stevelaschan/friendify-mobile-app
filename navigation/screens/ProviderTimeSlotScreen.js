@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 10,
     height: 100,
-    backgroundColor: 'rgba(18, 57, 162, 0.8)',
+    backgroundColor: '#0A7EC3',
   },
   selectedDay: {
     bottom: 90,
