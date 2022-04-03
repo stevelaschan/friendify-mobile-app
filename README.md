@@ -20,11 +20,11 @@ What was my motivation for this app? Some people have a harder time to come out 
 
 ## How does Friendify work?
 
-On sign up you can decide to only become an Experience User or also an Experience Provider (this can be changed on your profile later). Providers are displayed on the Homepage. Providers have to when they are available when clicking on the plus button of the calendar screen.
+On sign up you can decide to only become an Experience User or also an Experience Provider (this can be changed on your profile later). Providers are displayed on the Homepage. Providers set their available timeslots when clicking on the plus button of the calendar screen.
 
 As a User you can visit the profile of Providers, check out their personal information, what experiences they provide and what rating they currently have. If you like the experience provided by this person you can go to his / her free timeslots and book a timeslot with him / her. The booked timeslots are then displayed as blue for the User and red for the Provider in their respective calendar.
 
-The User then can click on the booked timeslot on the calendar and rate the Experience Provider.
+The User can then click on the booked timeslot on the calendar and rate the Experience Provider.
 
 ## Setup
 
@@ -67,7 +67,7 @@ yarn start
 
 Your project can then be viewed with Expo Go.
 Due to React Native not having API routes, a separate project has to be created for the back-end.
-I used a next.js app for creating my back-end. It can be found in my repos under: https://github.com/stevelaschan/upleveled-final-project-backend
+I used a next.js app for the API routes and postgres as a database. It can be found in my repos under: https://github.com/stevelaschan/upleveled-final-project-backend
 The deployed version can be found under: https://friendify-backend.herokuapp.com/
 
 ## Deployment
