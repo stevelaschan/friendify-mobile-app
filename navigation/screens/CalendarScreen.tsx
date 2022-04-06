@@ -18,6 +18,9 @@ export default function CalendarScreen({ navigation }: any) {
     const getTimeslots = async () => {
       const timeslotsResponse = await fetch(`${url}/api/getTimeslots`, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           username: user.username,
         }),

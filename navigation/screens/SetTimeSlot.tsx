@@ -61,6 +61,9 @@ export default function SetTimeslotScreen({ route }: any) {
                     `${url}/api/createNewTimeSlot`,
                     {
                       method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
                       body: JSON.stringify({
                         username: user.username,
                         date: selectedDay,
@@ -93,6 +96,9 @@ export default function SetTimeslotScreen({ route }: any) {
                     `${url}/api/deleteTimeslot`,
                     {
                       method: 'DELETE',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
                       body: JSON.stringify({
                         username: user.username,
                         date: selectedDay,

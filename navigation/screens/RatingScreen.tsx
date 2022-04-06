@@ -4,7 +4,6 @@ import { useContext, useState } from 'react';
 import { LoginContext } from '../../context/LoginContext';
 import { url } from './SignupScreen';
 
-
 export default function RatingScreen({ route }: any) {
   const { provider } = route.params;
   const { user } = useContext(LoginContext);
@@ -28,6 +27,9 @@ export default function RatingScreen({ route }: any) {
             event.preventDefault();
             await fetch(`${url}/api/createRating`, {
               method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
               body: JSON.stringify({
                 userId: user.id,
                 providerUsername: provider,

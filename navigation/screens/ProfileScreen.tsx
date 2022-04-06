@@ -83,6 +83,9 @@ export default function ProfileScreen() {
               event.preventDefault();
               const updateProfile = await fetch(`${url}/api/updateProfile`, {
                 method: 'PUT',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
                 body: JSON.stringify({
                   username: user.username,
                   firstName: editFirstName,

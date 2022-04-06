@@ -29,6 +29,9 @@ export default function ProviderTimeSlotScreen({ route }: any) {
                     `${url}/api/updateTimeslot`,
                     {
                       method: 'PUT',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
                       body: JSON.stringify({
                         userUsername: user.username,
                         providerUsername: providerProfile.profile.username,

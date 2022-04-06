@@ -107,6 +107,9 @@ export default function HomeScreen({ navigation }) {
                       `${url}/api/providerProfile`,
                       {
                         method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({
                           id: provider.id,
                           username: provider.username,
@@ -133,6 +136,9 @@ export default function HomeScreen({ navigation }) {
                       `${url}/api/providerProfile`,
                       {
                         method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
                         body: JSON.stringify({
                           id: provider.id,
                           username: provider.username,
