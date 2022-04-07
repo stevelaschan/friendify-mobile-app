@@ -78,6 +78,22 @@ To deploy this project, create a [Heroku Account](https://signup.heroku.com/) an
 
 ### Images from the Application
 
+<div>
+<img src="/assets/example1.jpg" width="300" height="500">
+<img src="/assets/example2.jpg" width="300" height="500">
+<img src="/assets/example3.jpg" width="300" height="500">
+  </div>
+  <div>
+<img src="/assets/example4.jpg" width="300" height="500">
+<img src="/assets/example5.jpg" width="300" height="500">
+<img src="/assets/example6.jpg" width="300" height="500">
+</div>
+<div>
+<img src="/assets/example7.jpg" width="300" height="500">
+<img src="/assets/example8.jpg" width="300" height="500">
+<img src="/assets/example9.jpg" width="300" height="500">
+</div>
+
 ### DrawSQL Database Schema
 
 <img src="/assets/drawsql.png" width="1000" height="500">
