@@ -70,10 +70,6 @@ Due to React Native not having API routes, a separate project has to be created 
 I used a next.js app for the API routes and postgres as a database. It can be found in my repos under: https://github.com/stevelaschan/upleveled-final-project-backend
 The deployed version can be found under: https://friendify-backend.herokuapp.com/
 
-## Deployment
-
-To deploy this project, create a [Heroku Account](https://signup.heroku.com/) and follow the instructions
-
 ## Project Preview
 
 ### Images from the Application
