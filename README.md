@@ -31,9 +31,9 @@ The User can then click on the booked timeslot on the calendar and rate the Expe
 Clone the repo from GitHub and then install the dependencies:
 
 ```
-git clone https://github.com/stevelaschan/upleveled-final-project
-cd upleveled-final-project
-yarn
+git clone https://github.com/stevelaschan/friendify-mobile-app
+cd friendify-mobile-app
+yarn start
 ```
 
 Setup a database with postgres on your computer:
