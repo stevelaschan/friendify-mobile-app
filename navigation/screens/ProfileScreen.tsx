@@ -81,7 +81,7 @@ export default function ProfileScreen() {
             title="Save Information"
             onPress={async (event: GestureResponderEvent) => {
               event.preventDefault();
-              const updateProfile = await fetch(`${url}/api/updateProfile`, {
+              const response = await fetch(`${url}/api/updateProfile`, {
                 method: 'PUT',
                 headers: {
                   'Content-Type': 'application/json',
@@ -95,13 +95,13 @@ export default function ProfileScreen() {
                   isProvider: isProvider,
                 }),
               });
-              const updatedProfile = await updateProfile.json();
+              const data = await response.json();
               setUser({
                 username: user.username,
-                firstName: updatedProfile.firstName,
-                lastName: updatedProfile.lastName,
-                age: updatedProfile.age,
-                shortDescription: updatedProfile.shortDescription,
+                firstName: data.firstName,
+                lastName: data.lastName,
+                age: data.age,
+                shortDescription: data.shortDescription,
                 isProvider: isProvider,
               });
               setEditable(false);

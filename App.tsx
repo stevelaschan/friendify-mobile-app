@@ -88,23 +88,23 @@ export default function App() {
   useEffect(() => {
     // if session token valid return user and session
     const getUserByValidSessionToken = async () => {
-      const validSessionUserResponse = await fetch(`${url}/api/loggedInUser`, {
+      const response = await fetch(`${url}/api/loggedInUser`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      const validSessionUser = await validSessionUserResponse.json();
-      if ('error' in validSessionUser) {
+      const data = await response.json();
+      if ('error' in data) {
         // if user is undefined (token deleted from database or expired) return
-        console.log('error', validSessionUser);
+        console.log('error', data);
         return;
       }
 
       // if user is not undefined (token in session) retrieve User, Rating and Timeslots from database and set to state
-      setUser(validSessionUser.user);
-      setRating(validSessionUser.rating);
-      setReservedTimeslots(validSessionUser.timeslots);
+      setUser(data.user);
+      setRating(data.rating);
+      setReservedTimeslots(data.timeslots);
       return;
     };
 

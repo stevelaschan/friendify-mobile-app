@@ -60,7 +60,7 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
               onPress={async (event: GestureResponderEvent) => {
                 // send username and password to api and database
                 event.preventDefault();
-                const loginResponse = await fetch(
+                const response = await fetch(
                   // use IP address instead of localhost
                   `${url}/api/login`,
                   {
@@ -75,15 +75,15 @@ export default function LoginScreen({ navigation }: SignupScreenProps) {
                   },
                 );
 
-                const loginResponseBody = await loginResponse.json();
-                setRating(loginResponseBody.provider);
+                const data = await response.json();
+                setRating(data.provider);
 
-                if ('errors' in loginResponseBody) {
-                  setErrors(loginResponseBody.errors);
+                if ('errors' in data) {
+                  setErrors(data.errors);
                   return;
                 }
-                setUser(loginResponseBody.user);
-                setReservedTimeslots(loginResponseBody.timeslots);
+                setUser(data.user);
+                setReservedTimeslots(data.timeslots);
               }}
             />
             <Button

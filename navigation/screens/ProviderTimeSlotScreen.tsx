@@ -24,7 +24,7 @@ export default function ProviderTimeSlotScreen({ route }: any) {
                 title={item.timeslotTime}
                 onPress={async (event) => {
                   event.preventDefault();
-                  const bookTimeslotResponse = await fetch(
+                  const response = await fetch(
                     // use IP address instead of localhost
                     `${url}/api/updateTimeslot`,
                     {
@@ -40,7 +40,7 @@ export default function ProviderTimeSlotScreen({ route }: any) {
                       }),
                     },
                   );
-                  await bookTimeslotResponse.json();
+                  await response.json();
 
                   alert(
                     `${item.timeslotTime} on ${

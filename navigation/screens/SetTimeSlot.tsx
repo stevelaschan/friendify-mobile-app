@@ -57,22 +57,19 @@ export default function SetTimeslotScreen({ route }: any) {
                 title={item.time}
                 onPress={async (event) => {
                   event.preventDefault();
-                  const newTimeslotResponse = await fetch(
-                    `${url}/api/createNewTimeSlot`,
-                    {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        username: user.username,
-                        date: selectedDay,
-                        time: item.time,
-                        timeslotSet: true,
-                      }),
+                  const response = await fetch(`${url}/api/createNewTimeSlot`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
                     },
-                  );
-                  const createdTimeslot = await newTimeslotResponse.json();
+                    body: JSON.stringify({
+                      username: user.username,
+                      date: selectedDay,
+                      time: item.time,
+                      timeslotSet: true,
+                    }),
+                  });
+                  const createdTimeslot = await response.json();
 
                   setReservedTimeslots([...reservedTimeslots, createdTimeslot]);
                 }}
@@ -92,21 +89,18 @@ export default function SetTimeslotScreen({ route }: any) {
                 title="Timeslot Set"
                 onPress={async (event) => {
                   event.preventDefault();
-                  const deletedTimeslotResponse = await fetch(
-                    `${url}/api/deleteTimeslot`,
-                    {
-                      method: 'DELETE',
-                      headers: {
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        username: user.username,
-                        date: selectedDay,
-                        time: item.time,
-                      }),
+                  const response = await fetch(`${url}/api/deleteTimeslot`, {
+                    method: 'DELETE',
+                    headers: {
+                      'Content-Type': 'application/json',
                     },
-                  );
-                  const deletedTimeslot = await deletedTimeslotResponse.json();
+                    body: JSON.stringify({
+                      username: user.username,
+                      date: selectedDay,
+                      time: item.time,
+                    }),
+                  });
+                  const deletedTimeslot = await response.json();
 
                   const timeslotsInDatabase = reservedTimeslots.filter(
                     (reservedTimeslot: Timeslot) =>

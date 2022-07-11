@@ -46,12 +46,12 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     const getProviders = async () => {
-      const getProvidersResponse = await fetch(`${url}/api/getProviders`, {
+      const response = await fetch(`${url}/api/getProviders`, {
         method: 'GET',
       });
-      const getProvidersResponseBody = await getProvidersResponse.json();
+      const data = await response.json();
       // get all the providers from the database
-      setAllProviders(getProvidersResponseBody.providers);
+      setAllProviders(data.providers);
     };
     getProviders().catch((error) => console.log(error));
   }, []);

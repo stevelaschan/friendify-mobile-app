@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 import { Button } from 'react-native-elements';
@@ -16,7 +16,7 @@ export default function CalendarScreen({ navigation }: any) {
 
   useEffect(() => {
     const getTimeslots = async () => {
-      const timeslotsResponse = await fetch(`${url}/api/getTimeslots`, {
+      const response = await fetch(`${url}/api/getTimeslots`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,9 +25,9 @@ export default function CalendarScreen({ navigation }: any) {
           username: user.username,
         }),
       });
-      const timeslotsByUsername = await timeslotsResponse.json();
+      const data = await response.json();
 
-      setInCalendarTimeslots(timeslotsByUsername);
+      setInCalendarTimeslots(data);
     };
     getTimeslots().catch((error) => {
       console.log(error);

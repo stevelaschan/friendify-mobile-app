@@ -95,7 +95,7 @@ export default function SignupScreen() {
           onPress={async (event: GestureResponderEvent) => {
             event.preventDefault();
 
-            const signupResponse = await fetch(`${url}/api/signup`, {
+            const response = await fetch(`${url}/api/signup`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -111,13 +111,13 @@ export default function SignupScreen() {
               }),
             });
 
-            const signupResponseBody = await signupResponse.json();
+            const data = await response.json();
 
-            if ('errors' in signupResponseBody) {
-              setErrors(signupResponseBody.errors);
+            if ('errors' in data) {
+              setErrors(data.errors);
               return;
             }
-            setUser(signupResponseBody.user);
+            setUser(data.user);
             setRating(0);
           }}
         />
